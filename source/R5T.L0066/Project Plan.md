@@ -1,8 +1,13 @@
 # R5T.L0066
-Strict platform library for .NET Standard 2.1.
+Strict platform library for common .NET Standard 2.1 functionality.
 
 !!! This library *strictly* depends on only the .NET Standard 2.1 target framework, and NO other dependencies. !!!
-=> Well, except for the instance marker attribute type libraries.
+=> Well, except for the instance marker attribute type libraries (R5T.{T0131, T0132, T0142)}, and the strictly-platform documentation library for .NET Standard 2.1 (R5T.Y0006).
+
+* No strong types.
+* Only .NET Standard 2.1 library types.
+* No Rivet-specific, or personal functionality.
+* Only common functionality.
 
 See R5T.L0053 for a less strict platform library for the .NET Standard 2.1 target framework. (That allows depending on values libraries, as long as those values are strictly platform-typed, for example.)
 
