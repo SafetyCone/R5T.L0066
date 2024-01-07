@@ -14,7 +14,7 @@ namespace R5T.L0066
         public const string CommaSeparatedListSpacedSeparator_Constant = ", ";
 
         /// <inheritdoc cref="CommaSeparatedListSpacedSeparator_Constant"/>
-        public string CommaSeparatedListSpacedSeparator => IStrings.CommaSeparatedListSpacedSeparator_Constant;
+        public string CommaSpaceSeparatedListSeparator => IStrings.CommaSeparatedListSpacedSeparator_Constant;
 
         /// <inheritdoc cref="ICharacters.Copyright_Constant"/>
         public const string Copyright_Constant = "©";
@@ -57,6 +57,51 @@ namespace R5T.L0066
 
         /// <inheritdoc cref="NewLine_Constant"/>
         public string NewLine => IStrings.NewLine_Constant;
+
+        /// <inheritdoc cref="IStringOperator.Get_NewLine_ForEnvironment"/>
+        public string NewLine_ForEnvironment => Instances.StringOperator.Get_NewLine_ForEnvironment();
+
+        /// <inheritdoc cref="StringsDocumentation.ForNewLine_Windows"/>
+        public const string NewLine_Windows_Constant = "\r\n";
+
+        /// <inheritdoc cref="NewLine_Windows_Constant"/>
+        public string NewLine_Windows => IStrings.NewLine_Windows_Constant;
+
+        /// <inheritdoc cref="NewLine_Constant"/>
+        public const string NewLine_NonWindows_Constant = IStrings.NewLine_Constant;
+
+        /// <inheritdoc cref="NewLine_NonWindows_Constant"/>
+        public string NewLine_NonWindows => IStrings.NewLine_NonWindows_Constant;
+
+        /// <inheritdoc cref="StringsDocumentation.ForPeriod"/>
+        public const string Period_Constant = ".";
+
+        /// <inheritdoc cref="Period_Constant"/>
+        public string Period => IStrings.Period_Constant;
+
+        /// <inheritdoc cref="StringsDocumentation.ForSpace"/>
+        public const string Space_Constant = " ";
+
+        /// <inheritdoc cref="Space_Constant"/>
+        public string Space => IStrings.Space_Constant;
+
+        /// <inheritdoc cref="StringsDocumentation.ForTab"/>
+        public const string Tab_Constant = "\t";
+
+        /// <inheritdoc cref="Tab_Constant"/>
+        public string Tab => IStrings.Tab_Constant;
+
+        /// <inheritdoc cref="StringsDocumentation.ForTab_AsFourSpaces"/>
+        public const string Tab_AsFourSpaces_Constant = "    ";
+
+        /// <inheritdoc cref="Tab_AsFourSpaces_Constant"/>
+        public string Tab_AsFourSpaces => IStrings.Tab_AsFourSpaces_Constant;
+
+        /// <inheritdoc cref="Tab_AsFourSpaces_Constant"/>
+        public const string Tab_AsSpaces_Constant = IStrings.Tab_AsFourSpaces_Constant;
+
+        /// <inheritdoc cref="Tab_AsSpaces_Constant"/>
+        public string Tab_AsSpaces => IStrings.Tab_AsSpaces_Constant;
 
         /// <inheritdoc cref="StringsDocumentation.ForTrue_Lowercase"/>
         public const string True_Lowercase_Constant = "true";

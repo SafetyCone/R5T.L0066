@@ -76,6 +76,15 @@ namespace R5T.L0066
         }
 
         /// <summary>
+        /// Assuming a zero-based index, the current index is one less than the current count.
+        /// </summary>
+        public int Get_IndexFromCount(int count)
+        {
+            var output = count - 1;
+            return output;
+        }
+
+        /// <summary>
         /// If you have a list with a known length, and an index within that list, if you reverse the list, what would be the new index?
         /// </summary>
         /// <remarks>

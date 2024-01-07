@@ -10,6 +10,18 @@ namespace R5T.L0066
     [FunctionalityMarker]
     public partial interface IEnumerableOperator : IFunctionalityMarker
     {
+        public IEnumerable<T> Append<T>(
+            IEnumerable<T> enumerable,
+            IEnumerable<T> appendix)
+        {
+            return enumerable.Concat(appendix);
+        }
+
+        public IEnumerable<T> Empty<T>()
+        {
+            return Enumerable.Empty<T>();
+        }
+
         public IEnumerable<T> From<T>(T instance)
         {
             yield return instance;
@@ -30,6 +42,14 @@ namespace R5T.L0066
         }
 
         /// <summary>
+        /// Returns a new empty enumerable.
+        /// </summary>
+        public IEnumerable<T> New<T>()
+        {
+            return Enumerable.Empty<T>();
+        }
+
+        /// <summary>
 		/// Enumerates the enumerable at the current moment.
 		/// </summary>
         /// <remarks>
@@ -41,6 +61,30 @@ namespace R5T.L0066
         {
             var output = items.ToArray();
             return output;
+        }
+
+        public IEnumerable<T> Prepend<T>(
+            IEnumerable<T> items,
+            IEnumerable<T> prependix)
+        {
+            foreach (var item in prependix)
+            {
+                yield return item;
+            }
+
+            foreach (var item in items)
+            {
+                yield return item;
+            }
+        }
+
+        public IEnumerable<T> Prepend<T>(
+            IEnumerable<T> items,
+            params T[] prependix)
+        {
+            return this.Prepend(
+                items,
+                prependix.AsEnumerable());
         }
 
         public IEnumerable<T> Repeat<T>(T instance, int count)

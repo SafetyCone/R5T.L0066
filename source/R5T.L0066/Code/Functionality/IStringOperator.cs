@@ -67,6 +67,12 @@ namespace R5T.L0066
             return output;
         }
 
+        public string Enquote(string @string)
+        {
+            var output = $"\"{@string}\"";
+            return output;
+        }
+
         /// <summary>
         /// Returns the character at the provided index.
         /// </summary>
@@ -171,6 +177,15 @@ namespace R5T.L0066
             int numberOfCharacters)
         {
             var output = @string[^numberOfCharacters..];
+            return output;
+        }
+
+        /// <summary>
+        /// Gets the new line string for the currently executing environment.
+        /// </summary>
+        public string Get_NewLine_ForEnvironment()
+        {
+            var output = _Implementations.Get_NewLine_ForEnvironment_FromSystem();
             return output;
         }
 
@@ -367,9 +382,42 @@ namespace R5T.L0066
             return output;
         }
 
+        /// <summary>
+        /// Determines if the input is specifically the <see cref="IStrings.Empty"/> string.
+        /// </summary>
+        public bool Is_Empty(string value)
+        {
+            var isEmpty = value == Instances.Strings.Empty;
+            return isEmpty;
+        }
+
         public bool Is_Found(int index)
         {
             return Instances.IndexOperator.Is_Found(index);
+        }
+
+        public bool Is_Null(string @string)
+        {
+            // Use  instead of:
+            // * == null - Equality operator eventually just uses Object.ReferenceEquals().
+            // * Object.Equals() - Should be Object.ReferenceEquals() instead.
+            // * Object.ReferenceEquals() - IDE0041 message is produced, indicating preference for "is null".
+            var output = @string is null;
+            return output;
+        }
+
+        public bool Is_NotNullOrEmpty(string @string)
+        {
+            var isNullOrEmpty = this.Is_NullOrEmpty(@string);
+
+            var output = !isNullOrEmpty;
+            return output;
+        }
+
+        public bool Is_NullOrEmpty(string @string)
+        {
+            var output = System.String.IsNullOrEmpty(@string);
+            return output;
         }
 
         /// <summary>
@@ -475,7 +523,7 @@ namespace R5T.L0066
         public string Join_AsList(IEnumerable<char> characters)
         {
             var output = this.Join(
-                Instances.Strings.CommaSeparatedListSpacedSeparator,
+                Instances.Strings.CommaSpaceSeparatedListSeparator,
                 characters);
 
             return output;
@@ -508,6 +556,24 @@ namespace R5T.L0066
                 count);
 
             var output = this.Join(strings);
+            return output;
+        }
+
+        public string[] Split(
+            char separator,
+            string @string,
+            StringSplitOptions options = StringSplitOptions.None)
+        {
+            var output = @string.Split(separator, options);
+            return output;
+        }
+
+        public string[] Split(
+            string separator,
+            string @string,
+            StringSplitOptions options = StringSplitOptions.None)
+        {
+            var output = @string.Split(separator, options);
             return output;
         }
 
@@ -546,6 +612,15 @@ namespace R5T.L0066
                 var exception = exceptionConstructor();
 
                 throw exception;
+            }
+        }
+
+        public void Verify_IsNotNullOrEmpty(string value)
+        {
+            var isNullOrEmpty = this.Is_NullOrEmpty(value);
+            if(isNullOrEmpty)
+            {
+                throw new Exception("String was null or empty.");
             }
         }
 

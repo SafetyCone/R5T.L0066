@@ -14,13 +14,19 @@ namespace R5T.L0066
         /// </summary>
         public FileStream Open_Write(
             string filePath,
-            bool overwrite = IValues.Default_OverwriteValue_Const)
+            bool overwrite = IValues.Default_OverwriteValue_Constant)
         {
             Instances.FileSystemOperator.Ensure_DirectoryExists_ForFilePath(filePath);
 
             var fileMode = Instances.FileModeOperator.Get_FileMode(overwrite);
 
-            var fileStream = new FileStream(filePath, fileMode, FileAccess.Write, FileShare.Read);
+            var fileStream = new FileStream(
+                filePath,
+                fileMode,
+                FileAccess.Write,
+                // Allow other processes to read the file.
+                FileShare.Read);
+
             return fileStream;
         }
 

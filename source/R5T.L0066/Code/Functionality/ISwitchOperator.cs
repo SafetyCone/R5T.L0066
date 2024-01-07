@@ -36,5 +36,13 @@ namespace R5T.L0066
             var exception = new ArgumentException($"{value}:{categoryName} - Unrecognized switch value for category.");
             return exception;
         }
+
+        /// <inheritdoc cref="IEnumerationOperator.Get_UnexpectedEnumerationValueException{TEnum}(TEnum)"/>
+        public Exception Get_UnexpectedEnumerationValueException<TEnum>(TEnum unexpectedValue)
+            where TEnum : Enum
+        {
+            var output = Instances.EnumerationOperator.Get_UnexpectedEnumerationValueException(unexpectedValue);
+            return output;
+        }
     }
 }
