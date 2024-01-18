@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using R5T.T0132;
 
@@ -18,6 +19,15 @@ namespace R5T.L0066
             Action<TValue> action)
         {
             this.Run_Action_OkIfDefault(
+                value,
+                action);
+        }
+
+        public Task Run_Action<TValue>(
+            TValue value,
+            Func<TValue, Task> action)
+        {
+            return this.Run_Action_OkIfDefault(
                 value,
                 action);
         }
@@ -43,6 +53,18 @@ namespace R5T.L0066
             action(value);
         }
 
+        public Task Run_Action_OkIfDefault<TValue>(
+            TValue value,
+            Func<TValue, Task> action = default)
+        {
+            if (action == default)
+            {
+                return Task.CompletedTask;
+            }
+
+            return action(value);
+        }
+
         public void Run_Actions<TValue>(
             TValue value,
             IEnumerable<Action<TValue>> actions)
@@ -50,6 +72,18 @@ namespace R5T.L0066
             foreach (var action in actions)
             {
                 this.Run_Action(
+                    value,
+                    action);
+            }
+        }
+
+        public async Task Run_Actions<TValue>(
+            TValue value,
+            IEnumerable<Func<TValue, Task>> actions)
+        {
+            foreach (var action in actions)
+            {
+                await this.Run_Action(
                     value,
                     action);
             }

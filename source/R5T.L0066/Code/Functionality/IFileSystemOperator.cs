@@ -20,6 +20,11 @@ namespace R5T.L0066
             Directory.CreateDirectory(directoryPath);
         }
 
+        public void Ensure_DirectoryExists(string directoryPath)
+        {
+            this.Create_Directory_OkIfAlreadyExists(directoryPath);
+        }
+
         public void Ensure_DirectoryExists_ForFilePath(string filePath)
         {
             var directoryPath = PathOperator.Instance.Get_ParentDirectoryPath_ForFile(filePath);

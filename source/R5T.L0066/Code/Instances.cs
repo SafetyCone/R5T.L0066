@@ -10,6 +10,7 @@ namespace R5T.L0066
         public static ICancellationTokens CancellationTokens => L0066.CancellationTokens.Instance;
         public static ICharacterOperator CharacterOperator => L0066.CharacterOperator.Instance;
         public static ICharacters Characters => L0066.Characters.Instance;
+        public static IContextOperator ContextOperator => L0066.ContextOperator.Instance;
         public static IDefaultOperator DefaultOperator => L0066.DefaultOperator.Instance;
         public static IDirectorySeparators DirectorySeparators => L0066.DirectorySeparators.Instance;
         public static IEnumerableOperator EnumerableOperator => L0066.EnumerableOperator.Instance;

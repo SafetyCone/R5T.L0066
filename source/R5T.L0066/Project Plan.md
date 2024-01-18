@@ -1,5 +1,5 @@
 # R5T.L0066
-Strict platform library for common .NET Standard 2.1 functionality.
+Strictly-framework library for general .NET Standard 2.1 functionality. (netstandard2.1 target framework)
 
 !!! This library *strictly* depends on only the .NET Standard 2.1 target framework, and NO other dependencies. !!!
 => Well, except for the instance marker attribute type libraries (R5T.{T0131, T0132, T0142)}, and the strictly-platform documentation library for .NET Standard 2.1 (R5T.Y0006).

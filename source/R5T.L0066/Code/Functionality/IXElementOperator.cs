@@ -27,10 +27,16 @@ namespace R5T.L0066
             XElement element,
             string attributeName)
         {
-            var hasAttribute = this.Has_Attribute(element, attributeName, out var attribute);
+            var hasAttribute = this.Has_Attribute(
+                element,
+                attributeName,
+                out var attribute);
+
             if (!hasAttribute)
             {
-                attribute = this.Add_Attribute(element, attributeName);
+                attribute = this.Add_Attribute(
+                    element,
+                    attributeName);
             }
 
             return attribute;
