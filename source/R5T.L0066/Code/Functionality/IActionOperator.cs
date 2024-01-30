@@ -77,18 +77,6 @@ namespace R5T.L0066
             }
         }
 
-        public async Task Run_Actions<TValue>(
-            TValue value,
-            IEnumerable<Func<TValue, Task>> actions)
-        {
-            foreach (var action in actions)
-            {
-                await this.Run_Action(
-                    value,
-                    action);
-            }
-        }
-
         /// <summary>
         /// Chooses <see cref="Run_Actions{TValue}(TValue, Action{TValue}[])"/> as the default.
         /// </summary>
@@ -108,6 +96,30 @@ namespace R5T.L0066
             this.Run_Actions(
                 value,
                 actions.AsEnumerable());
+        }
+
+        public async Task Run_Actions<TValue>(
+            TValue value,
+            IEnumerable<Func<TValue, Task>> actions)
+        {
+            foreach (var action in actions)
+            {
+                await this.Run_Action(
+                    value,
+                    action);
+            }
+        }
+
+        public async Task Run_Actions<TValue>(
+            TValue value,
+            params Func<TValue, Task>[] actions)
+        {
+            foreach (var action in actions)
+            {
+                await this.Run_Action(
+                    value,
+                    action);
+            }
         }
 
         /// <summary>
@@ -185,6 +197,15 @@ namespace R5T.L0066
                 .Now();
 
             return output;
+        }
+
+        public Task Run<TValue>(
+            TValue value,
+            params Func<TValue, Task>[] actions)
+        {
+            return this.Run_Actions(
+                value,
+                actions);
         }
     }
 }

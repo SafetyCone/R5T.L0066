@@ -19,18 +19,23 @@ namespace R5T.L0066
         public static readonly object CollectionCountsNotActuallyChecked;
 
         /// <summary>
-        /// Note that dictionary counts are *not* actually checked.
-        /// </summary>
-        public static readonly object DictionaryCountsNotActuallyChecked;
-
-        /// <summary>
         /// For x.CompareTo(y) in <see cref="IComparable{T}.CompareTo(T)"/>.
         /// </summary>
         public static readonly object CompareToXY;
 
         /// <summary>
+        /// Note that dictionary counts are *not* actually checked.
+        /// </summary>
+        public static readonly object DictionaryCountsNotActuallyChecked;
+
+        /// <summary>
         /// Note that list counts are *not* actually checked.
         /// </summary>
         public static readonly object ListCountsNotActuallyChecked;
+
+        /// <summary>
+        /// type name (fully qualified type name)
+        /// </summary>
+        public static readonly object TypeNameMeansFullyQualifiedTypeName;
     }
 }

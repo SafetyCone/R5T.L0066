@@ -10,6 +10,12 @@ namespace R5T.L0066
     [ValuesMarker]
     public partial interface IStrings : IValuesMarker
     {
+        /// <inheritdoc cref="StringsDocumentation.ForAsterix"/>
+        public const string Asterix_Constant = "*";
+
+        /// <inheritdoc cref="Asterix_Constant"/>
+        public string Asterix => IStrings.Asterix_Constant;
+
         /// <inheritdoc cref="StringsDocumentation.ForCommaSeparatedListSpacedSeparator"/>
         public const string CommaSeparatedListSpacedSeparator_Constant = ", ";
 
@@ -22,6 +28,12 @@ namespace R5T.L0066
         /// <inheritdoc cref="IStrings.Copyright_Constant"/>
         public string Copyright => IStrings.Copyright_Constant;
 
+        /// <inheritdoc cref="StringsDocumentation.ForDoubleDot"/>
+        public const string DoubleDot_Constant = "..";
+
+        /// <inheritdoc cref="DoubleDot_Constant"/>
+        public string DoubleDot => IStrings.DoubleDot_Constant;
+
         /// <inheritdoc cref="StringsDocumentation.ForDoubleSpaces"/>
         public const string DoubleSpaces_Constant = "  ";
 
@@ -33,6 +45,12 @@ namespace R5T.L0066
 
         /// <inheritdoc cref="StringsDocumentation.ForEmpty"/>
         public string Empty => IStrings.Empty_Constant;
+
+        /// <inheritdoc cref="StringsDocumentation.ForEquals"/>
+        public const string Equals_Constant = "=";
+
+        /// <inheritdoc cref="Equals_Constant"/>
+        public string Equals => IStrings.Equals_Constant;
 
         /// <inheritdoc cref="StringsDocumentation.ForFalse_Lowercase"/>
         public const string False_Lowercase_Constant = "false";
@@ -78,6 +96,18 @@ namespace R5T.L0066
 
         /// <inheritdoc cref="Period_Constant"/>
         public string Period => IStrings.Period_Constant;
+
+        /// <inheritdoc cref="StringsDocumentation.ForPipe"/>
+        public const string Pipe_Constant = "|";
+
+        /// <inheritdoc cref="Pipe_Constant"/>
+        public string Pipe => IStrings.Pipe_Constant;
+
+        /// <inheritdoc cref="StringsDocumentation.ForQuote"/>
+        public const string Quote_Constant = "\"";
+
+        /// <inheritdoc cref="Quote_Constant"/>
+        public string Quote => IStrings.Quote_Constant;
 
         /// <inheritdoc cref="StringsDocumentation.ForSpace"/>
         public const string Space_Constant = " ";

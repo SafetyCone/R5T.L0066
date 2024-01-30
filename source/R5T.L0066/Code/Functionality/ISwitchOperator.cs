@@ -9,6 +9,18 @@ namespace R5T.L0066
     public partial interface ISwitchOperator : IFunctionalityMarker
     {
         /// <summary>
+        /// <para>Quality-of-life overload for <see cref="Get_UnexpectedEnumerationValueException{TEnum}(TEnum)"/></para>
+        /// Produces an exception for use in the default case of a switch statement based on values of the <typeparamref name="TEnum"/> enumeration.
+        /// Note: there is no method just throwing the exception, as the VS linter does not detect that a method call will always produce an exception, and thus demands that switch default case behavior cannot fall through one default case to another. The throw keyword in the switch default case must be present.
+        /// </summary>
+        public Exception Get_DefaultCaseException<TEnum>(TEnum value)
+            where TEnum : Enum
+        {
+            var exception = this.Get_UnexpectedEnumerationValueException(value);
+            return exception;
+        }
+
+        /// <summary>
         /// Does not take a value, useful for when a type's to-string method uses a switch statement
         /// (so calling the to-string method to get a string representation of the value would result in an infinite loop).
         /// </summary>

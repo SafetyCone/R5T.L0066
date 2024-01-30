@@ -8,24 +8,24 @@ namespace R5T.L0066
     [FunctionalityMarker]
     public partial interface INowOperator : IFunctionalityMarker
     {
-        /// <summary>
-		/// Chooses <see cref="Get_Now_Local"/> as the default.
-		/// </summary>
+        /// <inheritdoc cref="IDateTimeOperator.Get_Now"/>
 		public DateTime Get_Now()
         {
-            var output = this.Get_Now_Local();
+            var output = Instances.DateTimeOperator.Get_Now();
             return output;
         }
 
+        /// <inheritdoc cref="IDateTimeOperator.Get_Now_Local"/>
         public DateTime Get_Now_Local()
         {
-            var output = DateTime.Now;
+            var output = Instances.DateTimeOperator.Get_Now_Local();
             return output;
         }
 
+        /// <inheritdoc cref="IDateTimeOperator.Get_Now_Utc"/>
         public DateTime Get_Now_Utc()
         {
-            var output = DateTime.UtcNow;
+            var output = Instances.DateTimeOperator.Get_Now_Utc();
             return output;
         }
 

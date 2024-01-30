@@ -51,5 +51,24 @@ namespace R5T.L0066
 
         /// <inheritdoc cref="NamespaceNameTokenSeparator_String_Constant"/>
         public string NamespaceNameTokenSeparator_String => IValues.NamespaceNameTokenSeparator_String_Constant;
+
+        /// <summary>
+        /// <para><value>-1</value></para>
+        /// The length value for a null string, when a length value is required.
+        /// </summary>
+        public const int NullStringLength_Constant = -1;
+
+        /// <inheritdoc cref="NullStringLength_Constant"/>
+        public int NullStringLength => NullStringLength_Constant;
+
+        /// <summary>
+        /// <para><value>false</value></para>
+        /// </summary>
+        public bool False => false;
+
+        /// <summary>
+        /// <para><value>true</value></para>
+        /// </summary>
+        public bool True => true;
     }
 }

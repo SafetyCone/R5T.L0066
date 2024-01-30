@@ -12,6 +12,60 @@ namespace R5T.L0066
     [FunctionalityMarker]
     public partial interface IFileOperator : IFunctionalityMarker
     {
+        /// <summary>
+		/// Actually reads all lines. The <see cref="File.ReadLines(string)"/> method omits blank lines, instead adding the new line character to the previous line!
+		/// </summary>
+		public async Task<string[]> ActuallyReadAllLines(string filePath)
+        {
+            var text = await File.ReadAllTextAsync(filePath);
+
+            var lines = this.GetLinesFromText(text);
+            return lines;
+        }
+
+        /// <inheritdoc cref="ActuallyReadAllLines(string)"/>
+        public string[] ActuallyReadAllLines_Synchronous(string filePath)
+        {
+            var text = File.ReadAllText(filePath);
+
+            var lines = this.GetLinesFromText(text);
+            return lines;
+        }
+
+        public string[] GetLinesFromText(string text)
+        {
+            if (Instances.StringOperator.Is_Empty(text))
+            {
+                return Array.Empty<string>();
+            }
+
+            var lines = text.Split(
+                new[]
+                {
+                    Strings.Instance.NewLine_NonWindows,
+                    Strings.Instance.NewLine_Windows,
+                },
+                StringSplitOptions.None);
+
+            return lines;
+        }
+
+        /// <summary>
+        /// Ease of use name for the <see cref="ActuallyReadAllLines(string)"/> method.
+        /// </summary>
+        public async Task<string[]> ReadAllLines(string filePath)
+        {
+            var lines = await this.ActuallyReadAllLines(filePath);
+            return lines;
+        }
+
+        /// <inheritdoc cref="ReadAllLines(string)"/>
+        public string[] ReadAllLines_Synchronous(string filePath)
+        {
+            var lines = this.ActuallyReadAllLines_Synchronous(filePath);
+            return lines;
+        }
+
         public FileAttributes Get_FileAttributes(string filePath)
         {
             var output = File.GetAttributes(filePath);
@@ -30,6 +84,20 @@ namespace R5T.L0066
                 overwrite);
 
             return output;
+        }
+
+        public bool Has_ByteOrderMark(
+            string filePath)
+        {
+            var bytes = this.Read_Bytes_Synchronous(filePath);
+
+            var byteOrderMark = Instances.Values.ByteOrderMark;
+
+            var hasByteOrderMark = Instances.EnumerableOperator.StartsWith(
+                bytes,
+                byteOrderMark);
+
+            return hasByteOrderMark;
         }
 
         public void In_WriterContext_Synchronous(

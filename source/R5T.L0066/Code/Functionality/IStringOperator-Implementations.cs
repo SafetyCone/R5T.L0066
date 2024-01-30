@@ -8,18 +8,20 @@ namespace R5T.L0066.Implementations
     [FunctionalityMarker]
     public partial interface IStringOperator : IFunctionalityMarker
     {
-        /// <summary>
+        /// <inheritdoc cref="L0066.IStringOperator.Get_NewLine_ForEnvironment" path="/summary"/>
+        /// <remarks>
         /// Returns the value from <see cref="System.Environment.NewLine"/>.
-        /// </summary>
+        /// </remarks>
         public string Get_NewLine_ForEnvironment_FromSystem()
         {
             var output = Environment.NewLine;
             return output;
         }
 
-        /// <summary>
+        /// <inheritdoc cref="L0066.IStringOperator.Get_NewLine_ForEnvironment" path="/summary"/>
+        /// <remarks>
         /// Switch on the OSPlatform value from <see cref="IOperatingSystemOperator.Get_OSPlatform"/>.
-        /// </summary>
+        /// </remarks>
         public string Get_NewLine_ForEnvironment_FromOsPlatformSwitch()
         {
             var output = Instances.OperatingSystemOperator.SwitchOn_OSPlatform(
@@ -29,6 +31,12 @@ namespace R5T.L0066.Implementations
             return output;
         }
 
+        /// <inheritdoc cref="L0066.IStringOperator.Is_WhitespaceOnly(string)" path="/summary"/>
+        /// <remarks>
+        /// Works by testing each character against <see cref="ICharacterOperator.Is_NotWhitespace(char)"/>,
+        /// and if any are not whitespacer, returns false.
+        /// Otherwise, returns true.
+        /// </remarks>
         public bool Is_WhitespaceOnly_CheckCharacters(string @string)
         {
             foreach (var character in @string)
@@ -43,6 +51,10 @@ namespace R5T.L0066.Implementations
             return true;
         }
 
+        /// <inheritdoc cref="L0066.IStringOperator.Is_WhitespaceOnly(string)" path="/summary"/>
+        /// <remarks>
+        /// Works by trimming the string, then testing if the trimmed string equals the empty string.
+        /// </remarks>
         public bool Is_WhitespaceOnly_Trim(string @string)
         {
             var trimmedString = @string.Trim();

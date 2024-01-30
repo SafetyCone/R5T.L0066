@@ -1,7 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using Instances = R5T.L0066.Instances;
 
+
+namespace System.Linq
+{
+    public static class StringExtensions
+    {
+        /// <inheritdoc cref="R5T.L0066.IStringOperator.Trim(string)"/>
+        public static IEnumerable<string> Trim(this IEnumerable<string> strings)
+        {
+            var output = Instances.StringOperator.Trim(strings);
+            return output;
+        }
+    }
+}
 
 namespace R5T.Extensions.Xml
 {

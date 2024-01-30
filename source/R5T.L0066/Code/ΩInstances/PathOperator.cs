@@ -19,6 +19,24 @@ namespace R5T.L0066
 }
 
 
+namespace R5T.L0066.Checked
+{
+    public class PathOperator : IPathOperator
+    {
+        #region Infrastructure
+
+        public static IPathOperator Instance { get; } = new PathOperator();
+
+
+        private PathOperator()
+        {
+        }
+
+        #endregion
+    }
+}
+
+
 namespace R5T.L0066.Implementations
 {
     public class PathOperator : IPathOperator
@@ -37,7 +55,7 @@ namespace R5T.L0066.Implementations
 }
 
 
-namespace R5T.L0066.Unchecked
+namespace R5T.L0066.Internal
 {
     public class PathOperator : IPathOperator
     {

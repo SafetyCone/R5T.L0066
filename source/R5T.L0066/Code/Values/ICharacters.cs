@@ -10,6 +10,12 @@ namespace R5T.L0066
     [ValuesMarker]
     public partial interface ICharacters : IValuesMarker
     {
+        /// <inheritdoc cref="CharactersDocumentation.ForAsterix"/>
+        public const char Asterix_Constant = '*';
+
+        /// <inheritdoc cref="Asterix_Constant"/>
+        public char Asterix => ICharacters.Asterix_Constant;
+
         /// <inheritdoc cref="CharactersDocumentation.ForBackslash"/>
         public const char Backslash_Constant = '\\';
 
@@ -22,11 +28,23 @@ namespace R5T.L0066
         /// <inheritdoc cref="CarriageReturn_Constant"/>
         public char CarriageReturn => ICharacters.CarriageReturn_Constant;
 
+        /// <inheritdoc cref="CharactersDocumentation.ForColon"/>
+        public const char Colon_Constant = ':';
+
+        /// <inheritdoc cref="Colon_Constant"/>
+        public char Colon => ICharacters.Colon_Constant;
+
         /// <inheritdoc cref="CharactersDocumentation.ForCopyright"/>
         public const char Copyright_Constant = '©';
 
         /// <inheritdoc cref="Copyright_Constant"/>
         public char Copyright => ICharacters.Copyright_Constant;
+
+        /// <inheritdoc cref="CharactersDocumentation.ForEquals"/>
+        public const char Equals_Constant = '=';
+
+        /// <inheritdoc cref="Equals_Constant"/>
+        public char Equals => ICharacters.Equals_Constant;
 
         /// <inheritdoc cref="CharactersDocumentation.ForNewLine"/>
         public const char NewLine_Constant = '\n';
@@ -39,6 +57,18 @@ namespace R5T.L0066
 
         /// <inheritdoc cref="Period_Constant"/>
         public char Period => ICharacters.Period_Constant;
+
+        /// <inheritdoc cref="CharactersDocumentation.ForPipe"/>
+        public const char Pipe_Constant = '|';
+
+        /// <inheritdoc cref="Pipe_Constant"/>
+        public char Pipe => ICharacters.Pipe_Constant;
+
+        /// <inheritdoc cref="CharactersDocumentation.ForQuote"/>
+        public const char Quote_Constant = '"';
+
+        /// <inheritdoc cref="Quote_Constant"/>
+        public char Quote => ICharacters.Quote_Constant;
 
         /// <inheritdoc cref="CharactersDocumentation.ForSlash"/>
         public const char Slash_Constant = '/';
@@ -57,5 +87,11 @@ namespace R5T.L0066
 
         /// <inheritdoc cref="Space_Constant"/>
         public char Space => ICharacters.Space_Constant;
+
+        /// <inheritdoc cref="CharactersDocumentation.ForUnderscore"/>
+        public const char Underscore_Constant = '_';
+
+        /// <inheritdoc cref="Underscore_Constant"/>
+        public char Underscore => ICharacters.Underscore_Constant;
     }
 }
