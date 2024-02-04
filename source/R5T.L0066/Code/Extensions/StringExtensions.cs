@@ -8,6 +8,18 @@ namespace System.Linq
 {
     public static class StringExtensions
     {
+        public static IEnumerable<string> OrderAlphabetically(this IEnumerable<string> strings)
+        {
+            var output = Instances.StringOperator.Order_Alphabetically(strings);
+            return output;
+        }
+
+        public static IEnumerable<string> OrderAlphabetically_OnlyIfDebug(this IEnumerable<string> strings)
+        {
+            var output = Instances.StringOperator.Order_Alphabetically_OnlyIfDebug(strings);
+            return output;
+        }
+
         /// <inheritdoc cref="R5T.L0066.IStringOperator.Trim(string)"/>
         public static IEnumerable<string> Trim(this IEnumerable<string> strings)
         {

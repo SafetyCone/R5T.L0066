@@ -9,6 +9,12 @@ namespace R5T.L0066
     [FunctionalityMarker]
     public partial interface IXmlOperator : IFunctionalityMarker
     {
+        public XDocument Load_XDocument_Synchronous(string xmlFilePath)
+        {
+            var output = Instances.XDocumentOperator.Load_Synchronous(xmlFilePath);
+            return output;
+        }
+
         public XElement New_Element(string elementName)
         {
             var output = Instances.XElementOperator.New(elementName);

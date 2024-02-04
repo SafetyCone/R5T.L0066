@@ -456,6 +456,8 @@ namespace R5T.L0066
             XElement element,
             XmlWriterSettings xmlWriterSettings)
         {
+            xmlWriterSettings.Async = true;
+
             using var fileStream = Instances.FileStreamOperator.Open_Write(xmlFilePath);
             using var xmlWriter = XmlWriter.Create(fileStream, xmlWriterSettings);
 

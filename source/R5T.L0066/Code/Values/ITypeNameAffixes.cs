@@ -14,6 +14,11 @@ namespace R5T.L0066
         public string Array_Suffix => "[]";
 
         /// <summary>
+        /// <para><value>Attribute</value></para>
+        /// </summary>
+        public string AttributeSuffix => "Attribute";
+
+        /// <summary>
         /// <para><name>'&amp;' (ampersand)</name></para>
         /// Indicates that a type is passed by reference.
         /// Used in <see cref="Type.FullName"/>

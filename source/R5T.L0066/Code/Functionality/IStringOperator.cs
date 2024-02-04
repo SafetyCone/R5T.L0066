@@ -836,6 +836,29 @@ namespace R5T.L0066
             return output;
         }
 
+        public string Lower(string @string)
+        {
+            var output = @string.ToLowerInvariant();
+            return output;
+        }
+
+        public IEnumerable<string> Order_Alphabetically(IEnumerable<string> items)
+        {
+            var output = items.OrderBy(x => x);
+            return output;
+        }
+
+        public IEnumerable<string> Order_Alphabetically_OnlyIfDebug(IEnumerable<string> items)
+        {
+            var output = items
+#if DEBUG
+                .OrderAlphabetically()
+#endif
+                ;
+
+            return output;
+        }
+
         public string PrefixWith(
             string prefix,
             string @string)

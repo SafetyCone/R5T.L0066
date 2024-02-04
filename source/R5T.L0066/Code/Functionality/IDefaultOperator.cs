@@ -9,6 +9,12 @@ namespace R5T.L0066
     [FunctionalityMarker]
     public partial interface IDefaultOperator : IFunctionalityMarker
     {
+        public T Get_Default<T>()
+        {
+            T output = default;
+            return output;
+        }
+
         public bool Is_Default<T>(
             T value,
             IEqualityComparer<T> equalityComparer)

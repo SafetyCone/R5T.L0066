@@ -25,7 +25,11 @@ namespace R5T.L0066
         public static IDocumentationFileNameOperator DocumentationFileNameOperator => L0066.DocumentationFileNameOperator.Instance;
         public static IEnumerableOperator EnumerableOperator => L0066.EnumerableOperator.Instance;
         public static IEnumerationOperator EnumerationOperator => L0066.EnumerationOperator.Instance;
+        public static IExceptionMessageOperator ExceptionMessageOperator => L0066.ExceptionMessageOperator.Instance;
+        public static IExceptionOperator ExceptionOperator => L0066.ExceptionOperator.Instance;
         public static IExecutablePathOperator ExecutablePathOperator => L0066.ExecutablePathOperator.Instance;
+        public static IExitCodeOperator ExitCodeOperator => L0066.ExitCodeOperator.Instance;
+        public static IExitCodes ExitCodes => L0066.ExitCodes.Instance;
         public static IFileExtensionOperator FileExtensionOperator => L0066.FileExtensionOperator.Instance;
         public static IFileExtensions FileExtensions => L0066.FileExtensions.Instance;
         public static IFileModeOperator FileModeOperator => L0066.FileModeOperator.Instance;
@@ -38,6 +42,7 @@ namespace R5T.L0066
         public static IIndices Indices => L0066.Indices.Instance;
         public static IIntegers Integers => L0066.Integers.Instance;
         public static IListOperator ListOperator => L0066.ListOperator.Instance;
+        public static IMessages Messages => L0066.Messages.Instance;
         public static INewLineOperator NewLineOperator => L0066.NewLineOperator.Instance;
         public static INullOperator NullOperator => L0066.NullOperator.Instance;
         public static IObjectOperator ObjectOperator => L0066.ObjectOperator.Instance;
@@ -61,6 +66,7 @@ namespace R5T.L0066
         public static IValues Values => L0066.Values.Instance;
         public static IXAttributeOperator XAttributeOperator => L0066.XAttributeOperator.Instance;
         public static IXContainerOperator XContainerOperator => L0066.XContainerOperator.Instance;
+        public static IXDocumentOperator XDocumentOperator => L0066.XDocumentOperator.Instance;
         public static IXElementOperator XElementOperator => L0066.XElementOperator.Instance;
         public static IXmlTextOperator XmlTextOperator => L0066.XmlTextOperator.Instance;
         public static IXmlWriterSettingsSets XmlWriterSettingsSets => L0066.XmlWriterSettingsSets.Instance;

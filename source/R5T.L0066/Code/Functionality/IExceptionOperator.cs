@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 using R5T.T0132;
 
@@ -9,6 +10,16 @@ namespace R5T.L0066
     [FunctionalityMarker]
     public partial interface IExceptionOperator : IFunctionalityMarker
     {
+        public Exception Get_ErrorDataReceivedException(DataReceivedEventArgs eventArgs)
+        {
+            var exception = new Exception(
+                Instances.ExceptionMessageOperator.Get_Message_IfMessageIsNull(
+                    eventArgs.Data,
+                    Instances.Messages.EventDataReceivedWasNull));
+
+            return exception;
+        }
+
         /// <summary>
 		/// <inheritdoc cref="Documentation.ListCountsNotActuallyChecked" path="/summary"/>
 		/// Just gets the exception assuming that is the case.

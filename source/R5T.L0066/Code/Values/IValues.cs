@@ -40,6 +40,11 @@ namespace R5T.L0066
         /// <inheritdoc cref="Default_StreamReaderBufferSize_Constant"/>.
         public int Default_StreamReaderBufferSize => IValues.Default_StreamReaderBufferSize_Constant;
 
+        /// <summary>
+		/// The value for the command line to have no arguments is null.
+		/// </summary>
+		public string EmptyCommandArguments => null;
+
         /// <inheritdoc cref="ICharacters.Period_Constant"/>
         public const char NamespaceNameTokenSeparator_Constant = ICharacters.Period_Constant;
 

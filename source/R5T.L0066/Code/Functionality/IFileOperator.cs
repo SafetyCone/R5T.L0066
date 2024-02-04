@@ -214,6 +214,17 @@ namespace R5T.L0066
                 text);
         }
 
+        public Task Write_Text(
+            string textFilePath,
+            string text)
+        {
+            Instances.FileSystemOperator.Ensure_DirectoryExists_ForFilePath(textFilePath);
+
+            return File.WriteAllTextAsync(
+                textFilePath,
+                text);
+        }
+
         public void Write_Text_Synchronous(
             string textFilePath,
             string text)

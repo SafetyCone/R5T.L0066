@@ -43,14 +43,29 @@ namespace R5T.L0066
         }
 
         /// <summary>
-        /// Creates a directory idempotently (meaning there is no problem with issuing the command multiple times). 
-        /// Note: The system method <see cref="Directory.CreateDirectory(string)"/> does not throw an exception if you create a directory that already exists. However, it's hard to remember this fact. Thus, this method name makes that fact explicit.
+        /// Creates a directory idempotently (meaning there is no problem with issuing the command multiple times).
         /// </summary>
-        public void Create_Directory_OkIfAlreadyExists(string directoryPath)
+        /// <remarks>
+        /// The system method <see cref="Directory.CreateDirectory(string)"/> does not throw an exception if you create a directory that already exists.
+        /// However, it's hard to remember this fact, so this method name makes that fact explicit.
+        /// </remarks>
+        public void Create_Directory_Idempotent(string directoryPath)
         {
             // Does not throw an exception if a directory already exists.
             // See proof at: https://github.com/MinexAutomation/Public/blob/a8c302415b56fb8903c751436cbeef3eae8e1692/Source/Experiments/CSharp/ExaminingCSharp/ExaminingCSharp/Code/Experiments/IOExperiments.cs#L24
             Directory.CreateDirectory(directoryPath);
+        }
+
+        /// <summary>
+        /// <inheritdoc cref="Create_Directory_Idempotent(string)" path="/summary"/>
+        /// <para>
+        /// Quality-of-life overload for <see cref="Create_Directory_Idempotent(string)"/>.
+        /// </para>
+        /// </summary>
+        /// <inheritdoc cref="Create_Directory_Idempotent(string)" path="/remarks"/>
+        public void Create_Directory_OkIfAlreadyExists(string directoryPath)
+        {
+            this.Create_Directory_Idempotent(directoryPath);
         }
 
         public void Delete_Directory_NonRobust(string directoryPath)
@@ -286,19 +301,43 @@ namespace R5T.L0066
         /// <summary>
         /// Tests whether a file exists, and if it doesn't, throws a <see cref="FileNotFoundException"/>.
         /// </summary>
-        public void VerifyFileExists(string filePath)
+        public void Verify_Directory_Exists(string directoryPath)
         {
-            var fileExists = this.Exists_File(filePath);
-            if (!fileExists)
+            var directoryExists = this.Exists_Directory(directoryPath);
+            if (!directoryExists)
             {
-                throw new FileNotFoundException("File did not exists.", filePath);
+                throw new DirectoryNotFoundException($"Directory did not exist:\n\t{directoryPath}");
             }
         }
 
         /// <summary>
         /// Tests whether a file exists, and if it does, throws an <see cref="Exception"/>.
         /// </summary>
-        public void VerifyFileDoesNotExists(string filePath)
+        public void Verify_Directory_DoesNotExist(string directoryPath)
+        {
+            var directoryExists = this.Exists_Directory(directoryPath);
+            if (directoryExists)
+            {
+                throw new Exception($"Directory exists:\n{directoryPath}");
+            }
+        }
+
+        /// <summary>
+        /// Tests whether a file exists, and if it doesn't, throws a <see cref="FileNotFoundException"/>.
+        /// </summary>
+        public void Verify_File_Exists(string filePath)
+        {
+            var fileExists = this.Exists_File(filePath);
+            if (!fileExists)
+            {
+                throw new FileNotFoundException("File did not exist.", filePath);
+            }
+        }
+
+        /// <summary>
+        /// Tests whether a file exists, and if it does, throws an <see cref="Exception"/>.
+        /// </summary>
+        public void Verify_File_DoesNotExist(string filePath)
         {
             var fileExists = this.Exists_File(filePath);
             if (fileExists)
