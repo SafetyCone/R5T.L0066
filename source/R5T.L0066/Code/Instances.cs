@@ -14,6 +14,7 @@ namespace R5T.L0066
         public static ICharacterOperator CharacterOperator => L0066.CharacterOperator.Instance;
         public static ICharacters Characters => L0066.Characters.Instance;
         public static ICommandLineArgumentsOperator CommandLineArgumentsOperator => L0066.CommandLineArgumentsOperator.Instance;
+        public static IContextOperations ContextOperations => L0066.ContextOperations.Instance;
         public static IContextOperator ContextOperator => L0066.ContextOperator.Instance;
         public static IDateTimeOperator DateTimeOperator => L0066.DateTimeOperator.Instance;
         public static IDefaultOperator DefaultOperator => L0066.DefaultOperator.Instance;

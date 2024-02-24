@@ -11,21 +11,78 @@ namespace R5T.L0066
     [FunctionalityMarker]
     public partial interface IFunctionOperator : IFunctionalityMarker
     {
-        public TOut Run_Function<TIn, TOut>(
-            TIn @in,
-            Func<TIn, TOut> function = default)
+        /// <summary>
+		/// Chooses <see cref="Run_Function_OkIfDefault{T, TOutput}(T, Func{T, TOutput})"/> as the default.
+		/// </summary>
+        public TOutput Run<T, TOutput>(
+            T value,
+            Func<T, TOutput> function = default)
         {
-            return this.Run_Function_OkIfDefault(@in, function);
+            var output = this.Run_Function(
+                value,
+                function);
+
+            return output;
         }
 
-        public TOut Run_Function_OkIfDefault<TIn, TOut>(
-            TIn @in,
-            Func<TIn, TOut> function = default)
+        /// <summary>
+        /// Chooses <see cref="Run_Function_OkIfDefault{T, TOutput}(T, Func{T, TOutput})"/> as the default.
+        /// </summary>
+        public TOutput Run_Function<T, TOutput>(
+            T value,
+            Func<T, TOutput> function = default)
+        {
+            var output = this.Run_Function_OkIfDefault(
+                value,
+                function);
+
+            return output;
+        }
+
+        public TOutput Run_OkIfDefault<T, TOutput>(
+            T value,
+            Func<T, TOutput> function = default)
+        {
+            var output = this.Run_Function_OkIfDefault(
+                value,
+                function);
+
+            return output;
+        }
+
+        public IEnumerable<TOutput> Run_Functions<T, TOutput>(
+            T value,
+            IEnumerable<Func<T, TOutput>> functions)
+        {
+            var output = functions
+                .Select(function => this.Run_Function(
+                    value,
+                    function))
+                ;
+
+            return output;
+        }
+
+        public TOutput[] Run_Functions<T, TOutput>(
+            T value,
+            params Func<T, TOutput>[] functions)
+        {
+            var output = this.Run_Functions(
+                value,
+                functions.AsEnumerable())
+                .Now();
+
+            return output;
+        }
+
+        public TOutput Run_Function_OkIfDefault<T, TOutput>(
+            T value,
+            Func<T, TOutput> function = default)
         {
             var isNotDefault = Instances.DefaultOperator.Is_NotDefault(function);
             if (isNotDefault)
             {
-                var output = function(@in);
+                var output = function(value);
                 return output;
             }
 
@@ -33,39 +90,23 @@ namespace R5T.L0066
             return default;
         }
 
-        public TOut Run<TIn, TOut>(
-            TIn @in,
-            Func<TIn, TOut> function = default)
+        public TOut Run<T1, T2, TOut>(
+            T1 value1,
+            T2 value2,
+            Func<T1, T2, TOut> function = default)
         {
-            return this.Run_Function(@in, function);
+            return this.Run_OkIfDefault(value1, value2, function);
         }
 
-        public TOut Run_OkIfDefault<TIn, TOut>(
-            TIn @in,
-            Func<TIn, TOut> function = default)
-        {
-            return this.Run_Function_OkIfDefault(
-                @in,
-                function);
-        }
-
-        public TOut Run<TIn1, TIn2, TOut>(
-            TIn1 in1,
-            TIn2 in2,
-            Func<TIn1, TIn2, TOut> function = default)
-        {
-            return this.Run_OkIfDefault(in1, in2, function);
-        }
-
-        public TOut Run_OkIfDefault<TIn1, TIn2, TOut>(
-            TIn1 in1,
-            TIn2 in2,
-            Func<TIn1, TIn2, TOut> function = default)
+        public TOut Run_OkIfDefault<T1, T2, TOut>(
+            T1 value1,
+            T2 value2,
+            Func<T1, T2, TOut> function = default)
         {
             var isNotDefault = Instances.DefaultOperator.Is_NotDefault(function);
             if(isNotDefault)
             {
-                var output = function(in1, in2);
+                var output = function(value1, value2);
                 return output;
             }
 
@@ -73,10 +114,10 @@ namespace R5T.L0066
             return default;
         }
 
-        public Task Run<TIn1, TIn2>(
-            TIn1 in1,
-            TIn2 in2,
-            Func<TIn1, TIn2, Task> function = default)
+        public Task Run<T1, T2>(
+            T1 in1,
+            T2 in2,
+            Func<T1, T2, Task> function = default)
         {
             return this.Run_OkIfDefault(in1, in2, function);
         }
@@ -96,93 +137,5 @@ namespace R5T.L0066
             // Else, return a completed task.
             return Task.CompletedTask;
         }
-
-        /// <summary>
-        /// Given a value and a set of modifier functions (functions that take the value, and return a value of the same type),
-        /// feed the value through the modifier functions.
-        /// </summary>
-        public T Run_Modifiers<T>(
-            T value,
-            IEnumerable<Func<T, T>> modifiers)
-        {
-            foreach (var modifier in modifiers)
-            {
-                value = this.Run_Modifier_OkIfDefault(
-                    value,
-                    modifier);
-            }
-
-            return value;
-        }
-
-        public T Run_Modifiers<T>(
-            T value,
-            params Func<T, T>[] modifiers)
-        {
-            var output = this.Run_Modifiers(
-                value,
-                modifiers.AsEnumerable());
-
-            return output;
-        }
-
-        public T Run_Modifier<T>(
-            T value,
-            Func<T, T> modifier = default)
-        {
-            var output = this.Run_Modifier_OkIfDefault(
-                value,
-                modifier);
-
-            return output;
-        }
-
-        public T Run_Modifier_OkIfDefault<T>(
-            T value,
-            Func<T, T> modifier = default)
-        {
-            var isDefault = Instances.DefaultOperator.Is_Default(modifier);
-            if(isDefault)
-            {
-                return value;
-            }
-
-            // Else.
-            var output = modifier(value);
-            return output;
-        }
-
-        public TOut Run<TIn, TOut>(
-            TIn @in,
-            IEnumerable<Func<TIn, TOut>> functions)
-        {
-            return this.Run(
-                @in,
-                functions);
-        }
-
-        //public async Task Run_Functions<TValue>(
-        //    TValue value,
-        //    IEnumerable<Func<TValue, TValue>> actions)
-        //{
-        //    foreach (var action in actions)
-        //    {
-        //        await this.Run_Function(
-        //            value,
-        //            action);
-        //    }
-        //}
-
-        //public async Task Run_Functions<TValue>(
-        //    TValue value,
-        //    params Func<TValue, TValue>[] actions)
-        //{
-        //    foreach (var action in actions)
-        //    {
-        //        await this.Run_Function(
-        //            value,
-        //            action);
-        //    }
-        //}
     }
 }

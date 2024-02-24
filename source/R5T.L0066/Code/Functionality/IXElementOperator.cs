@@ -23,6 +23,9 @@ namespace R5T.L0066
 #pragma warning restore IDE1006 // Naming Styles
 
 
+        /// <summary>
+        /// Acquires an attribute with the specified name.
+        /// </summary>
         public XAttribute Acquire_Attribute(
             XElement element,
             string attributeName)

@@ -34,6 +34,13 @@ namespace R5T.L0066
             return output;
         }
 
+        public Exception Get_UnhandledValueException<TValue>(TValue value)
+        {
+            var message = Instances.ExceptionMessageOperator.Get_UnhandledValueExceptionMessage(value);
+
+            return new Exception(message);
+        }
+
         public Exception New(string message)
         {
             var output = new Exception(message);

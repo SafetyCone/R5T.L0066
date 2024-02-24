@@ -133,6 +133,13 @@ namespace R5T.L0066
         /// <inheritdoc cref="Tab_AsSpaces_Constant"/>
         public string Tab_AsSpaces => IStrings.Tab_AsSpaces_Constant;
 
+        /// <inheritdoc cref="StringsDocumentation.ForTripleSlashes"/>
+        public const string Triple_Slashes_Constant = "///";
+
+        /// <inheritdoc cref="Triple_Slashes_Constant"/>
+        public string Triple_Slashes => IStrings.Triple_Slashes_Constant;
+
+
         /// <inheritdoc cref="StringsDocumentation.ForTrue_Lowercase"/>
         public const string True_Lowercase_Constant = "true";
 

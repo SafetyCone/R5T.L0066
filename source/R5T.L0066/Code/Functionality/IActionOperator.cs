@@ -11,6 +11,48 @@ namespace R5T.L0066
     [FunctionalityMarker]
     public partial interface IActionOperator : IFunctionalityMarker
     {
+        public Task Run_Action_OkIfDefault(
+            Func<Task> action = default)
+        {
+            if (action == default)
+            {
+                return Task.CompletedTask;
+            }
+
+            return action();
+        }
+
+        public Task Run_Action(
+            Func<Task> action)
+        {
+            return this.Run_Action_OkIfDefault(
+                action);
+        }
+
+        public Task Run_OkIfDefault(
+            Func<Task> action = default)
+        {
+            return this.Run_Action_OkIfDefault(
+                action);
+        }
+
+        public async Task Run_Actions(
+            IEnumerable<Func<Task>> actions)
+        {
+            foreach (var action in actions)
+            {
+                await this.Run_Action(
+                    action);
+            }
+        }
+
+        public Task Run_Actions(
+            params Func<Task>[] actions)
+        {
+            return this.Run_Actions(
+                actions.AsEnumerable());
+        }
+
         /// <summary>
         /// Chooses <see cref="Run_Action_OkIfDefault{TValue}(TValue, Action{TValue})"/> as the default.
         /// </summary>
@@ -51,6 +93,15 @@ namespace R5T.L0066
             }
 
             action(value);
+        }
+
+        public Task Run_OkIfDefault<TValue>(
+            TValue value,
+            Func<TValue, Task> action = default)
+        {
+            return this.Run_Action_OkIfDefault(
+                value,
+                action);
         }
 
         public Task Run_Action_OkIfDefault<TValue>(
@@ -120,83 +171,6 @@ namespace R5T.L0066
                     value,
                     action);
             }
-        }
-
-        /// <summary>
-		/// Chooses <see cref="Run_Function_OkIfDefault{T, TOutput}(T, Func{T, TOutput})"/> as the default.
-		/// </summary>
-        public TOutput Run<T, TOutput>(
-            T value,
-            Func<T, TOutput> function)
-        {
-            var output = this.Run_Function_OkIfDefault(
-                value,
-                function);
-
-            return output;
-        }
-
-        /// <summary>
-        /// Chooses <see cref="Run_Function_OkIfDefault{T, TOutput}(T, Func{T, TOutput})"/> as the default.
-        /// </summary>
-        public TOutput Run_Function<T, TOutput>(
-            T value,
-            Func<T, TOutput> function)
-        {
-            var output = this.Run_Function_OkIfDefault(
-                value,
-                function);
-
-            return output;
-        }
-
-        public TOutput Run_OkIfDefault<T, TOutput>(
-            T value,
-            Func<T, TOutput> function = default)
-        {
-            var output = this.Run_Function_OkIfDefault(
-                value,
-                function);
-
-            return output;
-        }
-
-        public TOutput Run_Function_OkIfDefault<T, TOutput>(
-            T value,
-            Func<T, TOutput> function = default)
-        {
-            if (function == default)
-            {
-                return default;
-            }
-
-            var output = function(value);
-            return output;
-        }
-
-        public IEnumerable<TOutput> Run_Functions<T, TOutput>(
-            T value,
-            IEnumerable<Func<T, TOutput>> functions)
-        {
-            var output = functions
-                .Select(function => this.Run_Function(
-                    value,
-                    function))
-                ;
-
-            return output;
-        }
-
-        public TOutput[] Run_Functions<T, TOutput>(
-            T value,
-            Func<T, TOutput>[] functions)
-        {
-            var output = this.Run_Functions(
-                value,
-                functions.AsEnumerable())
-                .Now();
-
-            return output;
         }
 
         public Task Run<TValue>(

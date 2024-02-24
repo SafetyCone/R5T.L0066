@@ -15,5 +15,24 @@ namespace R5T.L0066
             var output = message ?? messageIfNull;
             return output;
         }
+
+        public string Get_UnhandledValueExceptionMessage<TValue>(TValue value)
+        {
+            var typeName = Instances.TypeOperator.Get_TypeNameOf(value);
+
+            var output = this.Get_UnhandledValueExceptionMessage(
+                value,
+                typeName);
+
+            return output;
+        }
+
+        public string Get_UnhandledValueExceptionMessage<TValue>(
+            TValue value,
+            string typeName)
+        {
+            var message = $"Unhandled value:\nt'{value}': value\nt{typeName}: type name";
+            return message;
+        }
     }
 }
