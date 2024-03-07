@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 
@@ -13,7 +12,7 @@ namespace R5T.L0066
             TValue2 value2,
             Func<TValue1, TValue2, Task> action)
         {
-            return this.Run_Action_OkIfDefault(
+            return this.Run_Action_OkIfDefault<TValue1, TValue2>(
                 value1,
                 value2,
                 action);
@@ -35,11 +34,17 @@ namespace R5T.L0066
         public async Task Run_Actions<TValue1, TValue2>(
             TValue1 value1,
             TValue2 value2,
-            IEnumerable<Func<TValue1, TValue2, Task>> actions)
+            IEnumerable<Func<TValue1, TValue2, Task>> actions = default)
         {
+            var isDefault = Instances.DefaultOperator.Is_Default(actions);
+            if(isDefault)
+            {
+                return;
+            }
+
             foreach (var action in actions)
             {
-                await this.Run_Action(
+                await this.Run_Action<TValue1, TValue2>(
                     value1,
                     value2,
                     action);
@@ -77,8 +82,13 @@ namespace R5T.L0066
             TValue1 value1,
             TValue2 value2,
             TValue3 value3,
-            IEnumerable<Func<TValue1, TValue2, TValue3, Task>> actions)
+            IEnumerable<Func<TValue1, TValue2, TValue3, Task>> actions = default)
         {
+            if (actions == default)
+            {
+                return;
+            }
+
             foreach (var action in actions)
             {
                 await this.Run_Action(

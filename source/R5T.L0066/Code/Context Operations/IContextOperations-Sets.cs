@@ -101,6 +101,32 @@ namespace R5T.L0066
             => this.Construct_Context_B_BA<TContextB, TContextA>(
                 operations.AsEnumerable());
 
+
+        public Func<TContextA, TContextB, Task<TContextC>> Construct_Context_C_ABC<TContextA, TContextB, TContextC>(
+            IEnumerable<Func<TContextA, TContextB, TContextC, Task>> operations)
+            where TContextC : new()
+        {
+            return async (contextA, contextB) =>
+            {
+                var contextC = new TContextC();
+
+                await Instances.ContextOperator.In_ContextSet<TContextA, TContextB, TContextC>(
+                    contextA,
+                    contextB,
+                    contextC,
+                    operations);
+
+                return contextC;
+            };
+        }
+
+        public Func<TContextA, TContextB, Task<TContextC>> Construct_Context_C_ABC<TContextA, TContextB, TContextC>(
+            params Func<TContextA, TContextB, TContextC, Task>[] operations)
+            where TContextC : new()
+            => this.Construct_Context_C_ABC<TContextA, TContextB, TContextC>(
+                operations.AsEnumerable());
+
+
         public Func<TContextA, TContextB, Task<TContextC>> Construct_Context_C_CAB<TContextC, TContextA, TContextB>(
             IEnumerable<Func<TContextC, TContextA, TContextB, Task>> operations)
             where TContextC : new()
@@ -335,6 +361,33 @@ namespace R5T.L0066
             return this.In_ContextSet_AB_BA(
                 operations.AsEnumerable());
         }
+
+
+        public Func<TContextA, TContextB, Task> In_ContextSet_AB_ABC<TContextA, TContextB, TContextC>(
+            Func<TContextA, TContextB, Task<TContextC>> contextCConstructor,
+            IEnumerable<Func<TContextA, TContextB, TContextC, Task>> operations)
+        {
+            return async (contextA, contextB) =>
+            {
+                var contextC = await contextCConstructor(contextA, contextB);
+
+                await Instances.ContextOperator.In_ContextSet<TContextA, TContextB, TContextC>(
+                    contextA,
+                    contextB,
+                    contextC,
+                    operations);
+            };
+        }
+
+        public Func<TContextA, TContextB, Task> In_ContextSet_AB_ABC<TContextA, TContextB, TContextC>(
+            Func<TContextA, TContextB, Task<TContextC>> contextCConstructor,
+            params Func<TContextA, TContextB, TContextC, Task>[] operations)
+        {
+            return this.In_ContextSet_AB_ABC(
+                contextCConstructor,
+                operations.AsEnumerable());
+        }
+
 
         public Func<TContextA, TContextB, Task> In_ContextSet_AB_CAB<TContextC, TContextA, TContextB>(
             Func<TContextA, TContextB, Task<TContextC>> contextCConstructor,

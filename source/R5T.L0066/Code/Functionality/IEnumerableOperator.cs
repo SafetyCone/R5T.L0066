@@ -74,6 +74,18 @@ namespace R5T.L0066
             return output;
         }
 
+        public IEnumerable<T> Get_Empty_IfDefault<T>(IEnumerable<T> values = default)
+        {
+            var isDefault = Instances.DefaultOperator.Is_Default(values);
+
+            var output = isDefault
+                ? this.Empty<T>()
+                : values
+                ;
+
+            return output;
+        }
+
         public IEnumerable<T> Empty<T>()
         {
             return Enumerable.Empty<T>();

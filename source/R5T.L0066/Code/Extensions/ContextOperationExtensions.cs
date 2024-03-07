@@ -59,6 +59,18 @@ namespace R5T.L0066.Contexts
             return (contextA, _B, _C) => operation(contextA);
         }
 
+        public static Func<TContextA, TContextB, TContextC, Task> In<TContextA, TContextB, TContextC>(this Func<TContextB, Task> operation,
+            Tuple<TContextA, TContextB, TContextC> _)
+        {
+            return (_A, contextB, _C) => operation(contextB);
+        }
+
+        public static Func<TContextA, TContextB, TContextC, Task> In<TContextA, TContextB, TContextC>(this Func<TContextC, Task> operation,
+            Tuple<TContextA, TContextB, TContextC> _)
+        {
+            return (_A, _B, contextC) => operation(contextC);
+        }
+
         public static Func<TContextA, TContextB, TContextC, Task> In<TContextA, TContextB, TContextC>(this Func<TContextA, TContextB, Task> operation,
             Tuple<TContextA, TContextB, TContextC> _)
         {
@@ -66,6 +78,15 @@ namespace R5T.L0066.Contexts
             //return Instances.ContextOperations.In_ContextSet_AB_A<TContextA, TContextB>(operation);
 
             return (contextA, contextB, _C) => operation(contextA, contextB);
+        }
+
+        public static Func<TContextA, TContextB, TContextC, Task> In<TContextA, TContextB, TContextC>(this Func<TContextA, TContextC, Task> operation,
+            Tuple<TContextA, TContextB, TContextC> _)
+        {
+            // Don't use this method, as it has too much internal structure.
+            //return Instances.ContextOperations.In_ContextSet_AB_A<TContextA, TContextB>(operation);
+
+            return (contextA, _B, contextC) => operation(contextA, contextC);
         }
 
         public static Func<TContextA, TContextB, TContextC, TContextD, Task> In_ContextSet_A_ABCD<TContextA, TContextB, TContextC, TContextD>(this Func<TContextA, Task> operation,

@@ -63,7 +63,7 @@ namespace R5T.L0066
         public Task In_ContextSet<TContextA, TContextB>(
             TContextA contextA,
             TContextB contextB,
-            IEnumerable<Func<TContextA, TContextB, Task>> contextActions)
+            IEnumerable<Func<TContextA, TContextB, Task>> contextActions = default)
         {
             return Instances.ActionOperator.Run_Actions(
                 contextA,
