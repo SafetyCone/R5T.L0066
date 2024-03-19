@@ -203,10 +203,13 @@ namespace R5T.L0066
             => this.Construct_Context_E_EABCD<TContextE, TContextA, TContextB, TContextC, TContextD>(
                 operations.AsEnumerable());
 
-
-        public Func<Task> In_ContextSet<TContext>(
-            Func<Task<TContext>> contextConstructor,
-            IEnumerable<Func<TContext, Task>> operations)
+        /// <summary>
+        /// Applies the provided asynchronous operations to an instance of context set type,
+        /// an instance constructed by the provided asynchronous constructor function.
+        /// </summary>
+        public Func<Task> In_ContextSet<TContextSet>(
+            Func<Task<TContextSet>> contextConstructor,
+            IEnumerable<Func<TContextSet, Task>> operations)
         {
             return () => Instances.ContextOperator.In_ContextSet(
                 contextConstructor,

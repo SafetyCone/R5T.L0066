@@ -31,6 +31,29 @@ namespace R5T.L0066
                 operations);
         }
 
+        public Task In_ContextSet<TContextSet>(
+            IEnumerable<Func<TContextSet, Task>> operations)
+            where TContextSet : new()
+        {
+            var contextSet = new TContextSet();
+
+            return this.In_ContextSet<TContextSet>(
+                contextSet,
+                operations);
+        }
+
+        /// <summary>
+        /// Apply provided operations to an instance of the context set type.
+        /// This instance is constructed by a parameterless constructor (thus the context set type must have a parameterless constructor).
+        /// </summary>
+        public Task In_ContextSet<TContextSet>(
+            params Func<TContextSet, Task>[] operations)
+            where TContextSet : new()
+        {
+            return this.In_ContextSet<TContextSet>(
+                operations.AsEnumerable());
+        }
+
         public Task In_ContextSet<TContext>(
             TContext context,
             params Func<TContext, Task>[] operations)
@@ -65,7 +88,7 @@ namespace R5T.L0066
             TContextB contextB,
             IEnumerable<Func<TContextA, TContextB, Task>> contextActions = default)
         {
-            return Instances.ActionOperator.Run_Actions(
+            return Instances.ActionOperator.Run_Actions<TContextA, TContextB>(
                 contextA,
                 contextB,
                 contextActions);

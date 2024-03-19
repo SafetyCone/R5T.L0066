@@ -118,6 +118,33 @@ namespace R5T.L0066
                 contextActions.AsEnumerable());
         }
 
+        public Task In_Context_UsingParameterlessConstructor<TContext>(
+            IEnumerable<Func<TContext, Task>> operations)
+            where TContext : new()
+        {
+            var context = new TContext();
+
+            return this.In_Context(
+                context,
+                operations);
+        }
+
+        public Task In_Context_UsingParameterlessConstructor<TContext>(
+            params Func<TContext, Task>[] operations)
+            where TContext : new()
+            => this.In_Context_UsingParameterlessConstructor(
+                operations.AsEnumerable());
+
+        public Task In_Context<TContext>(
+            IEnumerable<Func<TContext, Task>> operations)
+            where TContext : new()
+            => this.In_Context_UsingParameterlessConstructor(operations);
+
+        public Task In_Context<TContext>(
+            params Func<TContext, Task>[] operations)
+            where TContext : new()
+            => this.In_Context_UsingParameterlessConstructor(operations);
+
         public async Task In_Context<TContext>(
             Task<TContext> gettingContext,
             IEnumerable<Func<TContext, Task>> contextActions)
