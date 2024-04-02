@@ -24,5 +24,11 @@ namespace R5T.L0066
             // Do nothing.
             return Task.CompletedTask;
         }
+
+        public Task DoNothing<T1, T2>(T1 value1, T2 value2)
+        {
+            // Do nothing.
+            return Task.CompletedTask;
+        }
     }
 }

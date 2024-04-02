@@ -208,23 +208,35 @@ namespace R5T.L0066
         /// an instance constructed by the provided asynchronous constructor function.
         /// </summary>
         public Func<Task> In_ContextSet<TContextSet>(
-            Func<Task<TContextSet>> contextConstructor,
+            Func<Task<TContextSet>> contextSetConstructor,
             IEnumerable<Func<TContextSet, Task>> operations)
         {
             return () => Instances.ContextOperator.In_ContextSet(
-                contextConstructor,
+                contextSetConstructor,
                 operations);
         }
 
-        public Func<Task> In_ContextSet<TContext>(
-            Func<Task<TContext>> contextConstructor,
-            params Func<TContext, Task>[] operations)
+        public Func<Task> In_ContextSet<TContextSet>(
+            Func<Task<TContextSet>> contextSetConstructor,
+            params Func<TContextSet, Task>[] operations)
         {
-            return this.In_ContextSet<TContext>(
-                contextConstructor,
+            return this.In_ContextSet<TContextSet>(
+                contextSetConstructor,
                 operations.AsEnumerable());
         }
 
+        public Func<TContextSet, Task> In_ContextSet<TContextSet>(
+            IEnumerable<Func<TContextSet, Task>> operations)
+        {
+            return contextSet => Instances.ActionOperator.Run_Actions(
+                contextSet,
+                operations);
+        }
+
+        public Func<TContextSet, Task> In_ContextSet<TContextSet>(
+            params Func<TContextSet, Task>[] operations)
+            => this.In_ContextSet<TContextSet>(
+                operations.AsEnumerable());
 
         public Func<TContextA, TContextB, Task> In_ContextSet<TContextA, TContextB>(
             IEnumerable<Func<TContextA, TContextB, Task>> operations)

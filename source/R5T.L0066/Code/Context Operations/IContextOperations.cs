@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 using R5T.T0241;
@@ -18,55 +19,130 @@ namespace R5T.L0066
 
         public Action<TContext> If<TContext>(
             bool condition,
-            IEnumerable<Action<TContext>> operations)
+            IEnumerable<Action<TContext>> operationsIfTrue)
         {
-            return context =>
+            if(condition)
             {
-                if (condition)
-                {
-                    Instances.ContextOperator.In_Context(
-                        context,
-                        operations);
-                }
-                // Else, do nothing.
-            };
+                return Instances.ContextOperations.In_Context<TContext>(
+                    operationsIfTrue);
+            }
+            else
+            {
+                return Instances.Actions.DoNothing_Synchronous<TContext>;
+            }   
         }
 
         public Action<TContext> If<TContext>(
             bool condition,
-            params Action<TContext>[] operations)
+            params Action<TContext>[] operationsIfTrue)
         {
             return this.If(
                 condition,
-                operations.AsEnumerable());
+                operationsIfTrue.AsEnumerable());
         }
 
         public Func<TContext, Task> If<TContext>(
             bool condition,
-            IEnumerable<Func<TContext, Task>> operations)
+            IEnumerable<Func<TContext, Task>> operationsIfTrue)
         {
-            return context =>
+            if(condition)
             {
-                if(condition)
-                {
-                    return Instances.ContextOperator.In_Context(
-                        context,
-                        operations);
-                }
-                else
-                {
-                    return Task.CompletedTask;
-                }
-            };
+                return Instances.ContextOperations.In_Context(
+                    operationsIfTrue);
+            }
+            else
+            {
+                return Instances.Actions.DoNothing<TContext>;
+            }
         }
 
         public Func<TContext, Task> If<TContext>(
             bool condition,
-            params Func<TContext, Task>[] operations)
+            params Func<TContext, Task>[] operationsIfTrue)
         {
             return this.If(
                 condition,
-                operations.AsEnumerable());
+                operationsIfTrue.AsEnumerable());
+        }
+
+        public Func<TContext, Task> If<TContext>(
+            bool condition,
+            IEnumerable<Func<TContext, Task>> operationsIfTrue,
+            IEnumerable<Func<TContext, Task>> operationsIfFalse)
+        {
+            if (condition)
+            {
+                return Instances.ContextOperations.In_Context(
+                    operationsIfTrue);
+            }
+            else
+            {
+                return Instances.ContextOperations.In_Context(
+                    operationsIfFalse);
+            }
+        }
+
+        public Func<TContextSet, TContext, Task> If_InContextSetAndContext_TrueOnly<TContextSet, TContext>(
+            bool condition,
+            params Func<TContextSet, TContext, Task>[] operationsIfTrue)
+        {
+            if (condition)
+            {
+                return this.In_ContextSetAndContext(operationsIfTrue);
+            }
+            else
+            {
+                return Instances.Actions.DoNothing<TContextSet, TContext>;
+            }
+        }
+
+        public Func<TContextSet, TContext, Task> If_InContextSetAndContext_TrueAndFalse<TContextSet, TContext>(
+            bool condition,
+            Func<TContextSet, TContext, Task> operationIfTrue,
+            Func<TContextSet, TContext, Task> operationIfFalse)
+        {
+            if (condition)
+            {
+                return operationIfTrue;
+            }
+            else
+            {
+                return operationIfFalse;
+            }
+        }
+
+        public Func<TContextSet, TContext, Task> If_InContextSetAndContext<TContextSet, TContext>(
+            bool condition,
+            Func<TContextSet, TContext, Task> operationIfTrue,
+            Func<TContextSet, TContext, Task> operationIfFalse)
+            => this.If_InContextSetAndContext_TrueAndFalse<TContextSet, TContext>(
+                condition,
+                operationIfTrue,
+                operationIfFalse);
+
+        public Func<TContextSet, TContext, Task> If_InContextSetAndContext<TContextSet, TContext>(
+            bool condition,
+            IEnumerable<Func<TContextSet, TContext, Task>> operationsIfTrue,
+            IEnumerable<Func<TContextSet, TContext, Task>> operationsIfFalse)
+        {
+            if (condition)
+            {
+                return Instances.ContextOperations.In_ContextSetAndContext(
+                    operationsIfTrue);
+            }
+            else
+            {
+                return Instances.ContextOperations.In_ContextSetAndContext(
+                    operationsIfFalse);
+            }
+        }
+
+        public Action<TContext> In_Context<TContext>(
+            IEnumerable<Action<TContext>> operations)
+        {
+            return context => Instances.ContextOperator.In_Context(
+                context,
+                operations);
         }
 
         public Func<TContext, Task> In_Context<TContext>(
@@ -79,10 +155,22 @@ namespace R5T.L0066
 
         public Func<TContext, Task> In_Context<TContext>(
             params Func<TContext, Task>[] operations)
-        {
-            return this.In_Context(
+            => this.In_Context(
                 operations.AsEnumerable());
+
+        public Func<TContextSet, TContext, Task> In_ContextSetAndContext<TContextSet, TContext>(
+            IEnumerable<Func<TContextSet, TContext, Task>> operations)
+        {
+            return (contextSet, context) => Instances.ActionOperator.Run_Actions(
+                contextSet,
+                context,
+                operations);
         }
+
+        public Func<TContextSet, TContext, Task> In_ContextSetAndContext<TContextSet, TContext>(
+            params Func<TContextSet, TContext, Task>[] operations)
+            => this.In_ContextSetAndContext<TContextSet, TContext>(
+                operations.AsEnumerable());
 
         /// <summary>
         /// For use in design-time code construction.

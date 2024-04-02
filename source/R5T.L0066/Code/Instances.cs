@@ -7,6 +7,7 @@ namespace R5T.L0066
     public static class Instances
     {
         public static IActionOperator ActionOperator => L0066.ActionOperator.Instance;
+        public static IActions Actions => L0066.Actions.Instance;
         public static IArrayOperator ArrayOperator => L0066.ArrayOperator.Instance;
         public static IAssemblyFileNameOperator AssemblyFileNameOperator => L0066.AssemblyFileNameOperator.Instance;
         public static IByteEqualityVerifier ByteEqualityVerifier => L0066.ByteEqualityVerifier.Instance;
