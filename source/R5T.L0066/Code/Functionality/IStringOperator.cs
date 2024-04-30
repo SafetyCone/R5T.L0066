@@ -323,6 +323,17 @@ namespace R5T.L0066
             return output;
         }
 
+        public string Format(
+            string template,
+            params object[] objects)
+        {
+            var output = System.String.Format(
+                template,
+                objects);
+
+            return output;
+        }
+
         /// <summary>
         /// Returns the character at the provided index.
         /// </summary>

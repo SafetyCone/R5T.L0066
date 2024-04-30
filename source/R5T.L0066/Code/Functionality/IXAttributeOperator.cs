@@ -43,6 +43,12 @@ namespace R5T.L0066
             return output;
         }
 
+        public string Get_Value(XAttribute attribute)
+        {
+            var output = attribute.Value;
+            return output;
+        }
+
         /// <summary>
         /// A helpfully named wrapper for <see cref="XAttribute.SetValue(object)"/>.
         /// </summary>

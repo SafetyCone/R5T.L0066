@@ -8,6 +8,12 @@ namespace R5T.L0066
     [FunctionalityMarker]
     public partial interface IExceptionMessageOperator : IFunctionalityMarker
     {
+        public string Get_AttributeNotFoundMessage(string attributeName)
+        {
+            var output = $"Attribute '{attributeName}' not found.";
+            return output;
+        }
+
         public string Get_Message_IfMessageIsNull(
             string message,
             string messageIfNull)

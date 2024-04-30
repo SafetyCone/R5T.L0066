@@ -10,10 +10,18 @@ namespace R5T.L0066
     [FunctionalityMarker]
     public partial interface IArrayOperator : IFunctionalityMarker
     {
+        /// <summary>
+        /// Tests if two arrays are equal handling checks for:
+        /// <list type="bullet">
+        /// <item>Does a simple null-check determine equality?</item>
+        /// <item>Are the arrays equal in length?</item>
+        /// <item>Are the elements of each array equal, given the input equality provider.</item>
+        /// </list>
+        /// </summary>
         public bool Are_Equal<T>(
             T[] a,
             T[] b,
-            Func<T, T, bool> equality)
+            Func<T, T, bool> equalityProvider)
         {
             var output = Instances.NullOperator.NullCheckDeterminesEquality_Else(a, b,
                 (a, b) =>
@@ -21,7 +29,7 @@ namespace R5T.L0066
                     var output = true;
 
                     output &= this.Are_Equal_ArrayLength(a, b);
-                    output &= this.Are_Equal_ForeachElement(a, b, equality);
+                    output &= this.Are_Equal_ForeachElement(a, b, equalityProvider);
 
                     return output;
                 });

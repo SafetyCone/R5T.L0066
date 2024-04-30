@@ -189,6 +189,14 @@ namespace R5T.L0066
         }
 
         /// <inheritdoc cref="Write_Lines(string, IEnumerable{string})"/>
+        public Task Write_Lines(
+            string textFilePath,
+            params string[] lines)
+            => this.Write_Lines(
+                textFilePath,
+                lines.AsEnumerable());
+
+        /// <inheritdoc cref="Write_Lines(string, IEnumerable{string})"/>
         public void Write_Lines_Synchronous(
             string textFilePath,
             params string[] lines)

@@ -17,6 +17,9 @@ namespace R5T.L0066
         public static ICommandLineArgumentsOperator CommandLineArgumentsOperator => L0066.CommandLineArgumentsOperator.Instance;
         public static IContextOperations ContextOperations => L0066.ContextOperations.Instance;
         public static IContextOperator ContextOperator => L0066.ContextOperator.Instance;
+        public static IDateOperator DateOperator => L0066.DateOperator.Instance;
+        public static IDateTimeFormats DateTimeFormats => L0066.DateTimeFormats.Instance;
+        public static IDateTimeFormatTemplates DateTimeFormatTemplates => L0066.DateTimeFormatTemplates.Instance;
         public static IDateTimeOperator DateTimeOperator => L0066.DateTimeOperator.Instance;
         public static IDefaultOperator DefaultOperator => L0066.DefaultOperator.Instance;
         public static IDirectoryInfoOperator DirectoryInfoOperator => L0066.DirectoryInfoOperator.Instance;
@@ -25,6 +28,7 @@ namespace R5T.L0066
         public static IDirectorySeparatorOperator DirectorySeparatorOperator => L0066.DirectorySeparatorOperator.Instance;
         public static IDirectorySeparators DirectorySeparators => L0066.DirectorySeparators.Instance;
         public static IDocumentationFileNameOperator DocumentationFileNameOperator => L0066.DocumentationFileNameOperator.Instance;
+        public static IDoubleOperator DoubleOperator => L0066.DoubleOperator.Instance;
         public static IEnumerableOperator EnumerableOperator => L0066.EnumerableOperator.Instance;
         public static IEnumerationOperator EnumerationOperator => L0066.EnumerationOperator.Instance;
         public static IExceptionMessageOperator ExceptionMessageOperator => L0066.ExceptionMessageOperator.Instance;

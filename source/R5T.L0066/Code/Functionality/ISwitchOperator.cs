@@ -8,6 +8,14 @@ namespace R5T.L0066
     [FunctionalityMarker]
     public partial interface ISwitchOperator : IFunctionalityMarker
     {
+        public ArgumentException Get_UnrecognizedSwitchTypeExpression<T>(T value)
+        {
+            var typeName = Instances.TypeOperator.Get_TypeNameOf(value);
+
+            var exception = new ArgumentException($"{typeName} - Unrecognized type.");
+            return exception;
+        }
+
         /// <summary>
         /// <para>Quality-of-life overload for <see cref="Get_UnexpectedEnumerationValueException{TEnum}(TEnum)"/></para>
         /// Produces an exception for use in the default case of a switch statement based on values of the <typeparamref name="TEnum"/> enumeration.

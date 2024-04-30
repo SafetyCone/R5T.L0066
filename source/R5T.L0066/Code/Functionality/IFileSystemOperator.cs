@@ -194,7 +194,8 @@ namespace R5T.L0066
         {
             var output = Directory.EnumerateFiles(
                 directoryPath,
-                searchPattern);
+                searchPattern,
+                SearchOption.TopDirectoryOnly);
 
             return output;
         }
@@ -211,6 +212,44 @@ namespace R5T.L0066
                 searchPattern);
         }
 
+        /// <summary>
+        /// Enumerates child files in the directory and any sub-directories.
+        /// </summary>
+        public IEnumerable<string> Enumerate_DescendantFilePaths(string directoryPath)
+        {
+            var output = Directory.EnumerateFiles(
+                directoryPath,
+                Instances.SearchPatterns.All,
+                SearchOption.AllDirectories);
+
+            return output;
+        }
+
+        /// <inheritdoc cref="Enumerate_ChildFilePaths(string)"/>
+        public IEnumerable<string> Enumerate_DescendantFilePaths_ByFileExtension(
+            string directoryPath,
+            string fileExtension)
+        {
+            var searchPattern = Instances.SearchPatternGenerator.Files_WithExtension(fileExtension);
+
+            return this.Enumerate_DescendantFilePaths(
+                directoryPath,
+                searchPattern);
+        }
+
+        /// <inheritdoc cref="Enumerate_DescendantFilePaths(string)"/>
+        public IEnumerable<string> Enumerate_DescendantFilePaths(
+            string directoryPath,
+            string searchPattern)
+        {
+            var output = Directory.EnumerateFiles(
+                directoryPath,
+                searchPattern,
+                SearchOption.AllDirectories);
+
+            return output;
+        }
+
         /// <inheritdoc cref="Enumerate_ChildXmlFiles"/>
         public IEnumerable<string> Enumerate_XmlFiles(string directoryPath)
         {
@@ -221,6 +260,25 @@ namespace R5T.L0066
         public IEnumerable<string> Enumerate_DllFiles(string directoryPath)
         {
             return this.Enumerate_ChildDllFiles(directoryPath);
+        }
+
+        public IEnumerable<string> Enumerate_ChildDirectoryPaths(
+            string directoryPath,
+            string searchPattern)
+        {
+            var output = Directory.EnumerateDirectories(directoryPath, searchPattern, SearchOption.TopDirectoryOnly);
+            return output;
+        }
+
+        public IEnumerable<string> Enumerate_ChildDirectoryPaths(
+            string directoryPath)
+        {
+            var output = Directory.EnumerateDirectories(
+                directoryPath,
+                Instances.SearchPatterns.All,
+                SearchOption.TopDirectoryOnly);
+
+            return output;
         }
 
         /// <summary>
@@ -288,6 +346,29 @@ namespace R5T.L0066
         public bool Exists_File(string filePath)
         {
             var output = File.Exists(filePath);
+            return output;
+        }
+
+        public string[] Get_ChildDirectoryPaths(
+            string directoryPath,
+            string searchPattern)
+        {
+            var output = Directory.GetDirectories(
+                directoryPath,
+                searchPattern,
+                SearchOption.TopDirectoryOnly);
+
+            return output;
+        }
+
+        public string[] Get_ChildDirectoryPaths(
+            string directoryPath)
+        {
+            var output = Directory.GetDirectories(
+                directoryPath,
+                Instances.SearchPatterns.All,
+                SearchOption.TopDirectoryOnly);
+
             return output;
         }
 

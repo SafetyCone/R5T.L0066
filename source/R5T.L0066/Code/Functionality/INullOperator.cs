@@ -31,6 +31,7 @@ namespace R5T.L0066
             return output;
         }
 
+        /// <inheritdoc cref="NullCheckDeterminesEquality{T}(T, T, out bool)"/>
         public bool NullCheckDeterminesEquality_Else<T>(T a, T b,
             Func<T, T, bool> equality)
             where T : class

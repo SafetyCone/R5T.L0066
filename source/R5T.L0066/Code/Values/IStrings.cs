@@ -115,6 +115,12 @@ namespace R5T.L0066
         /// <inheritdoc cref="Space_Constant"/>
         public string Space => IStrings.Space_Constant;
 
+        /// <inheritdoc cref="StringsDocumentation.ForSlash"/>
+        public const string Slash_Constant = "/";
+
+        /// <inheritdoc cref="Slash_Constant"/>
+        public string Slash => IStrings.Slash_Constant;
+
         /// <inheritdoc cref="StringsDocumentation.ForTab"/>
         public const string Tab_Constant = "\t";
 

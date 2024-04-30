@@ -8,6 +8,17 @@ namespace R5T.L0066
     [FunctionalityMarker]
     public partial interface IDateTimeOperator : IFunctionalityMarker
     {
+        public string Format(
+            DateTime dateTime,
+            string formatTemplate)
+        {
+            var output = Instances.StringOperator.Format(
+                formatTemplate,
+                dateTime);
+
+            return output;
+        }
+
         /// <summary>
 		/// Chooses <see cref="Get_Now_Local"/> as the default.
 		/// </summary>

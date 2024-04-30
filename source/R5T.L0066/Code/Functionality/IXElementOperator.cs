@@ -45,6 +45,23 @@ namespace R5T.L0066
             return attribute;
         }
 
+        public XAttribute Get_Attribute(
+            XElement element,
+            string attributeName)
+        {
+            var hasAttribute = this.Has_Attribute(
+                element,
+                attributeName,
+                out var attribute);
+
+            if (!hasAttribute)
+            {
+                throw Instances.ExceptionOperator.Get_AttributeNotFoundException(attributeName);
+            }
+
+            return attribute;
+        }
+
         public XElement Acquire_Child(
             XElement element,
             string elementName)
@@ -256,6 +273,14 @@ namespace R5T.L0066
             return element.Attributes();
         }
 
+        public XElement Get_ChildElement(
+            XElement element,
+            string childName)
+        {
+            var output = element.Element(childName);
+            return output;
+        }
+
         public XElement[] Get_ChildElements(XElement element)
         {
             var output = this.Enumerate_ChildElements(element)
@@ -431,6 +456,31 @@ namespace R5T.L0066
                     textNode.Remove();
                 }
             }
+        }
+
+        /// <summary>
+        /// Gets the inner text of the element, without any XML tags.
+        /// To get the inner XML of the element (text including XML tags), use <see cref="Get_InnerXml(XElement)"/>.
+        /// </summary>
+        public string Get_Value(XElement element)
+        {
+            var output = element.Value;
+            return output;
+        }
+
+        /// <summary>
+        /// Gets the inner XML of the element (text including XML tags).
+        /// To get the inner text of the element, without any XML tags, use <see cref="Get_Value(XElement)"/>.
+        /// </summary>
+        // Source: https://stackoverflow.com/questions/3793/best-way-to-get-innerxml-of-an-xelement
+        public string Get_InnerXml(XElement element)
+        {
+            using var reader = element.CreateReader();
+
+            reader.MoveToContent();
+
+            var output = reader.ReadInnerXml();
+            return output;
         }
 
         public void Set_Value(XElement element, string value)

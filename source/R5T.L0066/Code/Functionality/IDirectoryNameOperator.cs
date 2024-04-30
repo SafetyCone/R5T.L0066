@@ -72,6 +72,22 @@ namespace R5T.L0066
             return output;
         }
 
+        public string Get_DatedDirectoryName(DateTime date)
+        {
+            var yyyymmdd = Instances.DateOperator.ToString_YYYYMMDD(date);
+
+            // Any YYYYMMDD is already a valid directory name.
+            return yyyymmdd;
+        }
+
+        public string Get_DateTimedDirectoryName(DateTime dateTime)
+        {
+            var yyyymmdd_hhmmss = Instances.DateOperator.ToString_YYYYMMDD_HHMMSS(dateTime);
+
+            // Any yyyymmdd_hhmmss is already a valid directory name.
+            return yyyymmdd_hhmmss;
+        }
+
         /// <summary>
 		/// <para>Returns true if the directory name is *not* the <see cref="IDirectoryNames.CurrentDirectory"/> or <see cref="IDirectoryNames.ParentDirectory"/> name.</para>
 		/// <para><inheritdoc cref="Is_ActualDirectoryName(string)" path="/useful-when"/></para>

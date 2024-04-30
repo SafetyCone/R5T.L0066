@@ -10,6 +10,14 @@ namespace R5T.L0066
     [FunctionalityMarker]
     public partial interface IExceptionOperator : IFunctionalityMarker
     {
+        public Exception Get_AttributeNotFoundException(string attributeName)
+        {
+            var message = Instances.ExceptionMessageOperator.Get_AttributeNotFoundMessage(attributeName);
+
+            var output = new Exception(message);
+            return output;
+        }
+
         public Exception Get_ErrorDataReceivedException(DataReceivedEventArgs eventArgs)
         {
             var exception = new Exception(

@@ -161,6 +161,42 @@ namespace R5T.L0066
             return output;
         }
 
+        /// <summary>
+        /// Clear the list, then add the new values.
+        /// </summary>=
+        public void Replace_Contents_With<T>(
+            IList<T> list,
+            IEnumerable<T> newValues)
+        {
+            list.Clear();
+            list.Add_Range(newValues);
+        }
+
+        /// <inheritdoc cref="Replace_Contents_With{T}(IList{T}, IEnumerable{T})"/>
+        public void Replace_Contents_With<T>(
+            IList<T> list,
+            params T[] newValues)
+            => this.Replace_Contents_With(
+                list,
+                newValues.AsEnumerable());
+
+        /// <inheritdoc cref="Replace_Contents_With{T}(IList{T}, IEnumerable{T})"/>
+        public void Replace_Contents_With<T>(
+            List<T> list,
+            IEnumerable<T> newValues)
+        {
+            list.Clear();
+            list.AddRange(newValues);
+        }
+
+        /// <inheritdoc cref="Replace_Contents_With{T}(IList{T}, IEnumerable{T})"/>
+        public void Replace_Contents_With<T>(
+            List<T> list,
+            params T[] newValues)
+            => this.Replace_Contents_With(
+                list,
+                newValues.AsEnumerable());
+
         public void Verify_EqualCounts<T>(
             IList<T> a,
             IList<T> b)

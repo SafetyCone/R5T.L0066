@@ -14,6 +14,9 @@ namespace R5T.L0066
             return output;
         }
 
+        /// <summary>
+        /// Outputs either <inheritdoc cref="IStrings.True_Lowercase" path="descendant::value"/> or <inheritdoc cref="IStrings.False_Lowercase" path="descendant::value"/>.
+        /// </summary>
         public string ToString_Lower(bool value)
         {
             var representation = value
