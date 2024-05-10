@@ -181,6 +181,10 @@ namespace R5T.L0066
         /// <summary>
         /// Enumerates child files in the directory (not including in any sub-directories).
         /// </summary>
+        /// <remarks>
+        /// Actually enumerates files as they come in (via <see cref="Directory.EnumerateFiles(string)"/>)
+        /// as opposed to waiting to get all directories (as an array via <see cref="Directory.GetFiles(string)"/>).
+        /// </remarks>
         public IEnumerable<string> Enumerate_ChildFilePaths(string directoryPath)
         {
             var output = Directory.EnumerateFiles(directoryPath);
@@ -270,6 +274,13 @@ namespace R5T.L0066
             return output;
         }
 
+        /// <summary>
+        /// Enumerates all child directories of the directory.
+        /// </summary>
+        /// <remarks>
+        /// Actually enumerates directories as they come in (via <see cref="Directory.EnumerateDirectories(string)"/>)
+        /// as opposed to waiting to get all directories (as an array via <see cref="Directory.GetDirectories(string)"/>).
+        /// </remarks>
         public IEnumerable<string> Enumerate_ChildDirectoryPaths(
             string directoryPath)
         {

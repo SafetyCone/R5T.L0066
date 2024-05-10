@@ -137,6 +137,12 @@ namespace R5T.L0066
             return output;
         }
 
+        public int Get_Count<T>(T[] array)
+            => array.Length;
+
+        public int Get_Length<T>(T[] array)
+            => array.Length;
+
         public T Get_SecondFromEnd<T>(T[] array)
         {
             var output = array[^2];

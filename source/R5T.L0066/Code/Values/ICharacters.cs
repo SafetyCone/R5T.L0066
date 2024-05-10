@@ -88,6 +88,12 @@ namespace R5T.L0066
         /// <inheritdoc cref="Space_Constant"/>
         public char Space => ICharacters.Space_Constant;
 
+        /// <inheritdoc cref="CharactersDocumentation.For_Tab"/>
+        public const char Tab_Constant = '\t';
+
+        /// <inheritdoc cref="Tab_Constant"/>
+        public char Tab => ICharacters.Tab_Constant;
+
         /// <inheritdoc cref="CharactersDocumentation.ForUnderscore"/>
         public const char Underscore_Constant = '_';
 

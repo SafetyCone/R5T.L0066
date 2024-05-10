@@ -44,6 +44,7 @@ namespace R5T.L0066
         public static IFileStreamOperator FileStreamOperator => L0066.FileStreamOperator.Instance;
         public static IFileSystemOperator FileSystemOperator => L0066.FileSystemOperator.Instance;
         public static IFunctionOperator FunctionOperator => L0066.FunctionOperator.Instance;
+        public static IHashSetOperator HashSetOperator => L0066.HashSetOperator.Instance;
         public static IIndexOperator IndexOperator => L0066.IndexOperator.Instance;
         public static IIndices Indices => L0066.Indices.Instance;
         public static IIntegers Integers => L0066.Integers.Instance;

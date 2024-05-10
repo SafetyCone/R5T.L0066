@@ -101,6 +101,18 @@ namespace R5T.L0066
             return output;
         }
 
+        public bool Contains_IgnoreCase(
+            string @string,
+            string subString)
+        {
+            var output = this.Contains(
+                @string,
+                subString,
+                StringComparison.InvariantCultureIgnoreCase);
+
+            return output;
+        }
+
         /// <summary>
         /// Converts \r\n and \r to \n.
         /// </summary>

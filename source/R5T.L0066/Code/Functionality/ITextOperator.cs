@@ -25,17 +25,6 @@ namespace R5T.L0066
             return output;
         }
 
-        public string Join_AsSeparatedList<T>(
-            string separator,
-            params T[] values)
-        {
-            var output = this.Join_AsSeparatedList(
-                separator,
-                values.AsEnumerable());
-
-            return output;
-        }
-
         /// <summary>
         /// Chooses <see cref="Join_AsList_CommaSpaceSeparated{T}(IEnumerable{T})"/> as the default.
         /// </summary>
@@ -64,6 +53,43 @@ namespace R5T.L0066
         public string Join_AsList_CommaSpaceSeparated<T>(params T[] values)
         {
             var output = this.Join_AsList_CommaSpaceSeparated(values.AsEnumerable());
+            return output;
+        }
+
+        public string Join_AsSeparatedList<T>(
+            string separator,
+            params T[] values)
+        {
+            var output = this.Join_AsSeparatedList(
+                separator,
+                values.AsEnumerable());
+
+            return output;
+        }
+
+        /// <summary>
+        /// Joins lines using the specified line separator into a single string of text.
+        /// </summary>
+        public string Join_Lines(
+            IEnumerable<string> lines,
+            string lineSeparator)
+        {
+            var output = StringOperator.Instance.Join(
+                lineSeparator,
+                lines);
+
+            return output;
+        }
+
+        /// <summary>
+        /// Joins lines using the <see cref="IStrings.NewLine_ForEnvironment"/> separator into a single string of text.
+        /// </summary>
+        public string Join_Lines(IEnumerable<string> lines)
+        {
+            var output = this.Join_Lines(
+                lines,
+                Instances.Strings.NewLine_ForEnvironment);
+
             return output;
         }
     }
