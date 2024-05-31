@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 
 using R5T.T0132;
 
@@ -8,6 +10,9 @@ namespace R5T.L0066
     [FunctionalityMarker]
     public partial interface IConsoleOperator : IFunctionalityMarker
     {
+        public TextWriter Get_OutputWriter()
+            => Console.Out;
+
         public void Write(char character)
             => Console.Write(character);
 
@@ -21,6 +26,14 @@ namespace R5T.L0066
         {
             this.Write_Line(line);
             this.Write_Line();
+        }
+
+        public void Write_Lines(IEnumerable<string> lines)
+        {
+            foreach (var line in lines)
+            {
+                this.Write_Line(line);
+            }
         }
 
         /// <summary>

@@ -62,6 +62,18 @@ namespace R5T.L0066
             return attribute;
         }
 
+        public string Get_AttributeValue(
+            XElement element,
+            string attributeName)
+        {
+            var attribute = this.Get_Attribute(
+                element,
+                attributeName);
+
+            var output = Instances.XAttributeOperator.Get_Value(attribute);
+            return output;
+        }
+
         public XElement Acquire_Child(
             XElement element,
             string elementName)
@@ -89,6 +101,19 @@ namespace R5T.L0066
             Instances.XContainerOperator.Add_Child(
                 parent,
                 child);
+        }
+
+        /// <summary>
+		/// Creates an <see cref="XElement"/> with the child name, adds it to the parent, and returns the child.
+		/// </summary>
+		/// <returns>The child <see cref="XElement"/>.</returns>
+		public XElement Add_Child(XElement parentElement, string childName)
+        {
+            var child = this.Create_Element_FromName(childName);
+
+            parentElement.Add(child);
+
+            return child;
         }
 
         public void Add_Children(
@@ -273,11 +298,65 @@ namespace R5T.L0066
             return element.Attributes();
         }
 
+        /// <summary>
+        /// Chooses <see cref="Get_ChildElement_ByLocalName(XElement, string)"/> as the default.
+        /// </summary>
         public XElement Get_ChildElement(
             XElement element,
             string childName)
         {
+            var output = this.Get_ChildElement_ByLocalName(
+                element,
+                childName);
+            
+            return output;
+        }
+
+        public XElement Get_ChildElement_ByLocalName(
+            XElement element,
+            string childName)
+        {
+            var output = this.Enumerate_ChildElements(element)
+                .Where_NameIs(childName)
+                .FirstOrDefault();
+
+            return output;
+        }
+
+        /// <summary>
+        /// Requires the namespace node name if the element in a namespace.
+        /// </summary>
+        /// <remarks>
+        /// This is the default behavior of <see cref="XContainer.Element(XName)"/>.
+        /// </remarks>
+        public XElement Get_ChildElement_ByGlobalName(
+            XElement element,
+            string childName)
+        {
             var output = element.Element(childName);
+            return output;
+        }
+
+        public string Get_ChildElementValue(
+            XElement element,
+            string childName)
+        {
+            var childElement = this.Get_ChildElement(
+                element,
+                childName);
+
+            var output = this.Get_Value(childElement);
+            return output;
+        }
+
+        public XElement[] Get_ChildElements(
+            XElement element,
+            string childName)
+        {
+            var output = this.Enumerate_ChildElements(element)
+                .Where_NameIs(childName)
+                .Now();
+
             return output;
         }
 
@@ -352,11 +431,20 @@ namespace R5T.L0066
             return this.Has_Attribute_First(element, attributeName, out attributeOrDefault);
         }
 
-        public bool Has_ChildElements(XElement element)
+        public bool HasChild_Any<TElement>(TElement element, string childName)
+            where TElement : XElement
         {
-            return this.Has_ChildElements(
-                element,
-                out _);
+            // If empty, shortcut.
+            if (!element.HasElements)
+            {
+                return false;
+            }
+
+            var output = element.Elements()
+                .Where(xElement => xElement.Name.LocalName == childName)
+                .Any();
+
+            return output;
         }
 
         public bool Has_ChildElements(
@@ -369,14 +457,63 @@ namespace R5T.L0066
             return output;
         }
 
+        public bool Has_ChildElements(XElement element)
+        {
+            return this.Has_ChildElements(
+                element,
+                out _);
+        }
+
+        public bool HasChildOfChild_Single<TElement>(TElement element,
+            string childName,
+            string grandChildName,
+            out XElement grandChildOrDefault)
+            where TElement : XElement
+        {
+            grandChildOrDefault = element.Elements()
+                .Where_NameIs(childName)
+                .SelectMany(childElement => childElement.Elements()
+                    .Where_NameIs(grandChildName))
+                .SingleOrDefault();
+
+            var output = Instances.DefaultOperator.Is_NotDefault(grandChildOrDefault);
+            return output;
+        }
+
+        public bool HasChildWithChild_Single<TElement>(TElement element,
+            string childName,
+            string grandChildName,
+            out XElement grandChildOrDefault)
+            where TElement : XElement
+        {
+            grandChildOrDefault = element.Elements()
+                .Where_NameIs(childName)
+                .Where(xElement => xElement.HasChild_Any(grandChildName))
+                .SingleOrDefault();
+
+            var output = Instances.DefaultOperator.Is_NotDefault(grandChildOrDefault);
+            return output;
+        }
+
         /// <summary>
         /// Uses the <see cref="XName.LocalName"/> property to avoid the crazed namespace BS.
         /// </summary>
         public bool Is_Name(XElement element, string elementName)
+            => this.Is_LocalName(element, elementName);
+
+        public bool Is_LocalName(XElement element, string elementName)
         {
             var output = element.Name.LocalName == elementName;
             return output;
         }
+
+        public Func<XElement, bool> Get_Is_LocalName(string elementName)
+            => xElement => this.Is_LocalName(
+                xElement,
+                elementName);
+
+        public Func<XElement, bool> Get_Is_Name(string elementName)
+            => this.Get_Is_LocalName(elementName);
 
         /// <inheritdoc cref="Is_Name(XElement, string)"/>
         public bool Name_Is(XElement element, string elementName)
@@ -503,6 +640,25 @@ namespace R5T.L0066
 
             return childElement;
         }
+
+        public async Task<XElement> From_File(
+            string xmlFilePath,
+            LoadOptions loadOptions)
+        {
+            var fileStream = Instances.FileStreamOperator.Open_Read(xmlFilePath);
+
+            var output = await XElement.LoadAsync(
+                fileStream,
+                loadOptions,
+                Instances.CancellationTokens.None);
+
+            return output;
+        }
+
+        public Task<XElement> From_File(string xmlFilePath)
+            => this.From_File(
+                xmlFilePath,
+                LoadOptions.None);
 
         public async Task To_File(
             string xmlFilePath,
@@ -660,8 +816,10 @@ namespace R5T.L0066
 
         public IEnumerable<XElement> Where_NameIs(IEnumerable<XElement> elements, string elementName)
         {
+            var predicate = this.Get_Is_Name(elementName);
+
             var output = elements
-                .Where(element => this.Is_Name(element, elementName))
+                .Where(predicate)
                 ;
 
             return output;

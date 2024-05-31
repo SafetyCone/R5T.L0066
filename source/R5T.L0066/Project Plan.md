@@ -1,8 +1,22 @@
 # R5T.L0066
 Strictly-framework library for general .NET Standard 2.1 functionality. (netstandard2.1 target framework)
 
+
+## Allowed Dependencies
+
+* netstandard2.1: target framework
+* Marker attribute types libraries:
+	* R5T.T0131 - Values
+	* R5T.T0132 - Functions
+	* R5T.T0142 - Types
+	* R5T.T0143 - Markers
+	* R5T.T0156 - Documentations
+	X R5T.T0241 - Context operations (REMOVE!)
+	* R5T.Y0006 - .NET documentations
+
 !!! This library *strictly* depends on only the .NET Standard 2.1 target framework, and NO other dependencies. !!!
 => Well, except for the instance marker attribute type libraries (R5T.{T0131, T0132, T0142)}, and the strictly-platform documentation library for .NET Standard 2.1 (R5T.Y0006).
+
 
 * No strong types.
 * Only .NET Standard 2.1 library types (not type library dependencies, except for instance marker type libraries).

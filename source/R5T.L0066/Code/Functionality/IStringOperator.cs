@@ -198,6 +198,17 @@ namespace R5T.L0066
             return output;
         }
 
+        public bool Equals_CaseInsensitive(
+            string a,
+            string b)
+        {
+            var a_Invariant = this.To_Lower(a);
+            var b_Invariant = this.To_Lower(b);
+
+            var output = a_Invariant == b_Invariant;
+            return output;
+        }
+
         /// <summary>
         /// Robustly returns null or empty for null or empty (respectively).
         /// </summary>
@@ -442,6 +453,14 @@ namespace R5T.L0066
             char character)
         {
             var output = @string.IndexOf(character);
+            return output;
+        }
+
+        public int Get_FirstIndexOf_OrNotFound(
+            string @string,
+            string testString)
+        {
+            var output = @string.IndexOf(testString);
             return output;
         }
 
@@ -859,11 +878,12 @@ namespace R5T.L0066
             return output;
         }
 
+        /// <summary>
+        /// Quality-of-life overload for <see cref="To_Lower(string)"/>.
+        /// </summary>
+        /// <inheritdoc cref="To_Lower(string)" path="/remarks"/>
         public string Lower(string @string)
-        {
-            var output = @string.ToLowerInvariant();
-            return output;
-        }
+            => this.To_Lower(@string);
 
         public IEnumerable<string> Order_Alphabetically(IEnumerable<string> items)
         {
@@ -1018,6 +1038,27 @@ namespace R5T.L0066
             return output;
         }
 
+        public string[] Split_On(
+            string @string,
+            int index)
+        {
+            var firstToken = this.Get_Substring_Upto_Exclusive(
+                index,
+                @string);
+
+            var secondToken = this.Get_Substring_From_Exclusive(
+                index,
+                @string);
+
+            var output = new[]
+            {
+                firstToken,
+                secondToken
+            };
+
+            return output;
+        }
+
         public string[] Split(
             char separator,
             string @string,
@@ -1085,6 +1126,15 @@ namespace R5T.L0066
             var output = @string.Trim();
             return output;
         }
+
+        /// <summary>
+        /// Returns the lowered version of a string.
+        /// </summary>
+        /// <remarks>
+        /// Returns the result of <see cref="String.ToLowerInvariant"/>.
+        /// </remarks>
+        public string To_Lower(string @string)
+            => @string.ToLowerInvariant();
 
         /// <inheritdoc cref="Trim(string)"/>
         public IEnumerable<string> Trim(IEnumerable<string> strings)

@@ -11,7 +11,7 @@ namespace R5T.L0066
     public partial interface IExecutablePathOperator : IFunctionalityMarker
     {
 #pragma warning disable IDE1006 // Naming Styles
-        private static Implementations.IExecutablePathOperator _Implementations => Implementations.ExecutablePathOperator.Instance;
+        public Implementations.IExecutablePathOperator _Implementations => Implementations.ExecutablePathOperator.Instance;
 #pragma warning restore IDE1006 // Naming Styles
 
 

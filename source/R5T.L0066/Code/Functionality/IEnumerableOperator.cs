@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -316,6 +317,9 @@ namespace R5T.L0066
 
             return output;
         }
+
+        public IEnumerable<T> To_Generic<T>(IEnumerable enumerable)
+            => enumerable.Cast<T>();
 
         public IEnumerable<(T, T)> Zip<T>(
             IEnumerable<T> a,

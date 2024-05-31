@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using R5T.T0132;
@@ -44,6 +45,9 @@ namespace R5T.L0066
             return definedTokenCount;
         }
 
+        public int Get_MajorVersion(Version version)
+            => version.Major;
+
         /// <summary>
         /// Returns the value of undefined version properties (which is -1, negative one).
         /// </summary>
@@ -62,6 +66,29 @@ namespace R5T.L0066
 
             // Use not-equal instead of greater than to avoid relying on knowledged that the undefined value is negative one.
             var output = versionPropertyValue != undefinedVersionPropertyValue;
+            return output;
+        }
+
+        public bool Is_MajorVersion(
+            Version version,
+            int targetMajorVersion)
+        {
+            var majorVersion = this.Get_MajorVersion(version);
+
+            var output = majorVersion == targetMajorVersion;
+            return output;
+        }
+
+        public bool Matches_MajorVersion(
+            Version version,
+            Version targetVersion)
+        {
+            var targetMajorVersion = this.Get_MajorVersion(targetVersion);
+
+            var output = this.Is_MajorVersion(
+                version,
+                targetMajorVersion);
+
             return output;
         }
 
@@ -100,6 +127,34 @@ namespace R5T.L0066
                 return outputVersion;
             }
         }
+
+        public Version Parse(string version)
+        {
+            var output = Version.Parse(version);
+            return output;
+        }
+
+        /// <summary>
+        /// The "only" available version must match the major version, and is the highest minor version greater-than or equal-to the target version.
+        /// </summary>
+        public Version Select_AvailableVersion_Only(
+            Version targetVersion,
+            IEnumerable<Version> availableVersions)
+        {
+            var output = availableVersions
+                .Where(version => this.Matches_MajorVersion(
+                    version,
+                    targetVersion)
+                )
+                .OrderByDescending(x => x)
+                .First()
+                ;
+
+            return output;
+        }
+
+        public string ToString(Version version)
+            => version.ToString();
 
         /// <summary>
 		/// Will return X.Y.Z, and will not throw if the version defines fewer tokens.

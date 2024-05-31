@@ -7,6 +7,19 @@ namespace R5T.L0066
 {
     public partial interface IPathOperator
     {
+        public string Get_DestinationDirectoryPath(
+            string directoryPath,
+            string destinationDirectoryPath)
+        {
+            var directoryName = this.Get_DirectoryName(directoryPath);
+
+            var output = this.Get_DirectoryPath(
+                destinationDirectoryPath,
+                directoryName);
+
+            return output;
+        }
+
         public IEnumerable<string> Get_DestinationFilePaths(
             IEnumerable<string> sourceFilePaths,
             string destinationDirectoryPath)

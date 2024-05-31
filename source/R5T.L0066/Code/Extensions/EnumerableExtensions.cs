@@ -33,6 +33,20 @@ namespace System.Linq
             return output;
         }
 
+        /// <inheritdoc cref="R5T.L0066.IEnumerableOperator.Except_First{T}(IEnumerable{T})"/>
+        public static IEnumerable<T> Except_First<T>(this IEnumerable<T> enumerable)
+        {
+            var output = Instances.EnumerableOperator.Except_First(enumerable);
+            return output;
+        }
+
+        /// <inheritdoc cref="R5T.L0066.IEnumerableOperator.Except_First{T}(IEnumerable{T}, int)"/>
+        public static IEnumerable<T> Except_First<T>(this IEnumerable<T> enumerable, int numberOfElements)
+        {
+            var output = Instances.EnumerableOperator.Except_First(enumerable, numberOfElements);
+            return output;
+        }
+
         /// <inheritdoc cref="R5T.L0066.IEnumerableOperator.Except_Last{T}(IEnumerable{T})"/>
         public static IEnumerable<T> Except_Last<T>(this IEnumerable<T> enumerable)
         {

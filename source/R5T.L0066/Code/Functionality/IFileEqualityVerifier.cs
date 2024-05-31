@@ -6,6 +6,9 @@ using R5T.T0132;
 
 namespace R5T.L0066
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [FunctionalityMarker]
     public partial interface IFileEqualityVerifier : IFunctionalityMarker
     {

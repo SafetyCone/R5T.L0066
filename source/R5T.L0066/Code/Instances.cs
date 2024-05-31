@@ -10,6 +10,7 @@ namespace R5T.L0066
         public static IActions Actions => L0066.Actions.Instance;
         public static IArrayOperator ArrayOperator => L0066.ArrayOperator.Instance;
         public static IAssemblyFileNameOperator AssemblyFileNameOperator => L0066.AssemblyFileNameOperator.Instance;
+        public static IAssemblyOperator AssemblyOperator => L0066.AssemblyOperator.Instance;
         public static IByteEqualityVerifier ByteEqualityVerifier => L0066.ByteEqualityVerifier.Instance;
         public static ICancellationTokens CancellationTokens => L0066.CancellationTokens.Instance;
         public static ICharacterOperator CharacterOperator => L0066.CharacterOperator.Instance;
@@ -22,6 +23,7 @@ namespace R5T.L0066
         public static IDateTimeFormatTemplates DateTimeFormatTemplates => L0066.DateTimeFormatTemplates.Instance;
         public static IDateTimeOperator DateTimeOperator => L0066.DateTimeOperator.Instance;
         public static IDefaultOperator DefaultOperator => L0066.DefaultOperator.Instance;
+        public static IDictionaryOperator DictionaryOperator => L0066.DictionaryOperator.Instance;
         public static IDirectoryInfoOperator DirectoryInfoOperator => L0066.DirectoryInfoOperator.Instance;
         public static IDirectoryNameOperator DirectoryNameOperator => L0066.DirectoryNameOperator.Instance;
         public static IDirectoryNames DirectoryNames => L0066.DirectoryNames.Instance;
@@ -29,8 +31,10 @@ namespace R5T.L0066
         public static IDirectorySeparators DirectorySeparators => L0066.DirectorySeparators.Instance;
         public static IDocumentationFileNameOperator DocumentationFileNameOperator => L0066.DocumentationFileNameOperator.Instance;
         public static IDoubleOperator DoubleOperator => L0066.DoubleOperator.Instance;
+        public static IEnvironmentOperator EnvironmentOperator => L0066.EnvironmentOperator.Instance;
         public static IEnumerableOperator EnumerableOperator => L0066.EnumerableOperator.Instance;
         public static IEnumerationOperator EnumerationOperator => L0066.EnumerationOperator.Instance;
+        public static IEnvironmentVariableNames EnvironmentVariableNames => L0066.EnvironmentVariableNames.Instance;
         public static IExceptionMessageOperator ExceptionMessageOperator => L0066.ExceptionMessageOperator.Instance;
         public static IExceptionOperator ExceptionOperator => L0066.ExceptionOperator.Instance;
         public static IExecutablePathOperator ExecutablePathOperator => L0066.ExecutablePathOperator.Instance;
@@ -38,10 +42,12 @@ namespace R5T.L0066
         public static IExitCodes ExitCodes => L0066.ExitCodes.Instance;
         public static IFileExtensionOperator FileExtensionOperator => L0066.FileExtensionOperator.Instance;
         public static IFileExtensions FileExtensions => L0066.FileExtensions.Instance;
+        public static IFileInfoOperator FileInfoOperator => L0066.FileInfoOperator.Instance;
         public static IFileModeOperator FileModeOperator => L0066.FileModeOperator.Instance;
         public static IFileNameOperator FileNameOperator => L0066.FileNameOperator.Instance;
         public static IFileOperator FileOperator => L0066.FileOperator.Instance;
         public static IFileStreamOperator FileStreamOperator => L0066.FileStreamOperator.Instance;
+        public static IFileSystemInfoOperator FileSystemInfoOperator => L0066.FileSystemInfoOperator.Instance;
         public static IFileSystemOperator FileSystemOperator => L0066.FileSystemOperator.Instance;
         public static IFunctionOperator FunctionOperator => L0066.FunctionOperator.Instance;
         public static IHashSetOperator HashSetOperator => L0066.HashSetOperator.Instance;
@@ -57,7 +63,9 @@ namespace R5T.L0066
         public static IPathOperator PathOperator => L0066.PathOperator.Instance;
         public static IPaths Paths => L0066.Paths.Instance;
         public static IPathSeparators PathSeparators => L0066.PathSeparators.Instance;
+        public static IPredicateProvider PredicateProvider => L0066.PredicateProvider.Instance;
         public static IReadOnlyListOperator ReadOnlyListOperator => L0066.ReadOnlyListOperator.Instance;
+        public static IRuntimeOperator RuntimeOperator => L0066.RuntimeOperator.Instance;
         public static ISearchPatternGenerator SearchPatternGenerator => L0066.SearchPatternGenerator.Instance;
         public static ISearchPatterns SearchPatterns => L0066.SearchPatterns.Instance;
         public static ISeeds Seeds => L0066.Seeds.Instance;
@@ -65,6 +73,7 @@ namespace R5T.L0066
         public static IStreamWriterOperator StreamWriterOperator => L0066.StreamWriterOperator.Instance;
         public static IStringOperator StringOperator => L0066.StringOperator.Instance;
         public static IStrings Strings => L0066.Strings.Instance;
+        public static ITextOperator TextOperator => L0066.TextOperator.Instance;
         public static ITypeNameAffixes TypeNameAffixes => L0066.TypeNameAffixes.Instance;
         public static ITypeOperator TypeOperator => L0066.TypeOperator.Instance;
         public static IUriOperator UriOperator => L0066.UriOperator.Instance;
@@ -75,7 +84,9 @@ namespace R5T.L0066
         public static IXContainerOperator XContainerOperator => L0066.XContainerOperator.Instance;
         public static IXDocumentOperator XDocumentOperator => L0066.XDocumentOperator.Instance;
         public static IXElementOperator XElementOperator => L0066.XElementOperator.Instance;
+        public static IXmlOperator XmlOperator => L0066.XmlOperator.Instance;
         public static IXmlTextOperator XmlTextOperator => L0066.XmlTextOperator.Instance;
+        public static IXmlWriterSettingsOperator XmlWriterSettingsOperator => L0066.XmlWriterSettingsOperator.Instance;
         public static IXmlWriterSettingsSets XmlWriterSettingsSets => L0066.XmlWriterSettingsSets.Instance;
         public static IXTextOperator XTextOperator => L0066.XTextOperator.Instance;
     }

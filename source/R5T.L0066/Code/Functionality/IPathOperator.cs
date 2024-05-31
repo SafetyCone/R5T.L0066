@@ -39,12 +39,26 @@ namespace R5T.L0066
         /// <summary>
         /// Returns the standard directory separator (<see cref="IDirectorySeparators.Standard"/>) if no directory separator is found.
         /// </summary>
+        /// <if_no_directory_separator_found>
+        /// If no directory separator is found, the standard directory separator (<see cref="IDirectorySeparators.Standard"/>) is used.
+        /// </if_no_directory_separator_found>
         public char Detect_DirectorySeparator_OrStandard(
             string pathSegment)
         {
             return this.Detect_DirectorySeparator(
                 pathSegment,
                 Instances.DirectorySeparators.Standard);
+        }
+
+        /// <summary>
+        /// Returns the environment-specifid directory separator (<see cref="IDirectorySeparators.Environment"/>) if no directory separator is found in the path.
+        /// </summary>
+        public char Detect_DirectorySeparator_OrEnvironment(
+            string pathSegment)
+        {
+            return this.Detect_DirectorySeparator(
+                pathSegment,
+                Instances.DirectorySeparators.Environment);
         }
 
         public char Detect_DirectorySeparator(
@@ -99,6 +113,9 @@ namespace R5T.L0066
         /// <summary>
         /// Chooses <see cref="Detect_DirectorySeparator_OrStandard(string)"/> as the default.
         /// </summary>
+        /// <remarks>
+        /// <inheritdoc cref="Detect_DirectorySeparator_OrStandard(string)" path="descendant::if_no_directory_separator_found"/>
+        /// </remarks>
         public char Detect_DirectorySeparator(string path)
         {
             return this.Detect_DirectorySeparator_OrStandard(path);
@@ -519,6 +536,24 @@ namespace R5T.L0066
             var directorySeparators = this.Get_DirectorySeparators();
 
             var output = directorySeparators.Contains(character);
+            return output;
+        }
+
+        /// <summary>
+        /// Determines if the path is within the given directory.
+        /// </summary>
+        /// <remarks>
+        /// The concept of "within" is to say that the directory would contain the path.
+        /// </remarks>
+        public bool Is_Within_Directory(
+            string directoryPath,
+            string path)
+        {
+            // For now, just use a simple string comparison. TODO - * Handle relative paths, * Test if this needs improvement.
+            var output = Instances.StringOperator.Contains(
+                path,
+                directoryPath);
+
             return output;
         }
 

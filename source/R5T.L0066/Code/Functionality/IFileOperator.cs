@@ -206,6 +206,30 @@ namespace R5T.L0066
                 lines.AsEnumerable());
         }
 
+        /// <summary>
+		/// Creates a file with nothing in it.
+		/// </summary>
+		public async Task WriteAnEmptyFile(string textFilePath)
+        {
+            FileSystemOperator.Instance.Ensure_DirectoryExists_ForFilePath(textFilePath);
+
+            await this.Write_Text(
+                textFilePath,
+                Instances.Strings.Empty);
+        }
+
+        /// <summary>
+        /// Creates a file with nothing in it.
+        /// </summary>
+        public void WriteAnEmptyFile_Synchronous(string textFilePath)
+        {
+            FileSystemOperator.Instance.Ensure_DirectoryExists_ForFilePath(textFilePath);
+
+            this.Write_Text_Synchronous(
+                textFilePath,
+                Instances.Strings.Empty);
+        }
+
         /// <inheritdoc cref="Write_Lines(string, IEnumerable{string})"/>
         public void Write_Lines_Synchronous(
             string textFilePath,

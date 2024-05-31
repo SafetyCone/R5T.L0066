@@ -8,6 +8,12 @@ namespace R5T.L0066
     [ValuesMarker]
     public partial interface IDirectorySeparators : IValuesMarker
     {
+        /// <inheritdoc cref="IEnvironmentOperator.Get_DirectorySeparator"/>
+        public char Environment => Instances.EnvironmentOperator.Get_DirectorySeparator();
+
+        /// <inheritdoc cref="IEnvironmentOperator.Get_AlternateDirectorySeparator"/>
+        public char Environment_Alternate => Instances.EnvironmentOperator.Get_AlternateDirectorySeparator();
+
         /// <summary>
         /// <para><inheritdoc cref="ICharacters.Slash" path="/summary/descendant::description"/></para>
         /// The non-Windows path directory separator (for Linux and Mac).

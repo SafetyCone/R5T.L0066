@@ -14,6 +14,18 @@ namespace R5T.L0066
 #pragma warning restore IDE1006 // Naming Styles
 
 
+        public OSPlatform[] Get_CanonicalOperatingSystems()
+        {
+            var output = new[]
+            {
+                OSPlatform.Linux,
+                OSPlatform.OSX,
+                OSPlatform.Windows,
+            };
+
+            return output;
+        }
+
         /// <summary>
         /// Get the operating system platform on which code is currently running.
         /// </summary>
@@ -54,6 +66,12 @@ namespace R5T.L0066
         public bool Is_WindowsOSPlatform(OSPlatform oSPlatform)
         {
             var output = OSPlatform.Windows == oSPlatform;
+            return output;
+        }
+
+        public bool Is_Windows()
+        {
+            var output = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
             return output;
         }
 

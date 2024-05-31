@@ -29,11 +29,38 @@ namespace R5T.L0066
             return output;
         }
 
-        public char Get_CurrentPlatformDirectorySeparator()
+        /// <summary>
+        /// Gets the alternate directory separatator used by the current environment.
+        /// (On Windows '/' vs. on non-Windows '\')
+        /// </summary>
+        /// <remarks>
+        /// Returns the result of <see cref="Path.AltDirectorySeparatorChar"/>.
+        /// </remarks>
+        public char Get_EnvironmentAlternateDirectorySeparator()
+        {
+            var output = Path.AltDirectorySeparatorChar;
+            return output;
+        }
+
+        /// <summary>
+        /// Gets the directory separatator used by the current environment.
+        /// (On Windows '\' vs. on non-Windows '/')
+        /// </summary>
+        /// <remarks>
+        /// Returns the result of <see cref="Path.DirectorySeparatorChar"/>.
+        /// </remarks>
+        public char Get_EnvironmentDirectorySeparator()
         {
             var output = Path.DirectorySeparatorChar;
             return output;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public char Get_CurrentPlatformDirectorySeparator()
+            => this.Get_EnvironmentDirectorySeparator();
 
         public char Get_CurrentPlatformAlternateDirectorySeparator()
         {

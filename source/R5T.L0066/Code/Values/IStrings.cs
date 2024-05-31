@@ -16,6 +16,12 @@ namespace R5T.L0066
         /// <inheritdoc cref="Asterix_Constant"/>
         public string Asterix => IStrings.Asterix_Constant;
 
+        /// <inheritdoc cref="StringsDocumentation.ForComma"/>
+        public const string Comma_Constant = ",";
+
+        /// <inheritdoc cref="IStrings.Comma_Constant"/>
+        public string Comma => IStrings.Comma_Constant;
+
         /// <inheritdoc cref="StringsDocumentation.ForCommaSeparatedListSpacedSeparator"/>
         public const string CommaSeparatedListSpacedSeparator_Constant = ", ";
 
@@ -70,6 +76,12 @@ namespace R5T.L0066
         /// <inheritdoc cref="False_Uppercase_Constant"/>
         public string False_Uppercase => IStrings.False_Uppercase_Constant;
 
+        /// <inheritdoc cref="StringsDocumentation.ForHyphen"/>
+        public const string Hyphen_Constant = "-";
+
+        /// <inheritdoc cref="Hyphen_Constant"/>
+        public string Hyphen => IStrings.Hyphen_Constant;
+
         /// <inheritdoc cref="StringsDocumentation.ForNewLine"/>
         public const string NewLine_Constant = "\n";
 
@@ -114,6 +126,12 @@ namespace R5T.L0066
 
         /// <inheritdoc cref="Space_Constant"/>
         public string Space => IStrings.Space_Constant;
+
+        /// <inheritdoc cref="StringsDocumentation.ForSlash"/>
+        public const string Semicolon_Constant = ";";
+
+        /// <inheritdoc cref="Semicolon_Constant"/>
+        public string Semicolon => IStrings.Semicolon_Constant;
 
         /// <inheritdoc cref="StringsDocumentation.ForSlash"/>
         public const string Slash_Constant = "/";

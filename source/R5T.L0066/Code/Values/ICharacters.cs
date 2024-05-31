@@ -99,5 +99,15 @@ namespace R5T.L0066
 
         /// <inheritdoc cref="Underscore_Constant"/>
         public char Underscore => ICharacters.Underscore_Constant;
+
+#pragma warning disable IDE1006 // Naming Styles
+
+        /// <inheritdoc cref="CharactersDocumentation.For_q"/>
+        public const char q_Constant = 'q';
+
+        /// <inheritdoc cref="q_Constant"/>
+        public char q => ICharacters.q_Constant;
+
+#pragma warning restore IDE1006 // Naming Styles
     }
 }

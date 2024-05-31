@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 
 namespace R5T.L0066
@@ -38,8 +40,9 @@ namespace R5T.L0066
 
         /// <summary>
 		/// Ensures the path ends with a directory separator.
-		/// The directory separator is detected within the path.
+		/// The directory separator to use is detected within the path.
 		/// </summary>
+        /// <inheritdoc cref="Make_DirectoryIndicated(string)" path="/remarks"/>
 		public string Ensure_IsDirectoryIndicated(string pathPart)
         {
             var isDirectoryIndicated = this.Is_DirectoryIndicated(pathPart);
@@ -51,6 +54,11 @@ namespace R5T.L0066
 
             return output;
         }
+
+        public IEnumerable<string> Ensure_AreDirectoryIndicated(IEnumerable<string> paths)
+            => paths
+                .Select(this.Ensure_IsDirectoryIndicated)
+                ;
 
         /// <summary>
         /// If a directory separator cannot be detected in the input directory path, use the provided directory separator.
@@ -194,6 +202,9 @@ namespace R5T.L0066
         /// <summary>
 		/// Makes a path directory indicated.
 		/// </summary>
+        /// <remarks>
+        /// <inheritdoc cref="Make_DirectoryIndicated(string, bool)" path="descendant::if_no_directory_separator_found"/>
+        /// </remarks>
 		public string Make_DirectoryIndicated(string path)
         {
             var output = this.Make_DirectoryIndicated(path, true);
@@ -201,9 +212,12 @@ namespace R5T.L0066
         }
 
         /// <summary>
-        /// Detects the directory separator within the path (or errors if a directory separator cannot be detected),
+        /// Detects the directory separator within the path,
         /// then adds or removes the directory separator to the end of the path if the path is not directory indicated.
         /// </summary>
+        /// <remarks>
+        /// <inheritdoc cref="Detect_DirectorySeparator(string)" path="descendant::if_no_directory_separator_found"/>
+        /// </remarks>
         public string Make_DirectoryIndicated(
             string path,
             bool directoryIndicated)
