@@ -46,6 +46,12 @@ namespace R5T.L0066
         /// <inheritdoc cref="Equals_Constant"/>
         public char Equals => ICharacters.Equals_Constant;
 
+        /// <inheritdoc cref="CharactersDocumentation.For_Escape"/>
+        public const char Escape_Constant = '\u001b'; // Hexadecimal for 27.
+
+        /// <inheritdoc cref="Escape_Constant"/>
+        public char Escape => ICharacters.Escape_Constant;
+
         /// <inheritdoc cref="CharactersDocumentation.ForNewLine"/>
         public const char NewLine_Constant = '\n';
 

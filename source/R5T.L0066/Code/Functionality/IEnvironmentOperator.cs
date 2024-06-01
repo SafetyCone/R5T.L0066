@@ -144,6 +144,21 @@ namespace R5T.L0066
         public string Get_SystemAssemblyFilePath()
             => Instances.RuntimeOperator.Get_SystemAssemblyFilePath();
 
+        public string Get_SpecialDirectoryPath(Environment.SpecialFolder specialFolder)
+        {
+            var output = Environment.GetFolderPath(specialFolder);
+            return output;
+        }
+
+        /// <summary>
+        /// Gets the system directory path for the current user.
+        /// </summary>
+        /// <remarks>
+        /// Returns the value for <see cref="Environment.SpecialFolder.UserProfile"/>.
+        /// </remarks>
+        public string Get_UserDirectoryPath()
+            => this.Get_SpecialDirectoryPath(Environment.SpecialFolder.UserProfile);
+
         public bool Is_Windows()
             => Instances.OperatingSystemOperator.Is_Windows();
     }
