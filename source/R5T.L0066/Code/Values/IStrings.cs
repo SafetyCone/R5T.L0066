@@ -103,7 +103,7 @@ namespace R5T.L0066
         /// <inheritdoc cref="NewLine_NonWindows_Constant"/>
         public string NewLine_NonWindows => IStrings.NewLine_NonWindows_Constant;
 
-        /// <inheritdoc cref="StringsDocumentation.ForPeriod"/>
+        /// <inheritdoc cref="StringsDocumentation.For_Period"/>
         public const string Period_Constant = ".";
 
         /// <inheritdoc cref="Period_Constant"/>

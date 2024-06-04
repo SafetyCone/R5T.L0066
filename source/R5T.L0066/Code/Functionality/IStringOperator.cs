@@ -205,7 +205,15 @@ namespace R5T.L0066
             var a_Invariant = this.To_Lower(a);
             var b_Invariant = this.To_Lower(b);
 
-            var output = a_Invariant == b_Invariant;
+            var output = this.Equals_CaseSensitive(a_Invariant, b_Invariant);
+            return output;
+        }
+
+        public bool Equals_CaseSensitive(
+            string a,
+            string b)
+        {
+            var output = a == b;
             return output;
         }
 
@@ -1152,6 +1160,16 @@ namespace R5T.L0066
             params char[] characters)
         {
             var output = @string.Trim(characters);
+            return output;
+        }
+
+        public string Trim_End(
+            string value,
+            params char[] characters)
+        {
+            var output = value.TrimEnd(
+                characters);
+
             return output;
         }
 

@@ -133,5 +133,54 @@ namespace R5T.L0066
             var output = this.Is_CurrentOrParentDirectoryName(directoryName);
             return output;
         }
+
+        /// <summary>
+        /// Chooses <see cref="Is_ValidWindowsDirectoryName(string)"/> as the default.
+        /// </summary>
+        public bool Is_ValidDirectoryName(string directoryName)
+            => this.Is_ValidWindowsDirectoryName(directoryName);
+
+        public bool Is_ValidWindowsDirectoryName(string directoryName)
+        {
+            var invalidCharacters = Instances.PathOperator.Get_InvalidFileNameCharacters();
+
+            var hasInvalidCharacter = Instances.StringOperator.ContainsAny(
+                directoryName,
+                invalidCharacters);
+
+            if (hasInvalidCharacter)
+            {
+                return false;
+            }
+
+            var trimmedDirectoryName = Instances.StringOperator.Trim_End(
+                directoryName,
+                Instances.Characters.Space,
+                Instances.Characters.Period);
+
+            var endsWithInvalidCharacters = trimmedDirectoryName != directoryName;
+            if (endsWithInvalidCharacters)
+            {
+                return false;
+            }
+
+            // Else
+            return true;
+        }
+
+        /// <summary>
+        /// Chooses <see cref="Verify_IsValidWindowsDirectoryName(string)"/> as the default.
+        /// </summary>
+        public void Verify_IsValidDirectoryName(string directoryName)
+            => this.Verify_IsValidWindowsDirectoryName(directoryName);
+
+        public void Verify_IsValidWindowsDirectoryName(string directoryName)
+        {
+            var isValid = this.Is_ValidWindowsDirectoryName(directoryName);
+            if(!isValid)
+            {
+                throw new Exception($"\"{directoryName}\": Invalid Windows directory name");
+            }
+        }
     }
 }
