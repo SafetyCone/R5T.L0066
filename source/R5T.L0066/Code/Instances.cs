@@ -18,6 +18,7 @@ namespace R5T.L0066
         public static ICommandLineArgumentsOperator CommandLineArgumentsOperator => L0066.CommandLineArgumentsOperator.Instance;
         public static IContextOperations ContextOperations => L0066.ContextOperations.Instance;
         public static IContextOperator ContextOperator => L0066.ContextOperator.Instance;
+        public static IConverter Converter => L0066.Converter.Instance;
         public static IDateOperator DateOperator => L0066.DateOperator.Instance;
         public static IDateTimeFormats DateTimeFormats => L0066.DateTimeFormats.Instance;
         public static IDateTimeFormatTemplates DateTimeFormatTemplates => L0066.DateTimeFormatTemplates.Instance;

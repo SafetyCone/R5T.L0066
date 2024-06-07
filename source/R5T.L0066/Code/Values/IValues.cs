@@ -8,6 +8,11 @@ namespace R5T.L0066
     [ValuesMarker]
     public partial interface IValues : IValuesMarker
     {
+#pragma warning disable IDE1006 // Naming Styles
+        public Raw.IValues _Raw => Raw.Values.Instance;
+#pragma warning restore IDE1006 // Naming Styles
+
+
         private static readonly Lazy<byte[]> zByteOrderMark = new Lazy<byte[]>(() => new byte[]
         {
             239,
@@ -75,5 +80,30 @@ namespace R5T.L0066
         /// <para><value>true</value></para>
         /// </summary>
         public bool True => true;
+
+        /// <summary>
+        /// <inheritdoc cref="Raw.IValues._1_000" path="descendant::value[1]"/>
+        /// </summary>
+        public uint Kilo => _Raw._1_000;
+
+        /// <summary>
+        /// <inheritdoc cref="Raw.IValues._1_000_000" path="descendant::value[1]"/>
+        /// </summary>
+        public uint Mega => _Raw._1_000_000;
+
+        /// <summary>
+        /// <inheritdoc cref="Raw.IValues._1_024_x_1_024_x_1_024" path="descendant::value[1]"/>
+        /// </summary>
+        public uint Gibi => _Raw._1_024_x_1_024_x_1_024;
+
+        /// <summary>
+        /// <inheritdoc cref="Raw.IValues._1_000_000_000" path="descendant::value[1]"/>
+        /// </summary>
+        public uint Giga => _Raw._1_000_000_000;
+
+        /// <summary>
+        /// <para><value>C:\</value></para>
+        /// </summary>
+        public const string C_DriveName = @"C:\";
     }
 }

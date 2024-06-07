@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 using R5T.T0132;
@@ -17,6 +18,9 @@ namespace R5T.L0066
         /// <inheritdoc cref="IDirectorySeparatorOperator.Get_EnvironmentDirectorySeparator"/>
         public char Get_DirectorySeparator()
             => Instances.DirectorySeparatorOperator.Get_EnvironmentDirectorySeparator();
+
+        public DriveInfo Get_DriveInformation(string driveName = IValues.C_DriveName)
+            => new DriveInfo(driveName);
 
         /// <summary>
         /// Chooses <see cref="Get_EnvironmentVariable_OrNull(string)"/> as the default.
@@ -82,6 +86,15 @@ namespace R5T.L0066
             var entryPointAssembly = Instances.AssemblyOperator.Get_EntryPointAssembly();
 
             var output = Instances.AssemblyOperator.Get_FilePath(entryPointAssembly);
+            return output;
+        }
+
+        /// <summary>
+        /// Gets the name of the machine on which code is currently executing.
+        /// </summary>
+        public string Get_MachineName()
+        {
+            var output = Environment.MachineName;
             return output;
         }
 
