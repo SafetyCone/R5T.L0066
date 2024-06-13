@@ -79,6 +79,27 @@ namespace System.Linq
             return output;
         }
 
+        public static IEnumerable<T> OrderByNames<T>(this IEnumerable<T> items,
+            Func<T, string> nameSelector,
+            IEnumerable<string> orderedNames)
+        {
+            var output = Instances.OrderOperator.Order_ByNames(
+                items,
+                nameSelector,
+                orderedNames);
+
+            return output;
+        }
+
+        public static IEnumerable<T> OrderByNames<T>(this IEnumerable<T> items,
+            Func<T, string> nameSelector,
+            params string[] orderedNames)
+        {
+            return items.OrderByNames(
+                nameSelector,
+                orderedNames.AsEnumerable());
+        }
+
         public static IEnumerable<T> Prepend<T>(this IEnumerable<T> items,
             IEnumerable<T> prependix)
         {

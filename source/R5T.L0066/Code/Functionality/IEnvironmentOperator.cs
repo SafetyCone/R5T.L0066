@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-
+using System.Security.Cryptography;
 using R5T.T0132;
 
 
@@ -174,5 +174,33 @@ namespace R5T.L0066
 
         public bool Is_Windows()
             => Instances.OperatingSystemOperator.Is_Windows();
+
+        /// <summary>
+        /// Determines if the current machine has the given name.
+        /// </summary>
+        public bool Is_CurrentMachineName(string machineName)
+        {
+            var currentMachineName = this.Get_MachineName();
+
+            var output = currentMachineName == machineName;
+            return output;
+        }
+
+        /// <summary>
+        /// Verifies that the current machine has the given name.
+        /// </summary>
+        /// <remarks>
+        /// Useful for ensuring that some code is only run on a particular machine.
+        /// </remarks>
+        public void Verify_CurrentMachineNameIs(string machineName)
+        {
+            var isMachineName = this.Is_CurrentMachineName(machineName);
+            if (!isMachineName)
+            {
+                var currentMachineName = this.Get_MachineName();
+
+                throw new Exception($"'{currentMachineName}': machine name was not '{machineName}'.");
+            }
+        }
     }
 }

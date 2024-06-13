@@ -1241,7 +1241,7 @@ namespace R5T.L0066
             while (true)
             {
                 bool valueStartsWithBeginning = this.StartsWith(
-                    value,
+                    output,
                     beginning);
 
                 if (valueStartsWithBeginning)

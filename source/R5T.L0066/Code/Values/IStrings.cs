@@ -46,6 +46,12 @@ namespace R5T.L0066
         /// <inheritdoc cref="DoubleSpaces_Constant"/>
         public string DoubleSpaces => IStrings.DoubleSpaces_Constant;
 
+        /// <inheritdoc cref="StringsDocumentation.For_Ellipsis"/>
+        public const string Ellipsis_Constant = "...";
+
+        /// <inheritdoc cref="Ellipsis_Constant"/>
+        public string Ellipsis => IStrings.Ellipsis_Constant;
+
         /// <inheritdoc cref="StringsDocumentation.ForEmpty_Constant"/>
         public const string Empty_Constant = "";
 

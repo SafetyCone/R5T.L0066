@@ -11,6 +11,7 @@ namespace R5T.L0066
         public static IArrayOperator ArrayOperator => L0066.ArrayOperator.Instance;
         public static IAssemblyFileNameOperator AssemblyFileNameOperator => L0066.AssemblyFileNameOperator.Instance;
         public static IAssemblyOperator AssemblyOperator => L0066.AssemblyOperator.Instance;
+        public static IBooleanOperator BooleanOperator => L0066.BooleanOperator.Instance;
         public static IByteEqualityVerifier ByteEqualityVerifier => L0066.ByteEqualityVerifier.Instance;
         public static ICancellationTokens CancellationTokens => L0066.CancellationTokens.Instance;
         public static ICharacterOperator CharacterOperator => L0066.CharacterOperator.Instance;
@@ -58,9 +59,11 @@ namespace R5T.L0066
         public static IListOperator ListOperator => L0066.ListOperator.Instance;
         public static IMessages Messages => L0066.Messages.Instance;
         public static INewLineOperator NewLineOperator => L0066.NewLineOperator.Instance;
+        public static INowOperator NowOperator => L0066.NowOperator.Instance;
         public static INullOperator NullOperator => L0066.NullOperator.Instance;
         public static IObjectOperator ObjectOperator => L0066.ObjectOperator.Instance;
         public static IOperatingSystemOperator OperatingSystemOperator => L0066.OperatingSystemOperator.Instance;
+        public static IOrderOperator OrderOperator => L0066.OrderOperator.Instance;
         public static IPathOperator PathOperator => L0066.PathOperator.Instance;
         public static IPaths Paths => L0066.Paths.Instance;
         public static IPathSeparators PathSeparators => L0066.PathSeparators.Instance;

@@ -15,6 +15,15 @@ using XmlDocumentation = R5T.Y0006.Documentation.ForXml;
 
 namespace R5T.L0066
 {
+    /// <summary>
+    /// Strictly-framework, common, unopinionated <see cref="XElement"/>-related operators.
+    /// </summary>
+    /// <remarks>
+    /// Conventions:
+    /// <list type="bullet">
+    /// <item>All input <see cref="XElement"/> parameters should have the name "element" (not "xElement).</item>
+    /// </list>
+    /// </remarks>
     [FunctionalityMarker]
     public partial interface IXElementOperator : IFunctionalityMarker
     {
@@ -255,6 +264,29 @@ namespace R5T.L0066
             return output;
         }
 
+        public IEnumerable<XElement> Enumerate_Children(
+            XElement element,
+            string childName)
+            => this.Enumerate_Children(element)
+                .Where_NameIs(childName)
+                ;
+
+        public IEnumerable<XElement> Enumerate_ChildrenOfChildren(
+            XElement element,
+            string childName,
+            string grandchildName)
+        {
+            var output = this.Enumerate_Children(
+                element,
+                childName)
+                .SelectMany(childElement => this.Enumerate_Children(
+                    childElement,
+                    grandchildName))
+                ;
+
+            return output;
+        }
+
         public IEnumerable<XNode> Enumerate_ChildNodes(XElement element)
         {
             var output = element.Nodes();
@@ -441,7 +473,7 @@ namespace R5T.L0066
             }
 
             var output = element.Elements()
-                .Where(xElement => xElement.Name.LocalName == childName)
+                .Where(element => element.Name.LocalName == childName)
                 .Any();
 
             return output;
@@ -488,7 +520,7 @@ namespace R5T.L0066
         {
             grandChildOrDefault = element.Elements()
                 .Where_NameIs(childName)
-                .Where(xElement => xElement.HasChild_Any(grandChildName))
+                .Where(element => element.HasChild_Any(grandChildName))
                 .SingleOrDefault();
 
             var output = Instances.DefaultOperator.Is_NotDefault(grandChildOrDefault);
@@ -508,8 +540,8 @@ namespace R5T.L0066
         }
 
         public Func<XElement, bool> Get_Is_LocalName(string elementName)
-            => xElement => this.Is_LocalName(
-                xElement,
+            => element => this.Is_LocalName(
+                element,
                 elementName);
 
         public Func<XElement, bool> Get_Is_Name(string elementName)
@@ -519,6 +551,20 @@ namespace R5T.L0066
         public bool Name_Is(XElement element, string elementName)
         {
             return this.Is_Name(element, elementName);
+        }
+
+        /// <summary>
+        /// Parses the XML text as it is, without changes.
+        /// </summary>
+        public XElement Parse_AsIs(string xmlText)
+        {
+            var loadOptions = LoadOptions.PreserveWhitespace;
+
+            var output = this.Parse(
+                xmlText,
+                loadOptions);
+
+            return output;
         }
 
         public XElement Parse(
@@ -552,20 +598,6 @@ namespace R5T.L0066
         }
 
         /// <summary>
-        /// Parses the XML text as it is, without changes.
-        /// </summary>
-        public XElement Parse_AsIs(string xmlText)
-        {
-            var loadOptions = LoadOptions.PreserveWhitespace;
-
-            var output = this.Parse(
-                xmlText,
-                loadOptions);
-
-            return output;
-        }
-
-        /// <summary>
         /// Clones the input element, then modifies and return the cloned element.
         /// </summary>
         public XElement Remove_InsignificantWhitespace(XElement element)
@@ -593,6 +625,12 @@ namespace R5T.L0066
                     textNode.Remove();
                 }
             }
+        }
+
+        public string Get_Name(XElement element)
+        {
+            var name = element.Name.LocalName;
+            return name;
         }
 
         /// <summary>
@@ -813,6 +851,11 @@ namespace R5T.L0066
             var output = stringBuilder.ToString();
             return output;
         }
+
+        public string To_Text_PrettyPrint(XElement element)
+            => this.To_Text(
+                element,
+                Instances.XmlWriterSettingsSets.Indented);
 
         public IEnumerable<XElement> Where_NameIs(IEnumerable<XElement> elements, string elementName)
         {

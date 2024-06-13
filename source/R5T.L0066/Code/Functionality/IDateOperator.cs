@@ -8,6 +8,41 @@ namespace R5T.L0066
     [FunctionalityMarker]
     public partial interface IDateOperator : IFunctionalityMarker
     {
+        public DateTime Get_Day(DateTime now)
+        {
+            var output = new DateTime(
+                now.Year,
+                now.Month,
+                now.Day);
+
+            return output;
+        }
+
+        public DateTime Get_Today_Local()
+        {
+            var nowLocal = Instances.NowOperator.Get_Now_Local();
+
+            var todayLocal = this.Get_Day(nowLocal);
+            return todayLocal;
+        }
+
+        public DateTime Get_Today_Utc()
+        {
+            var nowUtc = Instances.NowOperator.Get_Now_Utc();
+
+            var todayUtc = this.Get_Day(nowUtc);
+            return todayUtc;
+        }
+
+        /// <summary>
+        /// Chooses <see cref="Get_Today_Local"/> as the default.
+        /// </summary>
+        public DateTime Get_Today()
+        {
+            var today = this.Get_Today_Local();
+            return today;
+        }
+
         public string Get_YYYYMMDDFormatTemplate()
         {
             var yyyyMMddFormatTemplate = $"{{0:{Instances.DateTimeFormats.YYYYMMDD}}}";

@@ -29,5 +29,9 @@ namespace R5T.L0066
 
             return output;
         }
+
+        /// <inheritdoc cref="IEnvironmentOperator.Verify_CurrentMachineNameIs(string)"/>
+        public void Verify_CurrentMachineNameIs(string machineName)
+            => Instances.EnvironmentOperator.Verify_CurrentMachineNameIs(machineName);
     }
 }

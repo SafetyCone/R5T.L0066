@@ -23,6 +23,9 @@ namespace R5T.L0066
             return tokens;
         }
 
+        public Version Get_Default()
+            => new Version();
+
         /// <summary>
 		/// Returns the value of a version property that is defined, but have the default value (which is 0, zero).
 		/// </summary>
