@@ -34,6 +34,54 @@ namespace R5T.L0066
             string directoryPath)
             => this.Clear_Directory_Idempotent(directoryPath);
 
+        /// <summary>
+        /// Copies a directory.
+        /// </summary>
+        /// <remarks>
+        /// It is BONKERS that C# does not have a built-in implementation of copying directories. Wut?!?
+        /// </remarks>
+        public void Copy_Directory(
+            string sourceDirectoryPath,
+            string destinationDirectoryPath,
+            bool recursive = true)
+        {
+            /// Adapted from: https://docs.microsoft.com/en-us/dotnet/standard/io/how-to-copy-directories
+
+            // Get information about the source directory
+            var directory = new DirectoryInfo(sourceDirectoryPath);
+
+            // Check if the source directory exists
+            if (!directory.Exists)
+            {
+                throw new DirectoryNotFoundException($"Source directory not found: {directory.FullName}");
+            }
+
+            // Cache directories before we start copying.
+            DirectoryInfo[] subDirectories = directory.GetDirectories();
+
+            // Create the destination directory
+            Directory.CreateDirectory(destinationDirectoryPath);
+
+            // Get the files in the source directory and copy to the destination directory
+            foreach (FileInfo file in directory.GetFiles())
+            {
+                string targetFilePath = Path.Combine(destinationDirectoryPath, file.Name);
+
+                file.CopyTo(targetFilePath);
+            }
+
+            // If recursive and copying subdirectories, recursively call this method
+            if (recursive)
+            {
+                foreach (DirectoryInfo subDirectory in subDirectories)
+                {
+                    string newDestinationDirectoryPath = Path.Combine(destinationDirectoryPath, subDirectory.Name);
+
+                    this.Copy_Directory(subDirectory.FullName, newDestinationDirectoryPath, true);
+                }
+            }
+        }
+
         public void Copy_File_OverwriteAllowed(
             string sourceFilePath,
             string destinationFilePath)

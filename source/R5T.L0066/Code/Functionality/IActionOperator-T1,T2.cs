@@ -18,6 +18,17 @@ namespace R5T.L0066
                 action);
         }
 
+        public void Run_Action_Synchronous<TValue1, TValue2>(
+            TValue1 value1,
+            TValue2 value2,
+            Action<TValue1, TValue2> action)
+        {
+            this.Run_Action_OkIfDefault_Synchronous<TValue1, TValue2>(
+                value1,
+                value2,
+                action);
+        }
+
         public Task Run_Action_OkIfDefault<TValue1, TValue2>(
             TValue1 value1,
             TValue2 value2,
@@ -29,6 +40,19 @@ namespace R5T.L0066
             }
 
             return action(value1, value2);
+        }
+
+        public void Run_Action_OkIfDefault_Synchronous<TValue1, TValue2>(
+            TValue1 value1,
+            TValue2 value2,
+            Action<TValue1, TValue2> action = default)
+        {
+            if (action == default)
+            {
+                return;
+            }
+
+            action(value1, value2);
         }
 
         public async Task Run_Actions<TValue1, TValue2>(
@@ -45,6 +69,26 @@ namespace R5T.L0066
             foreach (var action in actions)
             {
                 await this.Run_Action<TValue1, TValue2>(
+                    value1,
+                    value2,
+                    action);
+            }
+        }
+
+        public void Run_Actions_Synchronous<TValue1, TValue2>(
+            TValue1 value1,
+            TValue2 value2,
+            IEnumerable<Action<TValue1, TValue2>> actions = default)
+        {
+            var isDefault = Instances.DefaultOperator.Is_Default(actions);
+            if (isDefault)
+            {
+                return;
+            }
+
+            foreach (var action in actions)
+            {
+                this.Run_Action_Synchronous<TValue1, TValue2>(
                     value1,
                     value2,
                     action);

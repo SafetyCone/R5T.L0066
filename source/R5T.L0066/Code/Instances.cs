@@ -78,6 +78,7 @@ namespace R5T.L0066
         public static IStringOperator StringOperator => L0066.StringOperator.Instance;
         public static IStrings Strings => L0066.Strings.Instance;
         public static ITextOperator TextOperator => L0066.TextOperator.Instance;
+        public static ITypeInfoOperator TypeInfoOperator => L0066.TypeInfoOperator.Instance;
         public static ITypeNameAffixes TypeNameAffixes => L0066.TypeNameAffixes.Instance;
         public static ITypeOperator TypeOperator => L0066.TypeOperator.Instance;
         public static IUriOperator UriOperator => L0066.UriOperator.Instance;

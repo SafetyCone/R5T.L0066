@@ -39,6 +39,16 @@ namespace R5T.L0066
             return output;
         }
 
+        public IEnumerable<TValue> Get_Values<TKey, TValue>(
+            IDictionary<TKey, TValue> dictionary,
+            IEnumerable<TKey> keys)
+        {
+            foreach (var key in keys)
+            {
+                yield return dictionary[key];
+            }
+        }
+
         public Dictionary<TKey, TValue> To_Generic<TKey, TValue>(IDictionary dictionary)
             => Instances.EnumerableOperator.To_Generic<TKey>(dictionary.Keys)
                 .ToDictionary(

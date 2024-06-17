@@ -181,6 +181,18 @@ namespace R5T.L0066
             return output;
         }
 
+        public string Get_DirectoryPath_Resolved(
+            string baseDirectoryPath,
+            string directoryName)
+        {
+            var directoryPath_PossiblyUnresolved = this.Get_DirectoryPath(
+                baseDirectoryPath,
+                directoryName);
+
+            var directoryPath = this.Resolve_Path(directoryPath_PossiblyUnresolved);
+            return directoryPath;
+        }
+
         public string Get_DirectoryPath(
             string parentDirectoryPath,
             IEnumerable<string> directoryNames)
