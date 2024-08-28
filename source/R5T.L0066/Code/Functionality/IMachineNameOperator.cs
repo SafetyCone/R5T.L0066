@@ -30,6 +30,42 @@ namespace R5T.L0066
             return output;
         }
 
+        public TValue Get_ValueByMachineName<TValue>(
+            IDictionary<string, TValue> valuesByMachineName,
+            Func<TValue> defaultValueProvider)
+        {
+            var machineName = this.Get_MachineName();
+
+            if (valuesByMachineName.ContainsKey(machineName))
+            {
+                var output = valuesByMachineName[machineName];
+                return output;
+            }
+            else
+            {
+                // Else, assume we are in a non-development environment, and all required files are in the executable directory.
+                var output = defaultValueProvider();
+                return output;
+            }
+        }
+
+        public TOutput Switch_OnMachineName<TOutput>(
+            IDictionary<string, Func<TOutput>> constructorsByMachineName,
+            Func<TOutput> defaultValueProvider)
+        {
+            var machineName = this.Get_MachineName();
+
+            var constructorDefinedForMachineName = constructorsByMachineName.ContainsKey(machineName);
+
+            var constructor = constructorDefinedForMachineName
+                ? constructorsByMachineName[machineName]
+                : defaultValueProvider
+                ;
+
+            var output = constructor();
+            return output;
+        }
+
         /// <inheritdoc cref="IEnvironmentOperator.Verify_CurrentMachineNameIs(string)"/>
         public void Verify_CurrentMachineNameIs(string machineName)
             => Instances.EnvironmentOperator.Verify_CurrentMachineNameIs(machineName);

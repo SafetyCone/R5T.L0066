@@ -175,7 +175,7 @@ namespace R5T.L0066
             return output;
         }
 
-        public DataReceivedEventHandler GetErrorReceivedEventHandler(List<Exception> exceptions)
+        public DataReceivedEventHandler Get_ErrorReceivedEventHandler(List<Exception> exceptions)
         {
             void Internal(object sender, DataReceivedEventArgs eventArgs)
             {
@@ -201,7 +201,7 @@ namespace R5T.L0066
                 command,
                 arguments,
                 receiveOutputData,
-                this.GetErrorReceivedEventHandler(exceptions));
+                this.Get_ErrorReceivedEventHandler(exceptions));
 
             if (exceptions.Any())
             {
@@ -256,7 +256,7 @@ namespace R5T.L0066
                 command,
                 arguments,
                 this.Default_OutputReceivedHandler,
-                this.GetErrorReceivedEventHandler(exceptions));
+                this.Get_ErrorReceivedEventHandler(exceptions));
 
             var isFailure = Instances.ExitCodeOperator.IsFailure(exitCode);
             if (isFailure && exceptions.Any())

@@ -32,6 +32,12 @@ namespace R5T.L0066
             return output;
         }
 
+        public string Get_TypeNameOf<T>()
+        {
+            var output = Instances.TypeOperator.Get_TypeNameOf<T>();
+            return output;
+        }
+
         public string Get_TypeNameOf<T>(T instance)
         {
             var output = Instances.TypeOperator.Get_TypeNameOf(instance);

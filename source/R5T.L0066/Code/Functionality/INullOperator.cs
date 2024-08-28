@@ -103,6 +103,11 @@ namespace R5T.L0066
         public bool Is_Null<T>(T value)
             where T : class
         {
+            // Use "is" instead of:
+            // * == null - Equality operator eventually just uses Object.ReferenceEquals().
+            // * Object.Equals() - Should be Object.ReferenceEquals() instead.
+            // * Object.ReferenceEquals() - IDE0041 message is produced, indicating preference for "is null".
+
             var output = value is null;
             return output;
         }

@@ -61,6 +61,12 @@ namespace R5T.L0066
             return output;
         }
 
+        /// <summary>
+        /// Quality-of-life overload of <see cref="From(string)"/>.
+        /// </summary>
+        public Uri To_Uri(string uriText)
+            => this.From(uriText);
+
         public string UnescapeDataString(string uri)
         {
             var output = Uri.UnescapeDataString(uri);

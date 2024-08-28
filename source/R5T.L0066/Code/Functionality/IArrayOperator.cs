@@ -10,6 +10,24 @@ namespace R5T.L0066
     [FunctionalityMarker]
     public partial interface IArrayOperator : IFunctionalityMarker
     {
+        public T[] Append<T>(
+            T[] array,
+            IEnumerable<T> appendix)
+        {
+            var output = array.AsEnumerable()
+                .Append(appendix)
+                .ToArray();
+
+            return output;
+        }
+
+        public T[] Append<T>(
+            T[] array,
+            params T[] appendix)
+            => this.Append(
+                array,
+                appendix.AsEnumerable());
+
         /// <summary>
         /// Tests if two arrays are equal handling checks for:
         /// <list type="bullet">
@@ -81,6 +99,9 @@ namespace R5T.L0066
             return output;
         }
 
+        /// <summary>
+        /// Produces an empty array of the specified type.
+        /// </summary>
         public T[] Empty<T>()
         {
             return new T[0];

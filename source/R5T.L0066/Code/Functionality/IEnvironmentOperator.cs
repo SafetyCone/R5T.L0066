@@ -98,6 +98,9 @@ namespace R5T.L0066
             return output;
         }
 
+        public string Get_NewLine()
+            => Environment.NewLine;
+
         /// <inheritdoc cref="IRuntimeOperator.Get_RuntimeDirectoryPath"/>
         public string Get_RuntimeDirectoryPath()
             => Instances.RuntimeOperator.Get_RuntimeDirectoryPath();

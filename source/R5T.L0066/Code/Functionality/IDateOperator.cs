@@ -8,6 +8,102 @@ namespace R5T.L0066
     [FunctionalityMarker]
     public partial interface IDateOperator : IFunctionalityMarker
     {
+        public DateTime GetDefault()
+        {
+            var output = default(DateTime);
+            return output;
+        }
+
+        public DateTime GetMaximum()
+        {
+            var output = DateTime.MaxValue;
+            return output;
+        }
+
+        public DateTime GetMinimum()
+        {
+            var output = DateTime.MinValue;
+            return output;
+        }
+
+        public DateTime GetNow_Local()
+        {
+            var output = DateTime.Now;
+            return output;
+        }
+
+        public DateTime GetNow_Utc()
+        {
+            var output = DateTime.UtcNow;
+            return output;
+        }
+
+        /// <summary>
+        /// Chooses <see cref="GetNow_Local"/> as the default.
+        /// </summary>
+        public DateTime GetNow()
+        {
+            var output = this.GetNow_Local();
+            return output;
+        }
+
+        public DateTime From_YYYYMMDD(string yyyymmdd)
+        {
+            var output = Instances.DateTimeOperator.ParseExact(
+                yyyymmdd,
+                Instances.DateTimeFormats.YYYYMMDD);
+
+            return output;
+        }
+
+        public DateTime GetTomorrow(DateTime dateTime)
+        {
+            var tomorrow = dateTime.AddDays(1);
+            return tomorrow;
+        }
+
+        public DateTime GetTomorrow_Local()
+        {
+            var todayLocal = this.Get_Today_Local();
+
+            var tomorrowLocal = this.GetTomorrow(todayLocal);
+            return tomorrowLocal;
+        }
+
+        public DateTime GetTomorrow_Utc()
+        {
+            var todayUtc = this.Get_Today_Utc();
+
+            var tomorrowUtc = this.GetTomorrow(todayUtc);
+            return tomorrowUtc;
+        }
+
+        /// <summary>
+        /// Chooses <see cref="GetTomorrow_Local"/> as the default.
+        /// </summary>
+        public DateTime GetTomorrow()
+        {
+            var tomorrow = this.GetTomorrow_Local();
+            return tomorrow;
+        }
+
+        public DateTime GetToday_Local()
+        {
+            var nowLocal = Instances.DateTimeOperator.Get_Now_Local();
+
+            var todayLocal = this.Get_Day(nowLocal);
+            return todayLocal;
+        }
+
+        /// <summary>
+        /// Chooses <see cref="GetToday_Local"/> as the default.
+        /// </summary>
+        public DateTime GetToday()
+        {
+            var today = this.GetToday_Local();
+            return today;
+        }
+
         public DateTime Get_Day(DateTime now)
         {
             var output = new DateTime(
@@ -34,6 +130,9 @@ namespace R5T.L0066
             return todayUtc;
         }
 
+        public DateTime GetToday_Utc()
+            => this.Get_Today_Utc();
+
         /// <summary>
         /// Chooses <see cref="Get_Today_Local"/> as the default.
         /// </summary>
@@ -49,43 +148,20 @@ namespace R5T.L0066
             return yyyyMMddFormatTemplate;
         }
 
+        public DateTime GetYesterday()
+        {
+            var today = this.GetToday();
+
+            var yesterday = today.AddDays(-1);
+            return yesterday;
+        }
+
         public string ToString_YYYYMMDD(DateTime date)
         {
             var formatTemplate = this.Get_YYYYMMDDFormatTemplate();
 
             var output = Instances.DateTimeOperator.Format(
                 date,
-                formatTemplate);
-
-            return output;
-        }
-
-        /// <summary>
-        /// Chooses <see cref="ToString_YYYYMMDD_HHMMSS_Space(DateTime)"/> as the default.
-        /// </summary>
-        public string ToString_YYYYMMDD_HHMMSS(DateTime dateTime)
-        {
-            var output = this.ToString_YYYYMMDD_HHMMSS_Space(dateTime);
-            return output;
-        }
-
-        public string ToString_YYYYMMDD_HHMMSS_Dash(DateTime dateTime)
-        {
-            var formatTemplate = Instances.DateTimeFormatTemplates.YYYYMMDD_HHMMSS_Dashed;
-
-            var output = Instances.DateTimeOperator.Format(
-                dateTime,
-                formatTemplate);
-
-            return output;
-        }
-
-        public string ToString_YYYYMMDD_HHMMSS_Space(DateTime dateTime)
-        {
-            var formatTemplate = Instances.DateTimeFormatTemplates.YYYYMMDD_HHMMSS;
-
-            var output = Instances.DateTimeOperator.Format(
-                dateTime,
                 formatTemplate);
 
             return output;

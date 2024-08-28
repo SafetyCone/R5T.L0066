@@ -56,11 +56,9 @@ namespace R5T.L0066
         public bool Ensure_IsValidDirectoryName(
             string possibleDirectoryName,
             out string directoryName)
-        {
-            return this.Ensure_IsValidWindowsDirectoryName(
+            => this.Ensure_IsValidWindowsDirectoryName(
                 possibleDirectoryName,
                 out directoryName);
-        }
 
         public string Ensure_IsValidDirectoryName(string possibleDirectoryName)
         {
@@ -82,7 +80,7 @@ namespace R5T.L0066
 
         public string Get_DateTimedDirectoryName(DateTime dateTime)
         {
-            var yyyymmdd_hhmmss = Instances.DateOperator.ToString_YYYYMMDD_HHMMSS(dateTime);
+            var yyyymmdd_hhmmss = Instances.DateTimeOperator.ToString_YYYYMMDD_HHMMSS(dateTime);
 
             // Any yyyymmdd_hhmmss is already a valid directory name.
             return yyyymmdd_hhmmss;

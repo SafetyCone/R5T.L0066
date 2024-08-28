@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
-
+using System.Xml.XPath;
 using R5T.Extensions;
 
 using R5T.T0132;
@@ -303,6 +304,12 @@ namespace R5T.L0066
             return output;
         }
 
+        public IEnumerable<XElement> Enumerate_DescendantElements(XElement element)
+        {
+            var output = element.Descendants();
+            return output;
+        }
+
         public IEnumerable<XNode> Enumerate_DescendantNodes(XElement element)
         {
             var output = element.DescendantNodes();
@@ -445,7 +452,48 @@ namespace R5T.L0066
             return output;
         }
 
-        public bool Has_Attribute_First(XElement element, string attributeName, out XAttribute attributeOrDefault)
+        public XNode Get_FirstChildNode(XElement element)
+        {
+            var hasFirstChildNode = this.Has_FirstChildNode(
+                element,
+                out var firstChildNode_OrDefault);
+
+            if(!hasFirstChildNode)
+            {
+                throw new Exception("Element did not have a first child node.");
+            }
+
+            return firstChildNode_OrDefault;
+        }
+
+        public bool Has_FirstChildNode(
+            XElement element,
+            out XNode firstChildNode_OrDefault)
+        {
+            firstChildNode_OrDefault = this.Enumerate_ChildNodes(element)
+                .FirstOrDefault();
+
+            var output = Instances.DefaultOperator.Is_NotDefault(firstChildNode_OrDefault);
+            return output;
+        }
+
+        public bool Has_FirstDescendantElement_OfName(
+            XElement element,
+            string descendantElementName,
+            out XElement firstDescendantNode_OrDefault)
+        {
+            firstDescendantNode_OrDefault = this.Enumerate_DescendantElements(element)
+                .Where_NameIs(descendantElementName)
+                .FirstOrDefault();
+
+            var output = Instances.DefaultOperator.Is_NotDefault(firstDescendantNode_OrDefault);
+            return output;
+        }
+
+        public bool Has_Attribute_First(
+            XElement element,
+            string attributeName,
+            out XAttribute attributeOrDefault)
         {
             attributeOrDefault = this.Get_Attributes(element)
                 .Where_NameIs(attributeName)
@@ -458,9 +506,12 @@ namespace R5T.L0066
         /// <summary>
         /// Chooses <see cref="Has_Attribute_First(XElement, string, out XAttribute)"/> as the default.
         /// </summary>
-        public bool Has_Attribute(XElement element, string attributeName, out XAttribute attributeOrDefault)
+        public bool Has_Attribute(
+            XElement element,
+            string attributeName,
+            out XAttribute attribute_OrDefault)
         {
-            return this.Has_Attribute_First(element, attributeName, out attributeOrDefault);
+            return this.Has_Attribute_First(element, attributeName, out attribute_OrDefault);
         }
 
         public bool HasChild_Any<TElement>(TElement element, string childName)
@@ -658,6 +709,17 @@ namespace R5T.L0066
             return output;
         }
 
+        public IEnumerable<XElement> SelectElements_ByXPath(
+            XElement element,
+            string xPath)
+            => element.XPathSelectElements(xPath);
+
+        public XElement SelectElement_ByXPath(
+            XElement element,
+            string xPath)
+            => element.XPathSelectElement(
+                xPath);
+
         public void Set_Value(XElement element, string value)
         {
             element.Value = value;
@@ -678,6 +740,22 @@ namespace R5T.L0066
 
             return childElement;
         }
+
+        /// <summary>
+        /// Quality-of-life overload for <see cref="Parse(string, LoadOptions)"/>.
+        /// </summary>
+        public XElement From_Text(
+            string xmlText,
+            LoadOptions loadOptions = LoadOptions.None)
+            => this.Parse(
+                xmlText,
+                loadOptions);
+
+        /// <summary>
+        /// Quality-of-life overload for <see cref="Parse_AsIs(string)"/>.
+        /// </summary>
+        public XElement From_Text_AsIs(string xmlText)
+            => this.Parse_AsIs(xmlText);
 
         public async Task<XElement> From_File(
             string xmlFilePath,
@@ -857,6 +935,22 @@ namespace R5T.L0066
                 element,
                 Instances.XmlWriterSettingsSets.Indented);
 
+        public void Verify_NameIs(
+            XElement element,
+            string name)
+        {
+            var nameIs = this.Name_Is(
+                element,
+                name);
+
+            if(!nameIs)
+            {
+                var actualName = this.Get_Name(element);
+
+                throw new Exception($"Element did not have expected name '{name}'; name was '{actualName}'.");
+            }
+        }
+
         public IEnumerable<XElement> Where_NameIs(IEnumerable<XElement> elements, string elementName)
         {
             var predicate = this.Get_Is_Name(elementName);
@@ -866,6 +960,20 @@ namespace R5T.L0066
                 ;
 
             return output;
+        }
+
+        public void To_Writer_AsIs_Synchronous(
+            TextWriter writer,
+            IEnumerable<XElement> elements)
+        {
+            var texts = elements
+                .Select(this.To_Text_AsIs)
+                ;
+
+            foreach (var text in texts)
+            {
+                writer.WriteLine(text);
+            }
         }
     }
 }

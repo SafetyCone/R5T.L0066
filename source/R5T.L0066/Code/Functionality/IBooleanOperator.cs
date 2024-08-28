@@ -61,6 +61,18 @@ namespace R5T.L0066
             return representation;
         }
 
+        public string To_String_YesNo(bool value)
+            => value
+            ? Instances.Strings.Yes
+            : Instances.Strings.No
+            ;
+
+        public string To_String_SuccessOrFailure(bool value)
+            => value
+            ? Instances.Strings.Success
+            : Instances.Strings.Failure
+            ;
+
         /// <summary>
         /// Toggles true to false, or false to true.
         /// </summary>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using Instances = R5T.L0066.Instances;
 
@@ -137,5 +138,55 @@ namespace System.Linq
 
             return output;
         }
+    }
+}
+
+
+
+namespace R5T.L0066.Extensions
+{
+    public static class EnumerableExtensions
+    {
+        public static bool Any_Duplicates<T>(this IEnumerable<T> enumerable,
+            IEqualityComparer<T> equalityComparer)
+            => Instances.EnumerableOperator.Any_Duplicates(
+                enumerable,
+                equalityComparer);
+
+        public static bool Any_Duplicates<T>(this IEnumerable<T> enumerable)
+            => Instances.EnumerableOperator.Any_Duplicates(
+                enumerable);
+
+        public static IEnumerable<T> AppendRange<T>(this IEnumerable<T> enumerable, Func<IEnumerable<T>> appendix)
+            => Instances.EnumerableOperator.AppendRange(enumerable, appendix);
+
+        public static IEnumerable<T> Enumerate_Duplicates<T>(this IEnumerable<T> enumerable,
+            IEqualityComparer<T> equalityComparer)
+            => Instances.EnumerableOperator.Enumerate_Duplicates(
+                enumerable,
+                equalityComparer);
+
+        public static IEnumerable<T> Enumerate_Duplicates<T>(this IEnumerable<T> enumerable)
+            => Instances.EnumerableOperator.Enumerate_Duplicates(enumerable);
+
+        public static void For_Each<T>(this IEnumerable<T> enumerable,
+            Action<T> action)
+            => Instances.EnumerableOperator.For_Each(enumerable, action);
+
+        public static Task For_Each<T>(this IEnumerable<T> enumerable,
+            Func<T, Task> action)
+            => Instances.EnumerableOperator.For_Each(enumerable, action);
+
+        public static T[] Get_Duplicates<T>(this IEnumerable<T> enumerable,
+            IEqualityComparer<T> equalityComparer)
+            => Instances.EnumerableOperator.Get_Duplicates(
+                enumerable,
+                equalityComparer);
+
+        public static T[] Get_Duplicates<T>(this IEnumerable<T> enumerable)
+            => Instances.EnumerableOperator.Get_Duplicates(enumerable);
+
+        public static Dictionary<TKey, TValue> To_Dictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> pairs)
+            => EnumerableOperator.Instance.ToDictionary(pairs);
     }
 }

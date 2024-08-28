@@ -28,6 +28,14 @@ namespace R5T.L0066
             return exception;
         }
 
+        public ArgumentException Get_DefaultCaseException(string value)
+            => new ArgumentException($"Unrecognized switch value: '{value}'.");
+
+        public ArgumentException Get_DefaultCaseException(
+            string valueA,
+            string valueB)
+            => new ArgumentException($"Unrecognized switch values: '{valueA}', '{valueB}'.");
+
         /// <summary>
         /// Does not take a value, useful for when a type's to-string method uses a switch statement
         /// (so calling the to-string method to get a string representation of the value would result in an infinite loop).

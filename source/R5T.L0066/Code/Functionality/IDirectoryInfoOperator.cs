@@ -107,7 +107,7 @@ namespace R5T.L0066
                 directoryInfo,
                 descendantDirectoryRecursionPredicate);
 
-        public DateTime Get_LastModifiedTime_ForFiles_LocalTime(
+        public DateTime Get_LastModifiedTime_ForFiles_Local(
             DirectoryInfo directoryInfo,
             Func<DirectoryInfo, bool> descendantDirectoryRecursionPredicate)
             => this.Get_LastModifiedFile(
@@ -116,7 +116,7 @@ namespace R5T.L0066
                 // Return the local time.
                 .LastWriteTime;
 
-        public DateTime Get_LastModifiedTime_ForFiles_UtcTime(
+        public DateTime Get_LastModifiedTime_ForFiles_UTC(
             DirectoryInfo directoryInfo,
             Func<DirectoryInfo, bool> descendantDirectoryRecursionPredicate)
             => this.Get_LastModifiedFile(
@@ -126,15 +126,34 @@ namespace R5T.L0066
                 .LastWriteTimeUtc;
 
         /// <remarks>
-        /// Chooses <see cref="Get_LastModifiedTime_ForFiles_LocalTime(DirectoryInfo, Func{DirectoryInfo, bool})"/> as the default.
+        /// Chooses <see cref="Get_LastModifiedTime_ForFiles_Local(DirectoryInfo, Func{DirectoryInfo, bool})"/> as the default.
         /// </remarks>
         public DateTime Get_LastModifiedTime_ForFiles(
             DirectoryInfo directoryInfo,
             Func<DirectoryInfo, bool> descendantDirectoryRecursionPredicate)
-            => this.Get_LastModifiedTime_ForFiles_LocalTime(
+            => this.Get_LastModifiedTime_ForFiles_Local(
                 directoryInfo,
                 descendantDirectoryRecursionPredicate);
 
+        /// <summary>
+        /// Chooses <see cref="Get_LastModifiedTime_ForFilesInDirectory_Local(DirectoryInfo)"/> as the default.
+        /// </summary>
+        public DateTime Get_LastModifiedTime_ForFilesInDirectory(DirectoryInfo directoryInfo)
+            => this.Get_LastModifiedTime_ForFilesInDirectory_Local(directoryInfo);
+
+        public DateTime Get_LastModifiedTime_ForFilesInDirectory_Local(DirectoryInfo directoryInfo)
+            => this.Get_LastModifiedTime_ForFiles_Local(
+                directoryInfo,
+                Instances.FunctionOperator.Return_True);
+
+        public DateTime Get_LastModifiedTime_ForFilesInDirectory_UTC(DirectoryInfo directoryInfo)
+            => this.Get_LastModifiedTime_ForFiles_UTC(
+                directoryInfo,
+                Instances.FunctionOperator.Return_True);
+
+        /// <summary>
+        /// For a directory, get the directory's own last modified time.
+        /// </summary>
         public DateTime Get_LastModifiedTime(DirectoryInfo directoryInfo)
             => Instances.FileSystemInfoOperator.Get_LastModifiedTime(directoryInfo);
 

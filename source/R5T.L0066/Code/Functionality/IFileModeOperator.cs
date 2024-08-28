@@ -18,5 +18,11 @@ namespace R5T.L0066
 
             return output;
         }
+
+        public FileMode Get_FileMode_Overwrite()
+            => this.Get_FileMode(true);
+
+        public FileMode Get_FileMode_DoNotOverwrite()
+            => this.Get_FileMode(false);
     }
 }

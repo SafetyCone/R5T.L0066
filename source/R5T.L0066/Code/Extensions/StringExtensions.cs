@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Runtime.CompilerServices;
 using Instances = R5T.L0066.Instances;
 
 
@@ -42,5 +42,18 @@ namespace R5T.Extensions.Xml
             var output = Instances.XmlTextOperator.StandardizeNewLines(xmlText);
             return output;
         }
+    }
+}
+
+
+namespace R5T.L0066.Extensions
+{
+    public static class StringExtensions
+    {
+        public static string Join_ToString(this IEnumerable<string> strings)
+            => Instances.StringOperator.Join_ToString(strings);
+
+        public static string Join_ToString(this string[] strings)
+            => Instances.StringOperator.Join_ToString(strings);
     }
 }

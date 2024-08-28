@@ -13,10 +13,7 @@ namespace R5T.L0066.Implementations
         /// Returns the value from <see cref="System.Environment.NewLine"/>.
         /// </remarks>
         public string Get_NewLine_ForEnvironment_FromSystem()
-        {
-            var output = Environment.NewLine;
-            return output;
-        }
+            => Instances.EnvironmentOperator.Get_NewLine();
 
         /// <inheritdoc cref="L0066.IStringOperator.Get_NewLine_ForEnvironment" path="/summary"/>
         /// <remarks>

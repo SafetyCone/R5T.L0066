@@ -42,5 +42,14 @@ namespace R5T.L0066
 
             return output;
         }
+
+        public bool Has_AttributeOfType(
+            Type type,
+            string attributeTypeNamespacedTypeName,
+            out CustomAttributeData attribute_OrDefault)
+            => Instances.MemberInfoOperator.Has_AttributeOfType(
+                type,
+                attributeTypeNamespacedTypeName,
+                out attribute_OrDefault);
     }
 }

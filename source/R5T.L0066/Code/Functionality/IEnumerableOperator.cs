@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using R5T.T0132;
 
@@ -15,6 +16,31 @@ namespace R5T.L0066
         private Implementations.IEnumerableOperator _Implementations => Implementations.EnumerableOperator.Instance;
 #pragma warning restore IDE1006 // Naming Styles
 
+
+        public bool Any_Duplicates<T>(
+            IEnumerable<T> enumerable,
+            IEqualityComparer<T> equalityComparer)
+        {
+            var hashSet = new HashSet<T>(equalityComparer);
+
+            foreach (var item in enumerable)
+            {
+                var alreadyExists = hashSet.Contains(item);
+
+                if(alreadyExists)
+                {
+                    return true;
+                }
+            }
+
+            // Else, all are unique.
+            return false;
+        }
+
+        public bool Any_Duplicates<T>(IEnumerable<T> enumerable)
+            => this.Any_Duplicates(
+                enumerable,
+                EqualityComparer<T>.Default);
 
         public IEnumerable<T> Append<T>(
             IEnumerable<T> enumerable,
@@ -47,6 +73,20 @@ namespace R5T.L0066
             return output;
         }
 
+        public IEnumerable<T> Concatenate<T>(IEnumerable<IEnumerable<T>> enumerables)
+        {
+            var output = enumerables
+                .SelectMany(enumerable => enumerable)
+                ;
+
+            return output;
+        }
+
+        public IEnumerable<T> Concatenate<T>(
+            params IEnumerable<T>[] enumerables)
+            => this.Concatenate(
+                enumerables.AsEnumerable());
+
         public bool ContainsAll<T>(
             IEnumerable<T> superset,
             IEnumerable<T> subset)
@@ -74,6 +114,43 @@ namespace R5T.L0066
             var output = array.Contains(item);
             return output;
         }
+
+        public IEnumerable<T> Enumerate_Duplicates<T>(
+            IEnumerable<T> enumerable,
+            IEqualityComparer<T> equalityComparer)
+        {
+            var output = enumerable
+                .GroupBy(
+                    x => x,
+                    equalityComparer)
+                .Where(group => group.Count() > 1)
+                .Select(group => group.Key)
+                ;
+
+            return output;
+        }
+
+        public IEnumerable<T> Enumerate_Duplicates<T>(IEnumerable<T> enumerable)
+            => this.Enumerate_Duplicates(
+                enumerable,
+                EqualityComparer<T>.Default);
+
+        public T[] Get_Duplicates<T>(
+            IEnumerable<T> enumerable,
+            IEqualityComparer<T> equalityComparer)
+        {
+            var output = this.Enumerate_Duplicates(
+                enumerable,
+                equalityComparer)
+                .Now();
+
+            return output;
+        }
+
+        public T[] Get_Duplicates<T>(IEnumerable<T> enumerable)
+            => this.Get_Duplicates(
+                enumerable,
+                EqualityComparer<T>.Default);
 
         public IEnumerable<T> Get_Empty_IfDefault<T>(IEnumerable<T> values = default)
         {
@@ -152,6 +229,22 @@ namespace R5T.L0066
             // Use SkipLast().
             var output = enumerable.SkipLast(numberOfElements);
             return output;
+        }
+
+        public void For_Each<T>(IEnumerable<T> enumerable, Action<T> action)
+        {
+            foreach (var item in enumerable)
+            {
+                action(item);
+            }
+        }
+
+        public async Task For_Each<T>(IEnumerable<T> enumerable, Func<T, Task> action)
+        {
+            foreach (var item in enumerable)
+            {
+                await action(item);
+            }
         }
 
         public IEnumerable<T> From<T>(T instance)
@@ -314,6 +407,21 @@ namespace R5T.L0066
                 enumerable,
                 start,
                 equalityComparer);
+
+            return output;
+        }
+
+        /// <summary>
+        /// Makes a copy of a dictionary.
+        /// </summary>
+        /// <remarks>
+        /// Name is "ToDictionary" instead of "To_Dictionary" in order to match the default LINQ extension method name. 
+        /// </remarks>
+        public Dictionary<TKey, TValue> ToDictionary<TKey, TValue>(IEnumerable<KeyValuePair<TKey, TValue>> pairs)
+        {
+            var output = pairs.ToDictionary(
+                pair => pair.Key,
+                pair => pair.Value);
 
             return output;
         }

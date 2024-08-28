@@ -144,17 +144,55 @@ namespace R5T.L0066
             Version targetVersion,
             IEnumerable<Version> availableVersions)
         {
-            var output = availableVersions
+            var matchingVersions = availableVersions
                 .Where(version => this.Matches_MajorVersion(
                     version,
                     targetVersion)
                 )
+                ;
+
+            var anyMatchingVersions = matchingVersions.Any();
+            if(!anyMatchingVersions)
+            {
+                throw new Exception($"No version matches target version '{targetVersion}'.");
+            };
+
+            var output = matchingVersions
                 .OrderByDescending(x => x)
                 .First()
                 ;
 
             return output;
         }
+
+        /// <summary>
+        /// Determines if a version matching the target version is available.
+        /// Output version is the default if false.
+        /// </summary>
+        public bool Has_AvailableVersion_Only(
+            Version targetVersion,
+            IEnumerable<Version> availableVersions,
+            out Version version)
+        {
+            var matchingVersions = availableVersions
+                .Where(version => this.Matches_MajorVersion(
+                    version,
+                    targetVersion)
+                )
+                ;
+
+            var output = matchingVersions.Any();
+
+            version = matchingVersions
+                .OrderByDescending(x => x)
+                .FirstOrDefault()
+                ;
+
+            return output;
+        }
+
+        public Version Select_LatestVersion(IEnumerable<Version> versions)
+            => versions.Max();
 
         public string ToString(Version version)
             => version.ToString();

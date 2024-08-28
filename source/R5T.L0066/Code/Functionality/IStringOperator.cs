@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Text;
 
 using R5T.T0132;
 
@@ -57,6 +60,19 @@ namespace R5T.L0066
             return output;
         }
 
+        public bool Contains(
+            string @string,
+            string subString,
+            bool ignoreCapitalization)
+            => ignoreCapitalization
+            ? this.Contains_IgnoreCase(
+                @string,
+                subString)
+            : this.Contains_ConsiderCase(
+                @string,
+                subString)
+            ;
+
         public bool ContainsAny(
             string @string,
             string[] searchStrings)
@@ -81,13 +97,23 @@ namespace R5T.L0066
             return wasFound;
         }
 
-        public bool Contains(
+        public bool Contains_ConsiderCase(
             string @string,
             string subString)
         {
             var output = @string.Contains(subString);
             return output;
         }
+
+        /// <summary>
+        /// Chooses <see cref="Contains_ConsiderCase(string, string)"/> as the default.
+        /// </summary>
+        public bool Contains(
+            string @string,
+            string subString)
+            => this.Contains_ConsiderCase(
+                @string,
+                subString);
 
         public bool Contains(
             string @string,
@@ -216,6 +242,16 @@ namespace R5T.L0066
             var output = a == b;
             return output;
         }
+
+        /// <summary>
+        /// A quality-of-life over for <see cref="Equals_CaseSensitive(string, string)"/>.
+        /// </summary>
+        public bool Equals_Exact(
+            string a,
+            string b)
+            => this.Equals_CaseSensitive(
+                a,
+                b);
 
         /// <summary>
         /// Robustly returns null or empty for null or empty (respectively).
@@ -354,7 +390,13 @@ namespace R5T.L0066
             return output;
         }
 
-        public string Format(
+        public string Get_FormatTemplate(string formatString)
+        {
+            var formatTemplate = $"{{0:{formatString}}}";
+            return formatTemplate;
+        }
+
+        public string Format_WithTemplate(
             string template,
             params object[] objects)
         {
@@ -364,6 +406,32 @@ namespace R5T.L0066
 
             return output;
         }
+
+        /// <summary>
+        /// Note: singular.
+        /// </summary>
+        public string Format_WithFormatString(
+            string formatString,
+            object @object)
+        {
+            var formatTemplate = this.Get_FormatTemplate(formatString);
+
+            var output = this.Format_WithTemplate(
+                formatTemplate,
+                @object);
+
+            return output;
+        }
+
+        /// <summary>
+        /// Chooses <see cref="Format_WithTemplate(string, object[])"/> as the default.
+        /// </summary>
+        public string Format(
+            string template,
+            params object[] objects)
+            => this.Format_WithTemplate(
+                template,
+                objects);
 
         /// <summary>
         /// Returns the character at the provided index.
@@ -513,6 +581,16 @@ namespace R5T.L0066
                 .Where(this.Is_NotNullOrEmpty)
                 ;
 
+            return output;
+        }
+
+        public string Get_String(
+            StringBuilder stringBuilder,
+            Action<StringBuilder> modifier)
+        {
+            modifier(stringBuilder);
+
+            var output = stringBuilder.ToString();
             return output;
         }
 
@@ -723,6 +801,35 @@ namespace R5T.L0066
         }
 
         /// <summary>
+        /// Given a string, get the index (zero-based index) of the first digit (0-9),
+        /// or if there is none, not found.
+        /// </summary>
+        public bool Has_IndexOfFirstDigitCharacter(
+            string @string,
+            out int indexOfFirstDigitCharacter_OrNotFound)
+        {
+            var index = 0;
+
+            foreach (var character in @string)
+            {
+                var isDigit = Instances.CharacterOperator.Is_Digit(character);
+                if(isDigit)
+                {
+                    indexOfFirstDigitCharacter_OrNotFound = index;
+
+                    return true;
+                }
+
+                index++;
+            }
+
+            // Else, not found.
+            indexOfFirstDigitCharacter_OrNotFound = Instances.Indices.NotFound;
+
+            return false;
+        }
+
+        /// <summary>
         /// Determines if the input is specifically the <see cref="IStrings.Empty"/> string.
         /// </summary>
         public bool Is_Empty(string value)
@@ -737,14 +844,10 @@ namespace R5T.L0066
         }
 
         public bool Is_Null(string @string)
-        {
-            // Use  instead of:
-            // * == null - Equality operator eventually just uses Object.ReferenceEquals().
-            // * Object.Equals() - Should be Object.ReferenceEquals() instead.
-            // * Object.ReferenceEquals() - IDE0041 message is produced, indicating preference for "is null".
-            var output = @string is null;
-            return output;
-        }
+            => Instances.NullOperator.Is_Null(@string);
+
+        public bool Is_NotNull(string @string)
+            => Instances.NullOperator.Is_NotNull(@string);
 
         public bool Is_NotNullOrEmpty(string @string)
         {
@@ -883,6 +986,18 @@ namespace R5T.L0066
         public string Join_AsList(params char[] characters)
         {
             var output = this.Join_AsList(characters.AsEnumerable());
+            return output;
+        }
+
+        public string Join_ToString(IEnumerable<string> strings)
+        {
+            var output = String.Concat(strings);
+            return output;
+        }
+
+        public string Join_ToString(params string[] strings)
+        {
+            var output = String.Concat(strings);
             return output;
         }
 
@@ -1043,6 +1158,21 @@ namespace R5T.L0066
                 newString,
                 oldStrings);
 
+            return output;
+        }
+
+        public string Serialize_UsingMemoryStream(
+            Action<MemoryStream> memoryStreamAction)
+        {
+            using var memoryStream = Instances.MemoryStreamOperator.Get_New();
+
+            memoryStreamAction(memoryStream);
+
+            Instances.StreamOperator.Seek_Beginnning(memoryStream);
+
+            using var reader = Instances.StreamReaderOperator.Get_New(memoryStream);
+
+            var output = reader.ReadToEnd();
             return output;
         }
 

@@ -714,6 +714,10 @@ namespace R5T.L0066
             => this.Enumerate_ChildDllFiles(directoryPath)
                 .Now();
 
+        public string[] Get_ChildXmlFiles(string directoryPath)
+            => this.Enumerate_ChildXmlFiles(directoryPath)
+                .Now();
+
         /// <summary>
         /// Ensures that all returned directory paths are directory-indicated.
         /// </summary>
@@ -784,12 +788,42 @@ namespace R5T.L0066
             string directoryPath,
             Func<DirectoryInfo, bool> descendantDirectoryRecursionPredicate)
         {
-            var directory = Instances.DirectoryInfoOperator.From(directoryPath);
+            var directoryInfo = Instances.DirectoryInfoOperator.From(directoryPath);
 
             var output = Instances.DirectoryInfoOperator.Get_LastModifiedTime_ForFiles(
-                directory,
+                directoryInfo,
                 descendantDirectoryRecursionPredicate);
 
+            return output;
+        }
+
+        public DateTime Get_LastModifiedTime_ForFiles(
+            string directoryPath,
+            Func<string, bool> descendantDirectoryRecursionPredicate)
+        {
+            var directoryInfo = Instances.DirectoryInfoOperator.From(directoryPath);
+
+            bool DescendantDirectoryRecursionPredicate_Actual(DirectoryInfo directoryInfo)
+            {
+                var directoryPath = Instances.DirectoryInfoOperator.Get_DirectoryPath(directoryInfo);
+
+                var output = descendantDirectoryRecursionPredicate(directoryPath);
+                return output;
+            }
+
+            var output = Instances.DirectoryInfoOperator.Get_LastModifiedTime_ForFiles(
+                directoryInfo,
+                DescendantDirectoryRecursionPredicate_Actual);
+
+            return output;
+        }
+
+        public DateTime Get_LastModifiedTime_ForFilesInDirectory(
+            string directoryPath)
+        {
+            var directory = Instances.DirectoryInfoOperator.From(directoryPath);
+
+            var output = Instances.DirectoryInfoOperator.Get_LastModifiedTime_ForFilesInDirectory(directory);
             return output;
         }
 
@@ -801,9 +835,12 @@ namespace R5T.L0066
             return output;
         }
 
-        public DateTime Get_LastModifiedTime_ForDirectory(string filePath)
+        /// <summary>
+        /// <inheritdoc cref="IDirectoryInfoOperator.Get_LastModifiedTime(DirectoryInfo)" path="/summary"/>
+        /// </summary>
+        public DateTime Get_LastModifiedTime_ForDirectory(string directoryPath)
         {
-            var directory = Instances.DirectoryInfoOperator.From(filePath);
+            var directory = Instances.DirectoryInfoOperator.From(directoryPath);
 
             var output = Instances.DirectoryInfoOperator.Get_LastModifiedTime(directory);
             return output;

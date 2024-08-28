@@ -84,5 +84,10 @@ namespace R5T.L0066
             var unrecognizedEnumerationValueException = this.Get_UnrecognizedEnumerationValueException(enumerationType, unrecognizedValue);
             return unrecognizedEnumerationValueException;
         }
+
+        /// <inheritdoc cref="L0066.ISwitchOperator.Get_DefaultCaseException{TEnum}(TEnum)"/>
+        public Exception Get_DefaultCaseException<TEnum>(TEnum value)
+            where TEnum : Enum
+            => Instances.SwitchOperator.Get_DefaultCaseException(value);
     }
 }

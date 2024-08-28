@@ -78,8 +78,17 @@ namespace R5T.L0066
             return output;
         }
 
+        /// <summary>
+        /// Quality-of-life overload for <see cref="New{T}"/>.
+        /// </summary>
         public HashSet<T> Get_New<T>()
+            => this.New<T>();
+
+        public HashSet<T> New<T>()
             => new HashSet<T>();
+
+        public HashSet<T> New_WithEqualityComparer<T>(IEqualityComparer<T> equalityComparer)
+            => new HashSet<T>(equalityComparer);
 
         public void Remove_Range<T>(HashSet<T> hash, IEnumerable<T> valuesToRemove)
         {

@@ -121,6 +121,12 @@ namespace R5T.L0066
         /// <inheritdoc cref="Pipe_Constant"/>
         public string Pipe => IStrings.Pipe_Constant;
 
+        /// <inheritdoc cref="StringsDocumentation.ForQuestionMark"/>
+        public const string QuestionMark_Constant = "?";
+
+        /// <inheritdoc cref="QuestionMark_Constant"/>
+        public string QuestionMark => IStrings.QuestionMark_Constant;
+
         /// <inheritdoc cref="StringsDocumentation.ForQuote"/>
         public const string Quote_Constant = "\"";
 
@@ -192,5 +198,55 @@ namespace R5T.L0066
         /// Chooses <see cref="True_PascalCase"/> as the default.
         /// </summary>
         public string True => this.True_PascalCase;
+
+        /// <summary>
+        /// <para><value>yes</value></para>
+        /// </summary>
+        public string Yes_Lowercase => "yes";
+
+        /// <summary>
+        /// <para><value>Yes</value></para>
+        /// </summary>
+        public string Yes_PascalCase => "Yes";
+
+        /// <summary>
+        /// <para><value>YES</value></para>
+        /// </summary>
+        public string Yes_UpperCase => "YES";
+
+        /// <summary>
+        /// Chooses <see cref="Yes_UpperCase"/> as the default.
+        /// </summary>
+        public string Yes => this.Yes_UpperCase;
+
+        /// <summary>
+        /// <para><value>no</value></para>
+        /// </summary>
+        public string No_Lowercase => "no";
+
+        /// <summary>
+        /// <para><value>No</value></para>
+        /// </summary>
+        public string No_PascalCase => "No";
+
+        /// <summary>
+        /// <para><value>NO</value></para>
+        /// </summary>
+        public string No_UpperCase => "NO";
+
+        /// <summary>
+        /// Chooses <see cref="No_UpperCase"/> as the default.
+        /// </summary>
+        public string No => this.No_UpperCase;
+
+        /// <summary>
+        /// <para><value>SUCCESS</value></para>
+        /// </summary>
+        public string Success => "SUCCESS";
+
+        /// <summary>
+        /// <para><value>FAILURE</value></para>
+        /// </summary>
+        public string Failure => "FAILURE";
     }
 }

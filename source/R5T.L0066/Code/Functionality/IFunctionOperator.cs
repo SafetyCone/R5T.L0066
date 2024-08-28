@@ -12,6 +12,18 @@ namespace R5T.L0066
     public partial interface IFunctionOperator : IFunctionalityMarker
     {
         /// <summary>
+        /// Get an instance of the function that always returns true.
+        /// </summary>
+        public Func<T, bool> Get_ReturnTrue<T>()
+            => x => true;
+
+        /// <summary>
+        /// The function that, no matter its input, returns true.
+        /// </summary>
+        public bool Return_True<T>(T _)
+            => true;
+
+        /// <summary>
 		/// Chooses <see cref="Run_Function_OkIfDefault{T, TOutput}(T, Func{T, TOutput})"/> as the default.
 		/// </summary>
         public TOutput Run<T, TOutput>(

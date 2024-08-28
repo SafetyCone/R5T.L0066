@@ -16,6 +16,9 @@ namespace R5T.L0066
         public void Write(char character)
             => Console.Write(character);
 
+        public void Write(string @string)
+            => Console.Write(@string);
+
         public void Write_Line()
             => Console.WriteLine();
 

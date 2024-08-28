@@ -32,3 +32,13 @@ namespace System
         }
     }
 }
+
+
+namespace R5T.L0066.Extensions.ForUris
+{
+    public static class StringExtensions
+    {
+        public static Uri To_Uri(this string uriText)
+            => Instances.UriOperator.To_Uri(uriText);
+    }
+}

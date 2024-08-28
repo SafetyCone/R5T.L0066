@@ -28,6 +28,12 @@ namespace R5T.L0066
         /// <inheritdoc cref="CarriageReturn_Constant"/>
         public char CarriageReturn => ICharacters.CarriageReturn_Constant;
 
+        /// <inheritdoc cref="CharactersDocumentation.For_CloseBracket"/>
+        public const char CloseBracket_Constant = ']';
+
+        /// <inheritdoc cref="CloseBracket_Constant"/>
+        public char CloseBracket => ICharacters.CloseBracket_Constant;
+
         /// <inheritdoc cref="CharactersDocumentation.ForColon"/>
         public const char Colon_Constant = ':';
 
@@ -57,6 +63,18 @@ namespace R5T.L0066
 
         /// <inheritdoc cref="NewLine_Constant"/>
         public char NewLine => ICharacters.NewLine_Constant;
+
+        /// <inheritdoc cref="CharactersDocumentation.For_OpenBracket"/>
+        public const char OpenBracket_Constant = '[';
+
+        /// <inheritdoc cref="OpenBracket_Constant"/>
+        public char OpenBracket => ICharacters.OpenBracket_Constant;
+
+        /// <inheritdoc cref="CharactersDocumentation.ForPercent"/>
+        public const char Percent_Constant = '%';
+
+        /// <inheritdoc cref="Percent_Constant"/>
+        public char Percent => ICharacters.Percent_Constant;
 
         /// <inheritdoc cref="CharactersDocumentation.ForPeriod"/>
         public const char Period_Constant = '.';

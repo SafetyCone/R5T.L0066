@@ -6,6 +6,62 @@ namespace R5T.L0066.Extensions
 {
     public static class DictionaryExtensions
     {
+        public static void Add<TKey1, TKey2, TValue>(this IDictionary<TKey1, Dictionary<TKey2, TValue>> dictionaryOfDictionaries,
+            TKey1 key1,
+            TKey2 key2,
+            TValue value,
+            IEqualityComparer<TKey2> key2EqualityComparer)
+            => Instances.DictionaryOperator.Add(
+                dictionaryOfDictionaries,
+                key1,
+                key2,
+                value,
+                key2EqualityComparer);
+
+        public static void Add<TKey1, TKey2, TValue>(this IDictionary<TKey1, Dictionary<TKey2, TValue>> dictionaryOfDictionaries,
+            TKey1 key1,
+            TKey2 key2,
+            TValue value)
+            => Instances.DictionaryOperator.Add(
+                dictionaryOfDictionaries,
+                key1,
+                key2,
+                value);
+
+        public static Dictionary<TKey, TValue> Add_AndReturn<TKey, TValue>(this Dictionary<TKey, TValue> dictionary,
+            TKey key,
+            TValue value)
+            => Instances.DictionaryOperator.Add_AndReturn(
+                dictionary,
+                key,
+                value);
+
+        public static Dictionary<TKey, TValue> Add_AndReturn<TKey, TValue>(this Dictionary<TKey, TValue> dictionary,
+            KeyValuePair<TKey, TValue> pair)
+            => Instances.DictionaryOperator.Add_AndReturn(
+                dictionary,
+                pair);
+
+        public static Dictionary<TKey, TValue> Add_AndReturn<TKey, TValue>(this Dictionary<TKey, TValue> dictionary,
+            IEnumerable<KeyValuePair<TKey, TValue>> pairs)
+            => Instances.DictionaryOperator.Add_AndReturn(
+                dictionary,
+                pairs);
+
+        public static Dictionary<TKey, TValue> Add_AndReturn<TKey, TValue>(this Dictionary<TKey, TValue> dictionary,
+            params KeyValuePair<TKey, TValue>[] pairs)
+            => Instances.DictionaryOperator.Add_AndReturn(
+                dictionary,
+                pairs);
+
+        public static TValue Add_AndReturnValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary,
+            TKey key,
+            TValue value)
+            => Instances.DictionaryOperator.Add_AndReturnValue(
+                dictionary,
+                key,
+                value);
+
         public static void Add_OrReplace<TKey, TValue>(this IDictionary<TKey, TValue> dictionary,
             TKey key,
             TValue value)
@@ -20,6 +76,15 @@ namespace R5T.L0066.Extensions
                 dictionary,
                 pairs);
 
+        /// <inheritdoc cref="L0066.IDictionaryOperator.Add_Value{TKey, TValue}(IDictionary{TKey, List{TValue}}, TKey, TValue)"/>
+        public static void Add_Value<TKey, TValue>(this IDictionary<TKey, List<TValue>> dictionary, TKey key, TValue value)
+        {
+            Instances.DictionaryOperator.Add_Value(
+                dictionary,
+                key,
+                value);
+        }
+
         public static Dictionary<TKey, TValue> Clone<TKey, TValue>(this IDictionary<TKey, TValue> dictionary)
             => Instances.DictionaryOperator.Clone(dictionary);
 
@@ -28,5 +93,14 @@ namespace R5T.L0066.Extensions
             => Instances.DictionaryOperator.Get_Values(
                 dictionary,
                 keys);
+
+        public static bool TryGetValue<TKey1, TKey2, TValue>(this IDictionary<TKey1, Dictionary<TKey2, TValue>> dictionaryOfDictionaries,
+            TKey1 key1,
+            TKey2 key2,
+            out TValue value)
+            => Instances.DictionaryOperator.TryGetValue(dictionaryOfDictionaries,
+                key1,
+                key2,
+                out value);
     }
 }

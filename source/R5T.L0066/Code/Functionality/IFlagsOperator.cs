@@ -9,7 +9,7 @@ namespace R5T.L0066
     public partial interface IFlagsOperator : IFunctionalityMarker
     {
 #pragma warning disable IDE1006 // Naming Styles
-        private Implementations.IFlagsOperator _Implementations => L0066.Implementations.FlagsOperator.Instance;
+        private Implementations.IFlagsOperator _Implementations => Implementations.FlagsOperator.Instance;
 #pragma warning restore IDE1006 // Naming Styles
 
 

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-
+using R5T.L0066.Extensions;
 using R5T.T0132;
 
 
@@ -31,6 +31,16 @@ namespace R5T.L0066
         public IEnumerable<TypeInfo> Enumerate_Types(Assembly assembly)
         {
             return assembly.DefinedTypes;
+        }
+
+        public void ForTypes(
+            Assembly assembly,
+            Func<TypeInfo, bool> typeSelector,
+            Action<TypeInfo> action)
+        {
+            var types = this.Select_Types(assembly, typeSelector);
+
+            types.For_Each(typeInfo => action(typeInfo));
         }
 
         /// <summary>
@@ -63,6 +73,17 @@ namespace R5T.L0066
         public Assembly Get_SystemAssembly()
         {
             var output = typeof(string).Assembly;
+            return output;
+        }
+
+        public IEnumerable<TypeInfo> Select_Types(
+            Assembly assembly,
+            Func<TypeInfo, bool> typeSelector)
+        {
+            var output = assembly.DefinedTypes
+                .Where(typeSelector)
+                ;
+
             return output;
         }
     }
