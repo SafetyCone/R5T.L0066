@@ -48,19 +48,40 @@ namespace R5T.L0066
             return output;
         }
 
+        public T Get_Item_Last<T>(IList<T> list)
+        {
+            var indexOfLast = this.Get_Index_Last(list);
+
+            var output = this.Get_Item(
+                list,
+                indexOfLast);
+
+            return output;
+        }
+
         public int Get_Count<T>(IList<T> list)
         {
             var output = list.Count;
             return output;
         }
 
-        public T Get_Element<T>(
+        public T Get_Item<T>(
             IList<T> list,
             int index)
         {
             var output = list[index];
             return output;
         }
+
+        /// <summary>
+        /// Quality-of-life overload for <see cref="Get_Item{T}(IList{T}, int)"/>.
+        /// </summary>
+        public T Get_Element<T>(
+            IList<T> list,
+            int index)
+            => this.Get_Item(
+                list,
+                index);
 
         public T Get_First<T>(IList<T> list)
         {
@@ -105,16 +126,11 @@ namespace R5T.L0066
             return output;
         }
 
+        /// <summary>
+        /// Quality-of-life overload for <see cref="Get_Item_Last{T}(IList{T})"/>.
+        /// </summary>
         public T Get_Last<T>(IList<T> list)
-        {
-            var lastIndex = this.Get_LastIndex(list);
-
-            var output = this.Get_Element(
-                list,
-                lastIndex);
-
-            return output;
-        }
+            => this.Get_Item_Last(list);
 
         public T Get_Last<T>(IReadOnlyList<T> list)
         {
@@ -122,13 +138,19 @@ namespace R5T.L0066
             return output;
         }
 
-        public int Get_LastIndex<T>(IList<T> list)
+        public int Get_Index_Last<T>(IList<T> list)
         {
             var count = this.Get_Count(list);
 
             var output = Instances.IndexOperator.Get_IndexFromCount(count);
             return output;
         }
+
+        /// <summary>
+        /// Quality-of-life overload for <see cref="Get_Index_Last{T}(IList{T})"/>.
+        /// </summary>
+        public int Get_LastIndex<T>(IList<T> list)
+            => this.Get_Index_Last(list);
 
         public T Get_Nth<T>(IList<T> list, int n)
         {

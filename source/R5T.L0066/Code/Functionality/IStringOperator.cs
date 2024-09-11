@@ -524,6 +524,51 @@ namespace R5T.L0066
             return indexOfOrNotFound;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Needed in addition to <see cref="IListOperator.Get_Index_Last{T}(IList{T})"/>, since <see cref="string"/> does not implement <see cref="IList{T}"/>.
+        /// </remarks>
+        public int Get_Index_Last(string @string)
+        {
+            var length = this.Get_Length(@string);
+
+            var output = Instances.IndexOperator.Get_LastIndexFromLength(length);
+            return output;
+        }
+
+        public char Get_Character_First(string @string)
+        {
+            var output = this.Get_Character(
+                @string,
+                Instances.Indices.Zero);
+
+            return output;
+        }
+
+        public char Get_Character_Last(
+            string @string,
+            int indexOfLast)
+        {
+            var output = this.Get_Character(
+                @string,
+                indexOfLast);
+
+            return output;
+        }
+
+        public char Get_Character_Last(string @string)
+        {
+            var indexOfLast = this.Get_Index_Last(@string);
+
+            var output = this.Get_Character_Last(
+                @string,
+                indexOfLast);
+
+            return output;
+        }
+
         public int Get_IndexOf_OrNotFound(
             string @string,
             char character)
@@ -556,6 +601,66 @@ namespace R5T.L0066
             var output = _Internal.Get_Length_Unchecked(@string);
             return output;
         }
+
+        public bool Length_IsAtLeast(
+            string @string,
+            int length)
+        {
+            var length_OfString = this.Get_Length(@string);
+
+            var output = length >= length_OfString;
+            return output;
+        }
+
+        public bool Length_IsGreaterThan(
+            string @string,
+            int length)
+        {
+            var length_OfString = this.Get_Length(@string);
+
+            var output = length_OfString > length;
+            return output;
+        }
+
+        public bool Length_IsLessThan(
+            string @string,
+            int length)
+        {
+            var length_OfString = this.Get_Length(@string);
+
+            var output = length_OfString < length;
+            return output;
+        }
+
+        /// <summary>
+        /// Quality-of-life overload for <see cref="Length_IsAtLeast(string, int)"/> 
+        /// </summary>
+        public bool Is_Length_AtLeast(
+            string @string,
+            int length)
+            => this.Length_IsAtLeast(
+                @string,
+                length);
+
+        /// <summary>
+        /// Quality-of-life overload for <see cref="Length_IsGreaterThan(string, int)"/> 
+        /// </summary>
+        public bool Is_Length_GreaterThan(
+            string @string,
+            int length)
+            => this.Length_IsGreaterThan(
+                @string,
+                length);
+
+        /// <summary>
+        /// Quality-of-life overload for <see cref="Length_IsGreaterThan(string, int)"/> 
+        /// </summary>
+        public bool Is_Length_LessThan(
+            string @string,
+            int length)
+            => this.Length_IsLessThan(
+                @string,
+                length);
 
         /// <summary>
         /// Gets the new line string for the currently executing environment.

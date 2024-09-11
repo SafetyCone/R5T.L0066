@@ -332,6 +332,14 @@ namespace R5T.L0066
             return output;
         }
 
+        public IEnumerable<T> OrderAlphabetically<T>(
+            IEnumerable<T> items,
+            Func<T, string> keySelector)
+        {
+            var output = items.OrderBy(keySelector);
+            return output;
+        }
+
         public IEnumerable<T> Prepend<T>(
             IEnumerable<T> items,
             IEnumerable<T> prependix)

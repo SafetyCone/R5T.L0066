@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+
 using Instances = R5T.L0066.Instances;
 
 
@@ -50,6 +50,18 @@ namespace R5T.L0066.Extensions
 {
     public static class StringExtensions
     {
+        public static char Get_Character_First(this string @string)
+            => Instances.StringOperator.Get_Character_First(@string);
+
+        public static char Get_Character_Last(this string @string)
+            => Instances.StringOperator.Get_Character_Last(@string);
+
+        public static char Get_Character_Last(this string @string,
+            int indexOfLast)
+            => Instances.StringOperator.Get_Character_Last(
+                @string,
+                indexOfLast);
+
         public static string Join_ToString(this IEnumerable<string> strings)
             => Instances.StringOperator.Join_ToString(strings);
 

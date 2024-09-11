@@ -629,6 +629,28 @@ namespace R5T.L0066
             return output;
         }
 
+        /// <summary>
+        /// Quality-of-life overload for <see cref="New()"/>.
+        /// </summary>
+        public XElement Get_New()
+            => this.New();
+
+        /// <summary>
+        /// Quality-of-life overload for <see cref="New(string)"/>.
+        /// </summary>
+        public XElement Get_New(string elementName)
+            => this.New(elementName);
+
+        /// <summary>
+        /// Constructs a new <see cref="XElement"/> using the default XElement name (<see cref="IValues.Default_XElementName"/>).
+        /// XElements cannot be constructed without a name, but you can change the name after construction.
+        /// You might want to just construct an element, then set its name (as in this method).
+        /// The default name is used to allow this.
+        /// </summary>
+        public XElement New()
+            => new XElement(
+                Instances.Values.Default_XElementName);
+
         public XElement New(string elementName)
         {
             var output = new XElement(elementName);
@@ -695,6 +717,12 @@ namespace R5T.L0066
         }
 
         /// <summary>
+        /// Quality-of-life overload for <see cref="XElement"/>
+        /// </summary>
+        public string Get_InnerText(XElement element)
+            => this.Get_Value(element);
+
+        /// <summary>
         /// Gets the inner XML of the element (text including XML tags).
         /// To get the inner text of the element, without any XML tags, use <see cref="Get_Value(XElement)"/>.
         /// </summary>
@@ -719,6 +747,11 @@ namespace R5T.L0066
             string xPath)
             => element.XPathSelectElement(
                 xPath);
+
+        public void Set_Name(
+            XElement element,
+            string name)
+            => element.Name = name;
 
         public void Set_Value(XElement element, string value)
         {
@@ -776,6 +809,9 @@ namespace R5T.L0066
                 xmlFilePath,
                 LoadOptions.None);
 
+        /// <summary>
+        /// Writes an <see cref="XElement"/> to a file, using the provided <see cref="XmlWriterSettings"/>.
+        /// </summary>
         public async Task To_File(
             string xmlFilePath,
             XElement element,
@@ -802,6 +838,42 @@ namespace R5T.L0066
             element.WriteTo(xmlWriter);
         }
 
+        /// <summary>
+        /// Quality-of-life overload for <see cref="To_File(string, XElement)"/>.
+        /// <para><inheritdoc cref="To_File(string, XElement)" path="descendant::summary-base"/></para>
+        /// </summary>
+        public Task Save(
+            string xmlFilePath,
+            XElement element)
+            => this.To_File(
+                xmlFilePath,
+                element);
+
+        /// <summary>
+        /// Quality-of-life overload for <see cref="To_File(string, XElement)"/>.
+        /// <para><inheritdoc cref="To_File(string, XElement)" path="descendant::summary-base"/></para>
+        /// </summary>
+        public Task Serialize_ToFile(
+            string xmlFilePath,
+            XElement element)
+            => this.To_File(
+                xmlFilePath,
+                element);
+
+        /// <summary>
+        /// Quality-of-life overload for <see cref="To_File_AsIs(string, XElement)"/>.
+        /// <para><description><summary-base><inheritdoc cref="To_File_AsIs(string, XElement)" path="/summary"/></summary-base></description></para>
+        /// </summary>
+        public Task To_File(
+            string xmlFilePath,
+            XElement element)
+            => this.To_File_AsIs(
+                xmlFilePath,
+                element);
+
+        /// <summary>
+        /// Writes an <see cref="XElement"/> to a file using the "as-is" XML writer settings (<see cref="IXmlWriterSettingsSets.AsIs"/>).
+        /// </summary>
         public Task To_File_AsIs(
             string xmlFilePath,
             XElement element)

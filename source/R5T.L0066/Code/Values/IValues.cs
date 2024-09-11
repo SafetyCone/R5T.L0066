@@ -12,6 +12,7 @@ namespace R5T.L0066
         public Raw.IValues _Raw => Raw.Values.Instance;
 #pragma warning restore IDE1006 // Naming Styles
 
+        #region Static
 
         private static readonly Lazy<byte[]> zByteOrderMark = new Lazy<byte[]>(() => new byte[]
         {
@@ -19,6 +20,20 @@ namespace R5T.L0066
             187,
             191
         });
+
+        #endregion
+
+
+        /// <summary>
+        /// <inheritdoc cref="Raw.IValues.DEFAULT" path="descendant::value"/>
+        /// </summary>
+        /// <remarks>
+        /// <see cref="System.Xml.Linq.XElement"/>s cannot be constructed without a name,
+        /// but you can change the element's name after construction.
+        /// You might want to just construct an element, and then set its name.
+        /// This value is used by <see cref="IXElementOperator.New()"/> to do this.
+        /// </remarks>
+        public string Default_XElementName => _Raw.DEFAULT;
 
         /// <summary>
         /// The byte-order-mark is a series of three bytes:

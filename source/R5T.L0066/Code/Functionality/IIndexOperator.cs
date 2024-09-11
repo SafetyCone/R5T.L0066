@@ -84,6 +84,12 @@ namespace R5T.L0066
             return output;
         }
 
+        public int Get_LastIndexFromLength(int length)
+        {
+            var output = length - 1;
+            return output;
+        }
+
         /// <summary>
         /// If you have a list with a known length, and an index within that list, if you reverse the list, what would be the new index?
         /// </summary>

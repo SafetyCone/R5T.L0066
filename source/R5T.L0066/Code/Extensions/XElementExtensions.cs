@@ -70,3 +70,19 @@ namespace R5T.Extensions
         }
     }
 }
+
+namespace R5T.L0066.Extensions
+{
+    public static class XElementExtensions
+    {
+        public static XElement Set_Name(this XElement element,
+            string name)
+        {
+            Instances.XElementOperator.Set_Name(
+                element,
+                name);
+
+            return element;
+        }
+    }
+}

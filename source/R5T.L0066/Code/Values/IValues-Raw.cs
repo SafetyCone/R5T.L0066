@@ -47,5 +47,10 @@ namespace R5T.L0066.Raw
         /// <para><value>1,024 * 1,024 * 1,024</value></para>
         /// </summary>
         public uint _1_024_x_1_024_x_1_024 => 1024 * 1024 * 1024;
+
+        /// <summary>
+        /// <para><value>DEFAULT</value></para>
+        /// </summary>
+        public string DEFAULT => "DEFAULT";
     }
 }

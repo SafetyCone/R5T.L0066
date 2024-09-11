@@ -12,6 +12,12 @@ namespace R5T.L0066
     [FunctionalityMarker]
     public partial interface ICharacterOperator : IFunctionalityMarker
     {
+        public char Capitalize(char character)
+        {
+            var output = Char.ToUpperInvariant(character);
+            return output;
+        }
+
         /// <summary>
         /// <inheritdoc cref="Y0006.Glossary.ForCharacterClasses.Whitespace" path="/definition"/>
         /// </summary>

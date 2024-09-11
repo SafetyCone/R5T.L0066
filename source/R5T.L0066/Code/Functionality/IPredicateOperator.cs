@@ -10,6 +10,12 @@ namespace R5T.L0066
     [FunctionalityMarker]
     public partial interface IPredicateOperator : IFunctionalityMarker
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Short-circuiting.
+        /// </remarks>
         public Func<T, bool> And<T>(
             IEnumerable<Func<T, bool>> predicates)
         {
@@ -35,6 +41,12 @@ namespace R5T.L0066
             params Func<T, bool>[] predicates)
             => this.And(predicates.AsEnumerable());
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Short-circuiting.
+        /// </remarks>
         public Func<T, bool> Or<T>(
             IEnumerable<Func<T, bool>> predicates)
         {
@@ -69,5 +81,22 @@ namespace R5T.L0066
             T input,
             params Func<T, bool>[] predicates)
             => this.And(predicates)(input);
+
+        /// <summary>
+        /// Returns a typed predicates value instance (<see cref="IPredicates{T}"/>).
+        /// </summary>
+        public IPredicates<T> For<T>()
+            => Predicates<T>.Instance;
+
+        public Func<T, bool> Get_Where<T, TValue>(
+            Func<T, TValue> valueSelector,
+            Func<TValue, bool> valuePredicate)
+            => obj =>
+            {
+                var value = valueSelector(obj);
+
+                var output = valuePredicate(value);
+                return output;
+            };
     }
 }

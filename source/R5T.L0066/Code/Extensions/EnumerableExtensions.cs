@@ -80,6 +80,13 @@ namespace System.Linq
             return output;
         }
 
+        public static IEnumerable<T> OrderAlphabeticallyBy<T>(this IEnumerable<T> items,
+            Func<T, string> keySelector)
+        {
+            var output = Instances.EnumerableOperator.OrderAlphabetically(items, keySelector);
+            return output;
+        }
+
         public static IEnumerable<T> OrderByNames<T>(this IEnumerable<T> items,
             Func<T, string> nameSelector,
             IEnumerable<string> orderedNames)
@@ -142,7 +149,6 @@ namespace System.Linq
 }
 
 
-
 namespace R5T.L0066.Extensions
 {
     public static class EnumerableExtensions
@@ -185,6 +191,13 @@ namespace R5T.L0066.Extensions
 
         public static T[] Get_Duplicates<T>(this IEnumerable<T> enumerable)
             => Instances.EnumerableOperator.Get_Duplicates(enumerable);
+
+        public static IEnumerable<T> OrderAlphabetically_By<T>(this IEnumerable<T> items,
+            Func<T, string> keySelector)
+        {
+            var output = Instances.EnumerableOperator.OrderAlphabetically(items, keySelector);
+            return output;
+        }
 
         public static Dictionary<TKey, TValue> To_Dictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> pairs)
             => EnumerableOperator.Instance.ToDictionary(pairs);
