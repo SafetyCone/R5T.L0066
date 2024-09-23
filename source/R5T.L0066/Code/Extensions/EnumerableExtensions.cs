@@ -163,6 +163,14 @@ namespace R5T.L0066.Extensions
             => Instances.EnumerableOperator.Any_Duplicates(
                 enumerable);
 
+        public static IEnumerable<T> Append_If<T>(this IEnumerable<T> enumerable,
+            bool value,
+            Func<IEnumerable<T>> appendix_Provider)
+            => Instances.EnumerableOperator.Append_If(
+                enumerable,
+                value,
+                appendix_Provider);
+
         public static IEnumerable<T> AppendRange<T>(this IEnumerable<T> enumerable, Func<IEnumerable<T>> appendix)
             => Instances.EnumerableOperator.AppendRange(enumerable, appendix);
 

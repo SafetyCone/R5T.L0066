@@ -41,6 +41,14 @@ namespace R5T.L0066
             return output;
         }
 
+        public bool Has_AttributeOfType(
+            MemberInfo memberInfo,
+            string attributeNamespacedTypeName)
+            => this.Has_AttributeOfType(
+                memberInfo,
+                attributeNamespacedTypeName,
+                out _);
+
         public bool Has_DeclaringType(
             MemberInfo memberInfo,
             out Type declaringType)
@@ -113,6 +121,9 @@ namespace R5T.L0066
 
             return hasObsoleteAttribute;
         }
+
+        public bool Is_Public(MethodInfo methodInfo)
+            => methodInfo.IsPublic;
 
         public bool Is_TypeInfo(
             MemberInfo memberInfo,

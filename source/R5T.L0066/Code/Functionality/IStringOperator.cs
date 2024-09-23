@@ -175,6 +175,29 @@ namespace R5T.L0066
             return output;
         }
 
+        public int CountOf(
+            char character,
+            string @string)
+        {
+            var output = @string
+                .Where(c => c == character)
+                .Count();
+
+            return output;
+        }
+
+        public string Empty_IfNull(string @string)
+        {
+            var isNull = this.Is_Null(@string);
+
+            var output = isNull
+                ? Instances.Strings.Empty
+                : @string
+                ;
+
+            return output;
+        }
+
         /// <summary>
         /// Note: supports endings that are longer than the string (returns false).
         /// </summary>
@@ -689,6 +712,9 @@ namespace R5T.L0066
             return output;
         }
 
+        public Func<string, bool> Get_Predicate_ForEquals(string value)
+            => Instances.PredicateOperator.Get_Predicate_ForEquals(value);
+
         public string Get_String(
             StringBuilder stringBuilder,
             Action<StringBuilder> modifier)
@@ -1064,6 +1090,9 @@ namespace R5T.L0066
             return output;
         }
 
+        /// <summary>
+        /// Uses the <see cref="IStrings.Empty"/> value as a separator.
+        /// </summary>
         public string Join(IEnumerable<string> strings)
         {
             var output = this.Join(
@@ -1076,6 +1105,21 @@ namespace R5T.L0066
         public string Join(params string[] strings)
         {
             var output = this.Join(strings.AsEnumerable());
+            return output;
+        }
+
+        public string Join_AsList(IEnumerable<string> strings)
+        {
+            var output = this.Join(
+                Instances.Strings.CommaSpaceSeparatedListSeparator,
+                strings);
+
+            return output;
+        }
+
+        public string Join_AsList(params string[] strings)
+        {
+            var output = this.Join_AsList(strings.AsEnumerable());
             return output;
         }
 

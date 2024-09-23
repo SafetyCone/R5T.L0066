@@ -1,6 +1,7 @@
 using System;
 
 using R5T.T0131;
+using R5T.T0143;
 
 
 namespace R5T.L0066
@@ -9,7 +10,10 @@ namespace R5T.L0066
     public partial interface IUnitSymbols : IValuesMarker
     {
 #pragma warning disable IDE1006 // Naming Styles
+
+        [Ignore]
         public Raw.IUnitSymbols _Raw => Raw.UnitSymbols.Instance;
+
 #pragma warning restore IDE1006 // Naming Styles
 
 

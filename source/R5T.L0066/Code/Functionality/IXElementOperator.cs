@@ -717,7 +717,7 @@ namespace R5T.L0066
         }
 
         /// <summary>
-        /// Quality-of-life overload for <see cref="XElement"/>
+        /// Quality-of-life overload for <see cref="Get_Value(XElement)"/>
         /// </summary>
         public string Get_InnerText(XElement element)
             => this.Get_Value(element);

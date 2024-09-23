@@ -15,6 +15,18 @@ namespace R5T.L0066
             return output;
         }
 
+        public T Verify_IsType<T>(object @object)
+        {
+            if(@object is T output)
+            {
+                return output;
+            }
+            else
+            {
+                throw new Exception("Type verification failed.");
+            }
+        }
+
         public T ModifyAndReturn<T>(
             T value,
             Action<T> modification)

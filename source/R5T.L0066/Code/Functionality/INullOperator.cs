@@ -1,5 +1,5 @@
 using System;
-
+using System.Net.Http.Headers;
 using R5T.T0132;
 
 
@@ -110,6 +110,19 @@ namespace R5T.L0066
 
             var output = value is null;
             return output;
+        }
+
+        public object Get_Null()
+            => null;
+
+        public T Get_Null<T>()
+            where T: class
+            => null;
+
+        public void Set_Null<T>(ref T value)
+            where T : class
+        {
+            value = null;
         }
     }
 }

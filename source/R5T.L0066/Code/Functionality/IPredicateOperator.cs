@@ -88,6 +88,17 @@ namespace R5T.L0066
         public IPredicates<T> For<T>()
             => Predicates<T>.Instance;
 
+        public Func<string, bool> Get_Predicate_ForEquals(string value)
+        {
+            bool Internal(string otherValue)
+            {
+                var output = otherValue == value;
+                return output;
+            }
+
+            return Internal;
+        }
+
         public Func<T, bool> Get_Where<T, TValue>(
             Func<T, TValue> valueSelector,
             Func<TValue, bool> valuePredicate)

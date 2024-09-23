@@ -31,6 +31,9 @@ namespace R5T.L0066
         public ArgumentException Get_DefaultCaseException(string value)
             => new ArgumentException($"Unrecognized switch value: '{value}'.");
 
+        public ArgumentException Get_DefaultCaseException(char value)
+            => new ArgumentException($"Unrecognized switch value: '{value}'.");
+
         public ArgumentException Get_DefaultCaseException(
             string valueA,
             string valueB)

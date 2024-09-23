@@ -58,6 +58,18 @@ namespace R5T.L0066
         /// <inheritdoc cref="Escape_Constant"/>
         public char Escape => ICharacters.Escape_Constant;
 
+        /// <inheritdoc cref="CharactersDocumentation.For_OpenBracket"/>
+        public const char Bracket_Left_Constant = OpenBracket_Constant;
+
+        /// <inheritdoc cref="Bracket_Left_Constant"/>
+        public char Bracket_Left => ICharacters.Bracket_Left_Constant;
+
+        /// <inheritdoc cref="CharactersDocumentation.For_CloseBracket"/>
+        public const char Bracket_Right_Constant = CloseBracket_Constant;
+
+        /// <inheritdoc cref="Bracket_Right_Constant"/>
+        public char Bracket_Right => ICharacters.Bracket_Right_Constant;
+
         /// <inheritdoc cref="CharactersDocumentation.ForNewLine"/>
         public const char NewLine_Constant = '\n';
 

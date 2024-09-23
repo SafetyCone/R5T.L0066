@@ -158,5 +158,34 @@ namespace R5T.L0066
             var output = Instances.NullOperator.Is_NotNull(type.DeclaringType);
             return output;
         }
+
+        /// <summary>
+        /// Chooses <see cref="TypeCheckDeterminesEquality_Instance{T}(T, T, out bool)"/> as the default.
+        /// </summary>
+        /// <remarks>
+        /// <inheritdoc cref="Documentation.TypeCheckDeterminesEquality" path="/summary"/>
+        /// </remarks>
+        public bool TypeCheckDeterminesEquality<T>(T a, T b, out bool typesAreEqual)
+        {
+            var output = this.TypeCheckDeterminesEquality_Instance(a, b, out typesAreEqual);
+            return output;
+        }
+
+        /// <summary>
+        /// Use the type returned by the <see cref="object.GetType"/> method of each instance to determine type by equality.
+        /// </summary>
+        /// <remarks>
+        /// <inheritdoc cref="Documentation.TypeCheckDeterminesEquality" path="/summary"/>
+        /// </remarks>
+        public bool TypeCheckDeterminesEquality_Instance<T>(T a, T b, out bool typesAreEqual)
+        {
+            var typeA = a.GetType();
+            var typeB = b.GetType();
+
+            typesAreEqual = typeA == typeB;
+
+            var typeDeterminesEquality = !typesAreEqual;
+            return typeDeterminesEquality;
+        }
     }
 }
