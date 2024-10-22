@@ -187,5 +187,39 @@ namespace R5T.L0066
             var typeDeterminesEquality = !typesAreEqual;
             return typeDeterminesEquality;
         }
+
+        /// <summary>
+        /// Use the type returned by the <see cref="object.GetType"/> method of each instance to determine type by equality.
+        /// </summary>
+        /// <remarks>
+        /// <inheritdoc cref="Documentation.TypeCheckDeterminesEquality" path="/summary"/>
+        /// </remarks>
+        public bool TypeCheckDeterminesEquality_Instance<T1, T2>(
+            T1 a,
+            T2 b,
+            Func<T1, T1, bool> if_TypesAreEqual)
+        {
+            var typeA = a.GetType();
+            var typeB = b.GetType();
+
+            var typesAreEqual = typeA == typeB;
+            if(!typesAreEqual)
+            {
+                return false;
+            }
+            else
+            {
+                // Should always be true.
+                if(b is T1 b_asT1)
+                {
+                    var output = if_TypesAreEqual(a, b_asT1);
+                    return output;
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
+        }
     }
 }

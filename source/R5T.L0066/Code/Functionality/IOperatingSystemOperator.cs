@@ -169,6 +169,22 @@ namespace R5T.L0066
         }
 
         public T SwitchOn_OSPlatform_ByValue<T>(
+            T windowsValue,
+            T osxValue,
+            T linuxValue,
+            T unknownValue)
+        {
+            var osPlatform = this.Get_OSPlatform();
+
+            return this.SwitchOn_OSPlatform_ByValue(
+                osPlatform,
+                windowsValue,
+                osxValue,
+                linuxValue,
+                unknownValue);
+        }
+
+        public T SwitchOn_OSPlatform_ByValue<T>(
             OSPlatform osPlatform,
             T windowsValue,
             T osxValue,
@@ -196,6 +212,37 @@ namespace R5T.L0066
             }
 
             throw _Internal.Get_UnknownOSPlatformException();
+        }
+
+        public T SwitchOn_OSPlatform_ByValue<T>(
+            OSPlatform osPlatform,
+            T windowsValue,
+            T osxValue,
+            T linuxValue,
+            T unknownValue)
+        {
+            // Unable to use basic switch statement since OSPlatform values are not constant.
+            // Unable to use relational switch statement since it is not available until C# 9.0 (net5.0).
+
+            // Put Linux first, since this is most common in production.
+            if (this.Is_LinuxOSPlatform(osPlatform))
+            {
+                return linuxValue;
+            }
+
+            // Put Windows second, since this is most common in development.
+            if (this.Is_WindowsOSPlatform(osPlatform))
+            {
+                return windowsValue;
+            }
+
+            // Put OSX last, since this is least common.
+            if (this.Is_OsxOSPlatform(osPlatform))
+            {
+                return osxValue;
+            }
+
+            return unknownValue;
         }
     }
 }

@@ -60,8 +60,8 @@ namespace R5T.L0066
         }
 
         /// <summary>
-        /// Gets the last <inheritdoc cref="Glossary.ForIndex.Exclusive" path="/name"/> index from a last <inheritdoc cref="Glossary.ForIndex.Inclusive" path="/name"/> index by adding one.
-        /// <para><inheritdoc cref="Glossary.ForIndex.ExclusiveInclusiveRelationship" path="/definition"/></para>
+        /// Gets the last <inheritdoc cref="Glossary.For_Index.Exclusive" path="/name"/> index from a last <inheritdoc cref="Glossary.For_Index.Inclusive" path="/name"/> index by adding one.
+        /// <para><inheritdoc cref="Glossary.For_Index.ExclusiveInclusiveRelationship" path="/definition"/></para>
         /// </summary>
         public int Get_ExclusiveIndex(int inclusiveIndex)
         {

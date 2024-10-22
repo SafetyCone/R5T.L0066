@@ -24,6 +24,16 @@ namespace R5T.L0066
             return newFileName;
         }
 
+        /// <summary>
+        /// Quality-of-life overload for <see cref="Get_FileName(string, string)"/>.
+        /// </summary>
+        public string Append_FileExtension(
+            string fileNameStem,
+            string fileExtension)
+            => this.Get_FileName(
+                fileNameStem,
+                fileExtension);
+
         public string Get_FileExtension(string fileName)
         {
             var output = Instances.FileExtensionOperator.Get_FileExtension(fileName);

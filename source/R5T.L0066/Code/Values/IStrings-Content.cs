@@ -2,7 +2,7 @@ using System;
 
 using R5T.T0131;
 
-using StringsDocumentation = R5T.Y0006.Documentation.ForStrings;
+using StringsDocumentation = R5T.Y0006.Documentation.For_Strings;
 
 
 namespace R5T.L0066.Content

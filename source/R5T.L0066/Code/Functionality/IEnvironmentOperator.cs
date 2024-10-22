@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
+
 using R5T.T0132;
 
 
@@ -11,6 +11,11 @@ namespace R5T.L0066
     [FunctionalityMarker]
     public partial interface IEnvironmentOperator : IFunctionalityMarker
     {
+#pragma warning disable IDE1006 // Naming Styles
+        public Implementations.IEnvironmentOperator _Implementations => Implementations.EnvironmentOperator.Instance;
+#pragma warning restore IDE1006 // Naming Styles
+
+
         /// <inheritdoc cref="IDirectorySeparatorOperator.Get_EnvironmentAlternateDirectorySeparator"/>
         public char Get_AlternateDirectorySeparator()
             => Instances.DirectorySeparatorOperator.Get_EnvironmentAlternateDirectorySeparator();
@@ -170,9 +175,10 @@ namespace R5T.L0066
         /// Gets the system directory path for the current user.
         /// </summary>
         /// <remarks>
-        /// Returns the value for <see cref="Environment.SpecialFolder.UserProfile"/>.
+        /// Returns the value for <see cref="Environment.SpecialFolder.UserProfile"/>,
+        /// which is <inheritdoc cref="Y0006.Documentation.For_Directories.UserProfile_OnWindows" path="descendant::summary"/>.
         /// </remarks>
-        public string Get_UserDirectoryPath()
+        public string Get_UserProfileDirectoryPath()
             => this.Get_SpecialDirectoryPath(Environment.SpecialFolder.UserProfile);
 
         public bool Is_Windows()

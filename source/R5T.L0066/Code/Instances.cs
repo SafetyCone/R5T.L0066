@@ -33,6 +33,7 @@ namespace R5T.L0066
         public static IDirectoryInfoOperator DirectoryInfoOperator => L0066.DirectoryInfoOperator.Instance;
         public static IDirectoryNameOperator DirectoryNameOperator => L0066.DirectoryNameOperator.Instance;
         public static IDirectoryNames DirectoryNames => L0066.DirectoryNames.Instance;
+        public static IDirectoryPaths DirectoryPaths => L0066.DirectoryPaths.Instance;
         public static IDirectorySeparatorOperator DirectorySeparatorOperator => L0066.DirectorySeparatorOperator.Instance;
         public static IDirectorySeparators DirectorySeparators => L0066.DirectorySeparators.Instance;
         public static IDocumentationFileNameOperator DocumentationFileNameOperator => L0066.DocumentationFileNameOperator.Instance;
@@ -64,6 +65,7 @@ namespace R5T.L0066
         public static IHttpResponseMessageOperator HttpResponseMessageOperator => L0066.HttpResponseMessageOperator.Instance;
         public static IIndexOperator IndexOperator => L0066.IndexOperator.Instance;
         public static IIndices Indices => L0066.Indices.Instance;
+        public static IIntegerOperator IntegerOperator => L0066.IntegerOperator.Instance;
         public static IIntegers Integers => L0066.Integers.Instance;
         public static IListOperator ListOperator => L0066.ListOperator.Instance;
         public static IMessages Messages => L0066.Messages.Instance;
@@ -89,6 +91,7 @@ namespace R5T.L0066
         public static ISearchPatternGenerator SearchPatternGenerator => L0066.SearchPatternGenerator.Instance;
         public static ISearchPatterns SearchPatterns => L0066.SearchPatterns.Instance;
         public static ISeeds Seeds => L0066.Seeds.Instance;
+        public static ISpecialDirectoryNames SpecialDirectoryNames => L0066.SpecialDirectoryNames.Instance;
         public static IStackOperator StackOperator => L0066.StackOperator.Instance;
         public static IStreamOperator StreamOperator => L0066.StreamOperator.Instance;
         public static IStreamReaderOperator StreamReaderOperator => L0066.StreamReaderOperator.Instance;

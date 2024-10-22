@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Text;
 
 using R5T.T0132;
+
+using R5T.L0066.Extensions;
 
 
 namespace R5T.L0066
@@ -225,6 +226,53 @@ namespace R5T.L0066
         public string Enquote(string @string)
         {
             var output = $"\"{@string}\"";
+            return output;
+        }
+
+        public string Ensure_StartsWith(
+            string @string,
+            char start)
+        {
+            var firstChar = @string.Get_Character_First();
+
+            var hasStart = firstChar == start;
+
+            var output = hasStart
+                ? @string
+                : start + @string
+                ;
+
+            return output;  
+        }
+
+        public string Ensure_EndsWith(
+            string @string,
+            char end)
+        {
+            var lastChar = @string.Get_Character_Last();
+
+            var hasEnd = lastChar == end;
+
+            var output = hasEnd
+                ? @string
+                : @string + end
+                ;
+
+            return output;
+        }
+
+        public string Ensure_WrappedWith(
+            string @string,
+            char character)
+        {
+            var output = this.Ensure_StartsWith(
+                @string,
+                character);
+
+            output = this.Ensure_EndsWith(
+                output,
+                character);
+
             return output;
         }
 
@@ -1176,6 +1224,14 @@ namespace R5T.L0066
 
         public string PrefixWith(
             string prefix,
+            string @string)
+        {
+            var output = prefix + @string;
+            return output;
+        }
+
+        public string PrefixWith(
+            char prefix,
             string @string)
         {
             var output = prefix + @string;

@@ -102,5 +102,8 @@ namespace R5T.L0066.Extensions
                 key1,
                 key2,
                 out value);
+
+        public static Dictionary<TKey, TValue[]> To_Dictionary_Arrayed<TKey, TValue>(this IDictionary<TKey, List<TValue>> dictionary)
+            => Instances.DictionaryOperator.To_DictionaryArrayed(dictionary);
     }
 }

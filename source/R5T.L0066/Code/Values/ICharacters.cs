@@ -2,7 +2,7 @@ using System;
 
 using R5T.T0131;
 
-using CharactersDocumentation = R5T.Y0006.Documentation.ForCharacters;
+using CharactersDocumentation = R5T.Y0006.Documentation.For_Characters;
 
 
 namespace R5T.L0066

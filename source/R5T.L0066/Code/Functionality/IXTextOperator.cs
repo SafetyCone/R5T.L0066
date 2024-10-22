@@ -36,7 +36,7 @@ namespace R5T.L0066
         /// Determines whether an text node is insignificant whitespace.
         /// </summary>
         /// <remarks>
-        /// <inheritdoc cref="Y0006.Documentation.ForXml.InsignificantWhitespace" path="/summary"/>
+        /// <inheritdoc cref="Y0006.Documentation.For_Xml.InsignificantWhitespace" path="/summary"/>
         /// </remarks>
         public bool Is_InsignificantWhitespace(XText text)
         {

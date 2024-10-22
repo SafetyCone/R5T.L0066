@@ -2,7 +2,7 @@ using System;
 
 using R5T.T0131;
 
-using StringsDocumentation = R5T.Y0006.Documentation.ForStrings;
+using StringsDocumentation = R5T.Y0006.Documentation.For_Strings;
 
 
 namespace R5T.L0066
@@ -33,6 +33,12 @@ namespace R5T.L0066
 
         /// <inheritdoc cref="IStrings.Copyright_Constant"/>
         public string Copyright => IStrings.Copyright_Constant;
+
+        /// <inheritdoc cref="StringsDocumentation.ForDoubleDash"/>
+        public const string DoubleDash_Constant = "--";
+
+        /// <inheritdoc cref="DoubleDash_Constant"/>
+        public string DoubleDash => IStrings.DoubleDash_Constant;
 
         /// <inheritdoc cref="StringsDocumentation.ForDoubleDot"/>
         public const string DoubleDot_Constant = "..";
@@ -108,6 +114,12 @@ namespace R5T.L0066
 
         /// <inheritdoc cref="NewLine_NonWindows_Constant"/>
         public string NewLine_NonWindows => IStrings.NewLine_NonWindows_Constant;
+
+        /// <inheritdoc cref="StringsDocumentation.For_Percent"/>
+        public const string Percent_Constant = "%";
+
+        /// <inheritdoc cref="Percent_Constant"/>
+        public string Percent => IStrings.Percent_Constant;
 
         /// <inheritdoc cref="StringsDocumentation.For_Period"/>
         public const string Period_Constant = ".";

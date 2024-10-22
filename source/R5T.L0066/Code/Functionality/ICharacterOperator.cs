@@ -19,7 +19,7 @@ namespace R5T.L0066
         }
 
         /// <summary>
-        /// <inheritdoc cref="Y0006.Glossary.ForCharacterClasses.Whitespace" path="/definition"/>
+        /// <inheritdoc cref="Y0006.Glossary.For_CharacterClasses.Whitespace" path="/definition"/>
         /// </summary>
         public bool Is_Whitespace(char character)
         {
@@ -37,7 +37,7 @@ namespace R5T.L0066
         }
 
         /// <summary>
-        /// <inheritdoc cref="Glossary.ForCharacterClasses.Digit" path="/definition"/>
+        /// <inheritdoc cref="Glossary.For_CharacterClasses.Digit" path="/definition"/>
         /// </summary>
         public bool Is_Digit(char character)
         {

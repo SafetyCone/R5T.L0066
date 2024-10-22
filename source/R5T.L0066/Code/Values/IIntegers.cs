@@ -8,10 +8,28 @@ namespace R5T.L0066
     [ValuesMarker]
     public partial interface IIntegers : IValuesMarker
     {
-        public int Zero => 0;
+        /// <summary>
+        /// <para><value>01</value></para>
+        /// </summary>
+        public const int NegativeOne_Const = -1;
 
-        public int One => 1;
+        /// <inheritdoc cref="NegativeOne_Const"/>
+        public int NegativeOne => NegativeOne_Const;
 
-        public int NegativeOne => -1;
+        /// <summary>
+        /// <para><value>0</value></para>
+        /// </summary>
+        public const int Zero_Constant = 0;
+
+        /// <inheritdoc cref="Zero_Constant"/>
+        public int Zero => Zero_Constant;
+
+        /// <summary>
+        /// <para><value>1</value></para>
+        /// </summary>
+        public const int One_Constant = 1;
+
+        /// <inheritdoc cref="One_Constant"/>
+        public int One => One_Constant;
     }
 }

@@ -10,6 +10,74 @@ namespace R5T.L0066
     [FunctionalityMarker]
     public partial interface IVersionOperator : IFunctionalityMarker
     {
+        /// <summary>
+        /// Produces a version that has all the same values as the input version,
+        /// except with the provided major value.
+        /// </summary>
+        public Version Change_MajorValue(
+            Version version,
+            int majorValue)
+        {
+            var output = this.New_IgnoreOutOfRangeValues(
+                majorValue,
+                version.Minor,
+                version.Build,
+                version.Revision);
+
+            return output;
+        }
+
+        /// <summary>
+        /// Produces a version that has all the same values as the input version,
+        /// except with the provided major value.
+        /// </summary>
+        public Version Change_MinorValue(
+            Version version,
+            int minorValue)
+        {
+            var output = this.New_IgnoreOutOfRangeValues(
+                version.Major,
+                minorValue,
+                version.Build,
+                version.Revision);
+
+            return output;
+        }
+
+        /// <summary>
+        /// Produces a version that has all the same values as the input version,
+        /// except with the provided major value.
+        /// </summary>
+        public Version Change_BuildValue(
+            Version version,
+            int buildValue)
+        {
+            var output = this.New_IgnoreOutOfRangeValues(
+                version.Major,
+                version.Minor,
+                buildValue,
+                version.Revision);
+
+            return output;
+        }
+
+        /// <summary>
+        /// Produces a version that has all the same values as the input version,
+        /// except with the provided major value.
+        /// </summary>
+        public Version Change_RevisionValue(
+            Version version,
+            int revisionValue)
+        {
+            var output = this.New_IgnoreOutOfRangeValues(
+                version.Major,
+                version.Minor,
+                version.Build,
+                revisionValue);
+
+            return output;
+        }
+
         public int[] Get_AllTokens(Version version)
         {
             var tokens = new[]
@@ -60,6 +128,58 @@ namespace R5T.L0066
             return output;
         }
 
+        public Version Increment_MajorValue(
+            Version version,
+            int increment = IIntegers.One_Constant)
+        {
+            var majorValue_New = version.Major + increment;
+
+            var output = this.Change_MajorValue(
+                version,
+                majorValue_New);
+
+            return output;
+        }
+
+        public Version Increment_MinorValue(
+            Version version,
+            int increment = IIntegers.One_Constant)
+        {
+            var minorValue_New = version.Minor + increment;
+
+            var output = this.Change_MinorValue(
+                version,
+                minorValue_New);
+
+            return output;
+        }
+
+        public Version Increment_BuildValue(
+            Version version,
+            int increment = IIntegers.One_Constant)
+        {
+            var buildValue_New = version.Build + increment;
+
+            var output = this.Change_BuildValue(
+                version,
+                buildValue_New);
+
+            return output;
+        }
+
+        public Version Increment_RevisionValue(
+            Version version,
+            int increment = IIntegers.One_Constant)
+        {
+            var revisionValue_New = version.Revision + increment;
+
+            var output = this.Change_RevisionValue(
+                version,
+                revisionValue_New);
+
+            return output;
+        }
+
         /// <summary>
 		/// Determines if the version property value is the value returned by <see cref="Get_UndefinedVersionPropertyValue"/> (which is -1, negative one).
 		/// </summary>
@@ -82,6 +202,12 @@ namespace R5T.L0066
             return output;
         }
 
+        public bool Is_OutOfRange(int versionPropertyValue)
+            => Instances.IntegerOperator.Is_LessThanZero(versionPropertyValue);
+
+        public bool Is_WithinRange(int versionPropertyValue)
+            => !this.Is_OutOfRange(versionPropertyValue);
+
         public bool Matches_MajorVersion(
             Version version,
             Version targetVersion)
@@ -92,6 +218,57 @@ namespace R5T.L0066
                 version,
                 targetMajorVersion);
 
+            return output;
+        }
+
+        /// <summary>
+        /// Creates a new version instance, testing build and revision values for being out of range,
+        /// and then choosing a constructor that only uses valid values.
+        /// </summary>
+        /// <remarks>
+        /// Altering a version by changing just a single value is painful since you have to choose a specific construtor to avoid the exception:
+        /// <para>System.ArgumentOutOfRangeException: 'revision ('-1') must be a non-negative value. (Parameter 'revision') Actual value was -1.'</para>
+        /// </remarks>
+        public Version New_IgnoreOutOfRangeValues(
+            int major,
+            int minor,
+            int build,
+            int revision)
+        {
+            var build_IsWithinRange = this.Is_WithinRange(build);
+            var revision_IsWithinRange = this.Is_WithinRange(revision);
+
+            Version Internal()
+            {
+                if (build_IsWithinRange)
+                {
+                    if(revision_IsWithinRange)
+                    {
+                        return new Version(
+                            major,
+                            minor,
+                            build,
+                            revision);
+                    }
+                    else
+                    {
+                        return new Version(
+                            major,
+                            minor,
+                            build);
+                    }
+                }
+                else
+                {
+                    // Assumes that if build is not set, revision cannot be set.
+                    // This is a good assumption, since the available version constructors require a build to be set if you want to set a revision.
+                    return new Version(
+                        major,
+                        minor);
+                }
+            }
+
+            var output = Internal();
             return output;
         }
 

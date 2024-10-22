@@ -19,6 +19,11 @@ namespace R5T.L0066
         public string YYYYMMDD_HHMMSS => "yyyyMMdd HHmmss";
 
         /// <summary>
+        /// <para><value>yyyyMMdd-HH:mm:ss</value></para>
+        /// </summary>
+        public string YYYYMMDD_HHMMSS_Coloned => "yyyyMMdd-HH:mm:ss";
+
+        /// <summary>
         /// <para><value>yyyyMMdd-HHmmss</value></para>
         /// </summary>
         public string YYYYMMDD_HHMMSS_Dashed => "yyyyMMdd-HHmmss";

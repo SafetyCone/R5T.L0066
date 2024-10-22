@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 using R5T.T0132;
 
-using GuidDocumentation = R5T.Y0006.Documentation.ForGuid;
+using GuidDocumentation = R5T.Y0006.Documentation.For_Guid;
 
 
 namespace R5T.L0066
@@ -19,6 +21,30 @@ namespace R5T.L0066
     [FunctionalityMarker]
     public partial interface IGuidOperator : IFunctionalityMarker
     {
+        /// <summary>
+        /// A quality-of-life overload for <see cref="Parse(string)"/>.
+        /// </summary>
+        public Guid From(string guidString)
+            => this.Parse(guidString);
+
+        public IEnumerable<Guid> From(IEnumerable<string> guidStrings)
+            => this.Enumerate_From(guidStrings);
+
+        public IEnumerable<Guid> Enumerate_From(IEnumerable<string> guidStrings)
+            => guidStrings
+                .Select(this.From)
+                ;
+
+        /// <summary>
+        /// A quality-of-life overload for <see cref="Parse(string)"/>.
+        /// </summary>
+        public Guid Get_From(string guidString)
+            => this.Parse(guidString);
+
+        public Guid[] Get_From(IEnumerable<string> guidStrings)
+            => this.Enumerate_From(guidStrings)
+                .Now();
+
         public Guid GetDefault()
         {
             var output = new Guid();

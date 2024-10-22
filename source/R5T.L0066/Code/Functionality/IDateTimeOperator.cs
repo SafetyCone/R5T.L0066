@@ -107,6 +107,20 @@ namespace R5T.L0066
         }
 
         /// <summary>
+		/// Example output: 20221014 15:12:01
+		/// </summary>
+        public string ToString_YYYYMMDD_HHMMSS_Coloned(DateTime dateTime)
+        {
+            var formatTemplate = Instances.DateTimeFormatTemplates.YYYYMMDD_HHMMSS_Coloned;
+
+            var output = Instances.DateTimeOperator.Format(
+                dateTime,
+                formatTemplate);
+
+            return output;
+        }
+
+        /// <summary>
 		/// Example output: 20221014 151201
 		/// </summary>
         public string ToString_YYYYMMDD_HHMMSS_Space(DateTime dateTime)

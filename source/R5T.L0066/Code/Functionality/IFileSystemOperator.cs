@@ -190,6 +190,20 @@ namespace R5T.L0066
             }
         }
 
+        public void Delete_Directories_Idempotent(IEnumerable<string> directoryPaths)
+        {
+            foreach (var directoryPath in directoryPaths)
+            {
+                this.Delete_Directory_Idempotent(directoryPath);
+            }
+        }
+
+        /// <summary>
+        /// Chooses <see cref="Delete_Directories_Idempotent(IEnumerable{string})"/> as the default.
+        /// </summary>
+        public void Delete_Directories(IEnumerable<string> directoryPaths)
+            => this.Delete_Directories_Idempotent(directoryPaths);
+
         public void Delete_Directory_OkIfNotExists(string directoryPath)
         {
             this.Delete_Directory_Idempotent(directoryPath);

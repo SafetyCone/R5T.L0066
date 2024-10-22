@@ -3,7 +3,7 @@ using System.IO;
 
 using R5T.T0132;
 
-using Glossary = R5T.Y0006.Glossary.ForPaths;
+using Glossary = R5T.Y0006.Glossary.For_Paths;
 
 
 namespace R5T.L0066.Implementations

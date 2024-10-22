@@ -46,5 +46,32 @@ namespace R5T.L0066
             string @string,
             Regex regex)
             => regex.IsMatch(@string);
+
+        public string Replace(
+            string @string,
+            Regex regex,
+            string replacement)
+        {
+            var output = regex.Replace(
+                @string,
+                replacement);
+
+            return output;
+        }
+
+        public string Replace(
+            string @string,
+            string regexPattern,
+            string replacement)
+        {
+            var regex = this.Get_Regex(regexPattern);
+
+            var output = this.Replace(
+                @string,
+                regex,
+                replacement);
+
+            return output;
+        }
     }
 }

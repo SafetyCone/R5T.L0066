@@ -6,7 +6,7 @@ using R5T.T0131;
 namespace R5T.L0066
 {
     /// <summary>
-    /// See <see cref="Y0006.Documentation.ForUrls.Links.UriSchemes"/>.
+    /// See <see cref="Y0006.Documentation.For_Urls.Links.UriSchemes"/>.
     /// </summary>
     [ValuesMarker]
     public partial interface IUriSchemes : IValuesMarker

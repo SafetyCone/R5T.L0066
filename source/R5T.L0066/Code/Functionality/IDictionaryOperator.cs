@@ -229,6 +229,9 @@ namespace R5T.L0066
             }
         }
 
+        /// <summary>
+        /// Add or replace values by key.
+        /// </summary>
         public int Integrate_Values<TKey, TValue>(
             Dictionary<TKey, TValue> destination,
             Dictionary<TKey, TValue> source)
@@ -248,6 +251,7 @@ namespace R5T.L0066
             return updated_Count;
         }
 
+        /// <inheritdoc cref="Integrate_Values{TKey, TValue}(Dictionary{TKey, TValue}, Dictionary{TKey, TValue})"/>
         public int Integrate_Values<TKey, TValue>(
             Dictionary<TKey, TValue[]> destination,
             Dictionary<TKey, TValue[]> source)
@@ -266,6 +270,13 @@ namespace R5T.L0066
 
             return updated_Count;
         }
+
+        public Dictionary<TKey, TValue[]> To_DictionaryArrayed<TKey, TValue>(
+            IDictionary<TKey, List<TValue>> dictionary)
+            => dictionary
+                .ToDictionary(
+                    x => x.Key,
+                    x => x.Value.ToArray());
 
         public Dictionary<TKey, TValue> To_Generic<TKey, TValue>(IDictionary dictionary)
             => Instances.EnumerableOperator.To_Generic<TKey>(dictionary.Keys)
