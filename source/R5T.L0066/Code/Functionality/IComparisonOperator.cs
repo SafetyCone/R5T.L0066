@@ -19,5 +19,20 @@ namespace R5T.L0066
             var output = !this.IsEqualResult(comparisonResult);
             return output;
         }
+
+        public int Reverse(int comparisonResult)
+        {
+            if (comparisonResult == Instances.ComparisonResults.GreaterThan)
+            {
+                return Instances.ComparisonResults.LessThan;
+            }
+
+            if(comparisonResult == Instances.ComparisonResults.LessThan)
+            {
+                return Instances.ComparisonResults.GreaterThan;
+            }
+
+            return Instances.ComparisonResults.EqualTo;
+        }
     }
 }

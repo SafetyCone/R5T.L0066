@@ -23,9 +23,21 @@ namespace R5T.L0066
         /// </summary>
         public Exception Get_DefaultCaseException<TEnum>(TEnum value)
             where TEnum : Enum
+            // Due to historical accident, enumeration types got the name first.
+            => this.Get_DefaultCaseException_ForEnumeration(value);
+
+        public Exception Get_DefaultCaseException_ForEnumeration<TEnum>(TEnum value)
+            where TEnum : Enum
         {
             var exception = this.Get_UnexpectedEnumerationValueException(value);
             return exception;
+        }
+
+        public Exception Get_DefaultCaseException_ForType<T>(T value)
+        {
+            var message = Instances.ExceptionMessageOperator.Get_UnhandledValueExceptionMessage(value);
+
+            return new Exception(message);
         }
 
         public ArgumentException Get_DefaultCaseException(string value)
