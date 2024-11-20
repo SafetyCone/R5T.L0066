@@ -6,6 +6,14 @@ namespace R5T.L0066.Extensions
 {
     public static class DictionaryExtensions
     {
+        public static TValue Acquire_Value<TKey, TValue>(this IDictionary<TKey, TValue> dictionary,
+            TKey key,
+            Func<TValue> valueConstructor)
+            => Instances.DictionaryOperator.Acquire_Value(
+                dictionary,
+                key,
+                valueConstructor);
+
         public static void Add<TKey1, TKey2, TValue>(this IDictionary<TKey1, Dictionary<TKey2, TValue>> dictionaryOfDictionaries,
             TKey1 key1,
             TKey2 key2,

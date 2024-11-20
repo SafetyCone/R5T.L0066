@@ -55,6 +55,18 @@ namespace R5T.L0066
         }
 
         /// <summary>
+        /// Handles generic type names.
+        /// </summary>
+        public string Get_NamespacedTypeName_FromFullName(string fullTypeName)
+        {
+            var parts = fullTypeName.Split(
+                Instances.Characters.OpenBracket);
+
+            var namespacedTypeName = parts.First();
+            return namespacedTypeName;
+        }
+
+        /// <summary>
         /// Note: Can handle types in the global namespace (those where the namespaced type name is just the type name).
         /// </summary>
         public string Get_NamespaceName(string namespacedTypeName)

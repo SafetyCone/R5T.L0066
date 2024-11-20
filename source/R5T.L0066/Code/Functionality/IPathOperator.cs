@@ -168,14 +168,19 @@ namespace R5T.L0066
             var directorySeparator = this.Detect_DirectorySeparator(baseDirectoryPath);
 
             var nonDirectoryIndicatedBaseDirectoryPath = this.Ensure_IsNotDirectoryIndicated(baseDirectoryPath);
+            var directoryName_NotRootIndicated = this.Ensure_IsNotRootIndicated(directoryName);
 
             var combined = this.Combine_PathParts(
                 nonDirectoryIndicatedBaseDirectoryPath,
-                directoryName,
+                directoryName_NotRootIndicated,
+                directorySeparator);
+
+            var combined_UsingDirectorySeparator = this.Ensure_UsesDirectorySeparator(
+                combined,
                 directorySeparator);
 
             var output = this.Ensure_IsDirectoryIndicated_UsingSeparator(
-                combined,
+                combined_UsingDirectorySeparator,
                 directorySeparator);
 
             return output;

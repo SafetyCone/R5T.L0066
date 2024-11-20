@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-
+using System.Reflection.Emit;
 using R5T.T0132;
 
 
@@ -40,6 +40,16 @@ namespace R5T.L0066
 
             var output = !isDefault;
             return output;
+        }
+
+        public void Verify_NotDefault<T>(T value)
+        {
+            var is_Default = this.Is_Default(value);
+
+            if (is_Default)
+            {
+                throw new Exception("Default value encountered.");
+            }
         }
     }
 }

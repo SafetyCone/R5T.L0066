@@ -84,6 +84,7 @@ namespace R5T.L0066
         public static IPathSeparators PathSeparators => L0066.PathSeparators.Instance;
         public static IPredicateOperator PredicateOperator => L0066.PredicateOperator.Instance;
         public static IPredicateProvider PredicateProvider => L0066.PredicateProvider.Instance;
+        public static IPropertyNames PropertyNames => L0066.PropertyNames.Instance;
         public static IReadOnlyListOperator ReadOnlyListOperator => L0066.ReadOnlyListOperator.Instance;
         public static IRegexOperator RegexOperator => L0066.RegexOperator.Instance;
         public static IRegexOptionSets RegexOptionSets => L0066.RegexOptionSets.Instance;

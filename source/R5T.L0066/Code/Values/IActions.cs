@@ -19,6 +19,12 @@ namespace R5T.L0066
             // Do nothing.
         }
 
+        public Task DoNothing()
+        {
+            // Do nothing.
+            return Task.CompletedTask;
+        }
+
         public Task DoNothing<T>(T value)
         {
             // Do nothing.

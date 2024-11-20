@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+
 using R5T.T0132;
 
 
@@ -9,8 +12,43 @@ namespace R5T.L0066
     public partial interface ITypeOperator : IFunctionalityMarker
     {
         /// <summary>
+        /// Enumerates only the interfaces 
+        /// </summary>
+        /// <remarks>
+        /// Source: <see href="https://stackoverflow.com/a/1613936/10658484"/>
+        /// </remarks>
+        public IEnumerable<Type> Enumerate_Interfaces_DirectlyImplementedOnly(Type type)
+        {
+            var interfaces = this.Enumerate_Interfaces(type);
+
+            var hasBaseType = this.Has_BaseType(type);
+            if (hasBaseType)
+            {
+                var interfaces_ForBaseType = type.BaseType.GetInterfaces();
+
+                var output = interfaces.Except(interfaces_ForBaseType);
+                return output;
+            }
+            else
+            {
+                var output = interfaces;
+                return output;
+            }
+        }
+
+        public IEnumerable<Type> Enumerate_Interfaces(Type type)
+            => this.Get_Interfaces(type);
+
+        public Type[] Get_Interfaces(Type type)
+            => type.GetInterfaces();
+
+        public Type[] Get_Interfaces_DirectlyImplementedOnly(Type type)
+            => this.Enumerate_Interfaces_DirectlyImplementedOnly(type)
+                .Now();
+
+        /// <summary>
         /// Note, includes the generic parameter count. Example: ExampleClass01`1.
-        /// <para>Gets the <see cref="System.Reflection.MemberInfo.Name"/> of the type.</para>
+        /// <para>Gets the <see cref="MemberInfo.Name"/> of the type.</para>
         /// </summary>
         public string Get_Name(Type type)
             => type.Name;
@@ -153,9 +191,39 @@ namespace R5T.L0066
                 attributeTypeNamespacedTypeName,
                 out attribute_OrDefault);
 
+        public bool Has_BaseType(Type type)
+        {
+            var hasBaseType = type.BaseType is object;
+            return hasBaseType;
+        }
+
+        public bool Implements_InterfaceOfType_DirectOnly(
+            Type type,
+            string interfaceTypeName)
+        {
+            var output = this.Enumerate_Interfaces_DirectlyImplementedOnly(type)
+                .Where(type_Interface => this.Is_NamespacedTypeName(
+                    type_Interface,
+                    interfaceTypeName)
+                )
+                .Any();
+
+            return output;
+        }
+
         public bool Is_NestedType(Type type)
         {
             var output = Instances.NullOperator.Is_NotNull(type.DeclaringType);
+            return output;
+        }
+
+        public bool Is_NamespacedTypeName(
+            Type type,
+            string namespacedTypeName)
+        {
+            var type_NamespacedTypeName = this.GetNamespacedTypeName_ForType(type);
+
+            var output = type_NamespacedTypeName == namespacedTypeName;
             return output;
         }
 
