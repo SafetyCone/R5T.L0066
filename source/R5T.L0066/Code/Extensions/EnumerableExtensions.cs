@@ -207,6 +207,12 @@ namespace R5T.L0066.Extensions
             return output;
         }
 
+        public static IEnumerable<T> Separate<T>(this IEnumerable<T> enumerable,
+            T separator)
+            => Instances.EnumerableOperator.Separate(
+                enumerable,
+                separator);
+
         public static Dictionary<TKey, TValue> To_Dictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> pairs)
             => EnumerableOperator.Instance.ToDictionary(pairs);
     }

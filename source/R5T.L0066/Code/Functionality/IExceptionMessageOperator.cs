@@ -22,6 +22,9 @@ namespace R5T.L0066
             return output;
         }
 
+        /// <summary>
+        /// Given a value (and its type), get an exception message descrbing how the value of the type is unhandled.
+        /// </summary>
         public string Get_UnhandledValueExceptionMessage<TValue>(TValue value)
         {
             var typeName = Instances.TypeOperator.Get_TypeNameOf(value);
@@ -33,6 +36,9 @@ namespace R5T.L0066
             return output;
         }
 
+        /// <summary>
+        /// Given a value and its type name, get an exception message descrbing how the value of the type is unhandled.
+        /// </summary>
         public string Get_UnhandledValueExceptionMessage<TValue>(
             TValue value,
             string typeName)

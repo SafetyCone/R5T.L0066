@@ -67,5 +67,17 @@ namespace R5T.L0066.Extensions
 
         public static string Join_ToString(this string[] strings)
             => Instances.StringOperator.Join_ToString(strings);
+
+        public static IEnumerable<string> Separate_Lines(this IEnumerable<string> lines)
+            => Instances.StringOperator.Separate_Lines(lines);
+
+        public static IEnumerable<string> SeparateMany_Lines(this IEnumerable<IEnumerable<string>> values)
+            => Instances.StringOperator.SeparateMany_Lines(values);
+
+        public static IEnumerable<string> SeparateMany_Lines<T>(this IEnumerable<T> values,
+            Func<T, IEnumerable<string>> selector)
+            => Instances.StringOperator.SeparateMany_Lines(
+                values,
+                selector);
     }
 }

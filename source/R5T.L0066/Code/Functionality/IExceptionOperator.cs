@@ -28,6 +28,14 @@ namespace R5T.L0066
             return exception;
         }
 
+        public Exception Get_UnhandledValueException<TValue>(TValue value)
+        {
+            var message = Instances.ExceptionMessageOperator.Get_UnhandledValueExceptionMessage(value);
+
+            var output = new Exception(message);
+            return output;
+        }
+
         /// <summary>
 		/// <inheritdoc cref="Documentation.ListCountsNotActuallyChecked" path="/summary"/>
 		/// Just gets the exception assuming that is the case.
@@ -40,13 +48,6 @@ namespace R5T.L0066
 
             var output = new Exception(message);
             return output;
-        }
-
-        public Exception Get_UnhandledValueException<TValue>(TValue value)
-        {
-            var message = Instances.ExceptionMessageOperator.Get_UnhandledValueExceptionMessage(value);
-
-            return new Exception(message);
         }
 
         public Exception New(string message)

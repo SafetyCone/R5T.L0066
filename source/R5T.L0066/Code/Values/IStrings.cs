@@ -50,6 +50,18 @@ namespace R5T.L0066
         /// <inheritdoc cref="Asterix_Constant"/>
         public string Asterix => IStrings.Asterix_Constant;
 
+        /// <inheritdoc cref="StringsDocumentation.ForColon"/>
+        public const string Colon_Constant = "*";
+
+        /// <inheritdoc cref="Colon_Constant"/>
+        public string Colon => IStrings.Colon_Constant;
+
+        /// <inheritdoc cref="StringsDocumentation.ForColonSeparatedListSpacedSeparator"/>
+        public const string ColonSeparatedListSpacedSeparator_Constant = ": ";
+
+        /// <inheritdoc cref="ColonSeparatedListSpacedSeparator_Constant"/>
+        public string ColonSeparatedListSpacedSeparator => IStrings.ColonSeparatedListSpacedSeparator_Constant;
+
         /// <inheritdoc cref="StringsDocumentation.ForComma"/>
         public const string Comma_Constant = ",";
 

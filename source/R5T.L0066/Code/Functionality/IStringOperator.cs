@@ -7,6 +7,7 @@ using System.Text;
 using R5T.T0132;
 
 using R5T.L0066.Extensions;
+using System.Security.Cryptography;
 
 
 namespace R5T.L0066
@@ -1365,6 +1366,47 @@ namespace R5T.L0066
 
             return output;
         }
+
+        public IEnumerable<string> Separate(
+            IEnumerable<string> strings,
+            string separator)
+            => Instances.EnumerableOperator.Separate(
+                strings,
+                separator);
+
+        public IEnumerable<string> Separate_Lines(IEnumerable<string> lines)
+            => this.Separate(
+                lines,
+                Instances.Strings.Empty);
+
+        public IEnumerable<string> SeparateMany_Lines(
+            IEnumerable<IEnumerable<string>> enumerable_OfLines,
+            string separator)
+            => Instances.EnumerableOperator.SeparateMany(
+                enumerable_OfLines,
+                separator);
+
+        public IEnumerable<string> SeparateMany_Lines(IEnumerable<IEnumerable<string>> enumerable_OfLines)
+            => this.SeparateMany_Lines(
+                enumerable_OfLines,
+                Instances.Strings.Empty);
+
+        public IEnumerable<string> SeparateMany_Lines<T>(
+            IEnumerable<T> values,
+            Func<T, IEnumerable<string>> selector,
+            string separator)
+            => Instances.EnumerableOperator.SeparateMany<T, string>(
+                values,
+                selector,
+                separator);
+
+        public IEnumerable<string> SeparateMany_Lines<T>(
+            IEnumerable<T> values,
+            Func<T, IEnumerable<string>> selector)
+            => this.SeparateMany_Lines(
+                values,
+                selector,
+                Instances.Strings.Empty);
 
         public string Serialize_UsingMemoryStream(
             Action<MemoryStream> memoryStreamAction)

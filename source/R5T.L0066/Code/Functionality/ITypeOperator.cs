@@ -64,6 +64,7 @@ namespace R5T.L0066
 
         /// <summary>
         /// Quality-of-life overload for <see cref="Get_Name(Type)"/>.
+        /// Returns <see cref="MemberInfo.Name"/> of the type.
         /// </summary>
         public string Get_NameOf(Type type)
             => this.Get_Name(type);

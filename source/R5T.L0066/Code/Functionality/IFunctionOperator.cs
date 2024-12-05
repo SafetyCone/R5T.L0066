@@ -12,10 +12,22 @@ namespace R5T.L0066
     public partial interface IFunctionOperator : IFunctionalityMarker
     {
         /// <summary>
+        /// Get an instance of the function that always returns false.
+        /// </summary>
+        public Func<T, bool> Get_ReturnFalse<T>()
+            => x => true;
+
+        /// <summary>
         /// Get an instance of the function that always returns true.
         /// </summary>
         public Func<T, bool> Get_ReturnTrue<T>()
             => x => true;
+
+        /// <summary>
+        /// The function that, no matter its input, returns false.
+        /// </summary>
+        public bool Return_False<T>(T _)
+            => false;
 
         /// <summary>
         /// The function that, no matter its input, returns true.

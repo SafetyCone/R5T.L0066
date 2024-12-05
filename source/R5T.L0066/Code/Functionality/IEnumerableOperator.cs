@@ -389,6 +389,92 @@ namespace R5T.L0066
             return Enumerable.Repeat(instance, count);
         }
 
+        public IEnumerable<TResult> SelectMany<TSource, TResult>(
+            IEnumerable<TSource> sources,
+            Func<TSource, IEnumerable<TResult>> selector)
+            => sources.SelectMany(selector);
+
+        public IEnumerable<T> Separate<T>(
+            IEnumerable<T> enumerable,
+            T separator)
+        {
+            var enumerator = enumerable.GetEnumerator();
+
+            enumerator.MoveNext();
+
+            var value = enumerator.Current;
+
+            while(enumerator.MoveNext())
+            {
+                yield return value;
+
+                yield return separator;
+
+                value = enumerator.Current;
+            }
+
+            yield return value;
+        }
+
+        public IEnumerable<T> SeparateMany<T>(
+            IEnumerable<IEnumerable<T>> enumerable,
+            T separator)
+        {
+            var enumerator = enumerable.GetEnumerator();
+
+            enumerator.MoveNext();
+
+            var value = enumerator.Current;
+
+            while (enumerator.MoveNext())
+            {
+                foreach (var item in value)
+                {
+                    yield return item;
+                }
+
+                yield return separator;
+
+                value = enumerator.Current;
+            }
+
+            foreach (var item in value)
+            {
+                yield return item;
+            }
+        }
+
+        public IEnumerable<TResult> SeparateMany<TSource, TResult>(
+            IEnumerable<TSource> enumerable,
+            Func<TSource, IEnumerable<TResult>> selector,
+            TResult separator)
+        {
+            var enumerator = enumerable.GetEnumerator();
+
+            enumerator.MoveNext();
+
+            var value = enumerator.Current;
+
+            var output = selector(value);
+
+            while (enumerator.MoveNext())
+            {
+                foreach (var item in output)
+                {
+                    yield return item;
+                }
+
+                yield return separator;
+
+                value = enumerator.Current;
+            }
+
+            foreach (var item in output)
+            {
+                yield return item;
+            }
+        }
+
         public IEnumerable<T> Skip_First<T>(IEnumerable<T> enumerable)
         {
             var output = enumerable.Skip(1);

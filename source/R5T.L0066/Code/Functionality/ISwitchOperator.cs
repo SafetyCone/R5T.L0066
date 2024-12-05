@@ -33,6 +33,18 @@ namespace R5T.L0066
             return exception;
         }
 
+        public Exception Get_UnrecognizedEnumerationValueException<TEnum>(string representation)
+            where TEnum : Enum
+        {
+            var enumerationTypeName = Instances.TypeOperator.Get_TypeNameOf<TEnum>();
+
+            var message = $"Unrecognized representation '{representation}' for enumeration type {enumerationTypeName}.";
+
+            var output = new Exception(message);
+            return output;
+        }
+
+        /// <inheritdoc cref="IExceptionMessageOperator.Get_UnhandledValueExceptionMessage{TValue}(TValue)"/>
         public Exception Get_DefaultCaseException_ForType<T>(T value)
         {
             var message = Instances.ExceptionMessageOperator.Get_UnhandledValueExceptionMessage(value);
@@ -62,6 +74,9 @@ namespace R5T.L0066
             return exception;
         }
 
+        /// <summary>
+        /// Returns an exception indicating the value is unrecognized within a switch construct.
+        /// </summary>
         public ArgumentException Get_UnrecognizedSwitchValueException(string value)
         {
             var exception = new ArgumentException($"{value} - Unrecognized switch value.");

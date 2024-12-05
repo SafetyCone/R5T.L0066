@@ -31,5 +31,8 @@ namespace R5T.L0066
 
             return output;
         }
+
+        public int Get_HashCode<T>(T value)
+            => value.GetHashCode();
     }
 }
