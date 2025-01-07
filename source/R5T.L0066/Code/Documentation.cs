@@ -24,6 +24,16 @@ namespace R5T.L0066
         public static readonly object CompareToXY;
 
         /// <summary>
+        /// Exclusive in that if the first day of the week is the same as the second day of the week, the result is a full week of seven (7) days.
+        /// </summary>
+        public static readonly object DayOfWeek_Exclusive;
+
+        /// <summary>
+        /// Inclusive in that if the first day of the week is the same as the second day of the week, the result is zero (0) days.
+        /// </summary>
+        public static readonly object DayOfWeek_Inclusive;
+
+        /// <summary>
         /// Note that dictionary counts are *not* actually checked.
         /// </summary>
         public static readonly object DictionaryCountsNotActuallyChecked;

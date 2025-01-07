@@ -39,6 +39,9 @@ namespace R5T.L0066
         public IEnumerable<Type> Enumerate_Interfaces(Type type)
             => this.Get_Interfaces(type);
 
+        public bool Equals(Type a, Type b)
+            => a == b;
+
         public Type[] Get_Interfaces(Type type)
             => type.GetInterfaces();
 

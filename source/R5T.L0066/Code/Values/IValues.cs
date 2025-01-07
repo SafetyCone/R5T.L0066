@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 using R5T.T0131;
 using R5T.T0143;
@@ -25,8 +26,72 @@ namespace R5T.L0066
             191
         });
 
+        private static readonly Lazy<Dictionary<int, int>> zLastDaysOfMonth_Instance = new Lazy<Dictionary<int, int>>(
+            Instances.Values.LastDaysOfMonth);
+
+        public static Dictionary<int, int> LastDaysOfMonth_Instance => zLastDaysOfMonth_Instance.Value;
+
         #endregion
 
+
+        /// <summary>
+        /// <para><value>7</value></para>
+        /// </summary>
+        public const int DaysInWeek_Constant = 7;
+
+        /// <inheritdoc cref="DaysInWeek_Constant"/>
+        public int DaysInWeek => DaysInWeek_Constant;
+
+        public int Days_InWeek => DaysInWeek_Constant;
+
+        /// <summary>
+        /// <para><value>24</value></para>
+        /// </summary>
+        public const int Hours_InDay_Constant = 24;
+
+        /// <inheritdoc cref="Hours_InDay_Constant"/>
+        public int Hours_InDay => Hours_InDay_Constant;
+
+        /// <summary>
+        /// <para><value>60</value></para>
+        /// </summary>
+        public const int Minutes_InHour_Constant = 60;
+
+        /// <inheritdoc cref="Minutes_InHour_Constant"/>
+        public int Minutes_InHour => Minutes_InHour_Constant;
+
+        /// <summary>
+        /// <para><value>60</value></para>
+        /// </summary>
+        public const int Seconds_InMinute_Constant = 60;
+
+        /// <inheritdoc cref="Seconds_InMinute_Constant"/>
+        public int Seconds_InMinute => Seconds_InMinute_Constant;
+
+        /// <summary>
+        /// <para><value>100</value></para>
+        /// </summary>
+        public const int Nanoseconds_InTick_Constant = 100;
+
+        /// <inheritdoc cref="Nanoseconds_InTick_Constant"/>
+        public int Nanoseconds_InTick => Nanoseconds_InTick_Constant;
+
+
+        public Dictionary<int, int> LastDaysOfMonth => new Dictionary<int, int>()
+        {
+            { 1, 31 },
+            { 2, 28 }, // Note: requires leap-year adjustment elsewhere.
+            { 3, 31 },
+            { 4, 30 },
+            { 5, 31 },
+            { 6, 30 },
+            { 7, 31 },
+            { 8, 31 },
+            { 9, 30 },
+            { 10, 31 },
+            { 11, 30 },
+            { 12, 31 }
+        };
 
         /// <summary>
         /// <inheritdoc cref="Raw.IValues.DEFAULT" path="descendant::value"/>

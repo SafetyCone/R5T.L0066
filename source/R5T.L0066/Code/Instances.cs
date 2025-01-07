@@ -17,6 +17,7 @@ namespace R5T.L0066
         public static ICancellationTokens CancellationTokens => L0066.CancellationTokens.Instance;
         public static ICharacterOperator CharacterOperator => L0066.CharacterOperator.Instance;
         public static ICharacters Characters => L0066.Characters.Instance;
+        public static ICollectionOperator CollectionOperator => L0066.CollectionOperator.Instance;
         public static ICommandLineArgumentsOperator CommandLineArgumentsOperator => L0066.CommandLineArgumentsOperator.Instance;
         public static IComparisonResults ComparisonResults => L0066.ComparisonResults.Instance;
         public static IContextOperations ContextOperations => L0066.ContextOperations.Instance;
@@ -27,6 +28,7 @@ namespace R5T.L0066
         public static IDateTimeFormatTemplates DateTimeFormatTemplates => L0066.DateTimeFormatTemplates.Instance;
         public static IDateTimeOffsetOperator DateTimeOffsetOperator => L0066.DateTimeOffsetOperator.Instance;
         public static IDateTimeOperator DateTimeOperator => L0066.DateTimeOperator.Instance;
+        public static IDayOfWeekOperator DayOfWeekOperator => L0066.DayOfWeekOperator.Instance;
         public static IDecimalOperator DecimalOperator => L0066.DecimalOperator.Instance;
         public static IDefaultOperator DefaultOperator => L0066.DefaultOperator.Instance;
         public static IDictionaryOperator DictionaryOperator => L0066.DictionaryOperator.Instance;
@@ -39,6 +41,7 @@ namespace R5T.L0066
         public static IDocumentationFileNameOperator DocumentationFileNameOperator => L0066.DocumentationFileNameOperator.Instance;
         public static IDocumentationFilePathOperator DocumentationFilePathOperator => L0066.DocumentationFilePathOperator.Instance;
         public static IDoubleOperator DoubleOperator => L0066.DoubleOperator.Instance;
+        public static IEqualityOperator EqualityOperator => L0066.EqualityOperator.Instance;
         public static IEnvironmentOperator EnvironmentOperator => L0066.EnvironmentOperator.Instance;
         public static IEnumerableOperator EnumerableOperator => L0066.EnumerableOperator.Instance;
         public static IEnumerationOperator EnumerationOperator => L0066.EnumerationOperator.Instance;

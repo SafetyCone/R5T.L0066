@@ -219,7 +219,56 @@ namespace R5T.L0066
             return output;
         }
 
-        public IEnumerable<TValue> Get_Values<TKey, TValue>(
+        bool Equal_Counts<TKey, TValue>(
+            IDictionary<TKey, TValue> a,
+            IDictionary<TKey, TValue> b)
+            => Instances.CollectionOperator.Equal_Counts(a, b);
+
+        bool Equal_KeySets<TKey, TValue>(
+            IDictionary<TKey, TValue> a,
+            IDictionary<TKey, TValue> b,
+            IEqualityComparer<TKey> keyEqualityComparer)
+            => Instances.EnumerableOperator.Equal_ElementSets(
+                a.Keys,
+                b.Keys,
+                keyEqualityComparer);
+
+        bool Equal_KeySets<TKey, TValue>(
+            IDictionary<TKey, TValue> a,
+            IDictionary<TKey, TValue> b)
+            => Instances.EnumerableOperator.Equal_ElementSets(
+                a.Keys,
+                b.Keys);
+
+        bool Equal_ValuesForKeyIntersection<TKey, TValue>(
+            IDictionary<TKey, TValue> a,
+            IDictionary<TKey, TValue> b,
+            IEqualityComparer<TValue> valueEqualityComparer)
+        {
+            var keysIntersection = a.Keys.Intersect(b.Keys);
+
+            foreach (var key in keysIntersection)
+            {
+                var value_A = a[key];
+                var value_B = b[key];
+
+                var values_Equal = valueEqualityComparer.Equals(value_A, value_B);
+                if(!values_Equal)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        bool Equal_ValuesForKeyIntersection<TKey, TValue>(
+            IDictionary<TKey, TValue> a,
+            IDictionary<TKey, TValue> b)
+            => this.Equal_ValuesForKeyIntersection(a, b,
+                Instances.EqualityOperator.Get_EqualityComparer<TValue>());
+
+        IEnumerable<TValue> Get_Values<TKey, TValue>(
             IDictionary<TKey, TValue> dictionary,
             IEnumerable<TKey> keys)
         {

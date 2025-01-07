@@ -88,6 +88,22 @@ namespace R5T.L0066
             return output;
         }
 
+        public bool Are_Equal<T>(
+            T[] a,
+            T[] b,
+            IEqualityComparer<T> equalityComparer)
+            => this.Are_Equal(a, b,
+                (x, y) => equalityComparer.Equals(x, y));
+
+        public bool Are_Equal<T>(
+            T[] a,
+            T[] b)
+            => this.Are_Equal(a, b,
+                Instances.EqualityOperator.Get_EqualityComparer<T>());
+
+        public T[] CastTo<T>(Array array)
+            => (T[])array;
+
         public bool Contains<T>(
             T[] array,
             T item)
@@ -163,6 +179,13 @@ namespace R5T.L0066
 
         public int Get_Length<T>(T[] array)
             => array.Length;
+
+        public int[] Get_Range_Inclusive(int start, int end, int increment)
+            => Instances.EnumerableOperator.Enumerate_Range_Inclusive(start, end, increment)
+            .Now();
+
+        public int[] Get_Range_Inclusive(int start, int end)
+            => this.Get_Range_Inclusive(start, end, Instances.Integers.One);
 
         public T Get_SecondFromEnd<T>(T[] array)
         {

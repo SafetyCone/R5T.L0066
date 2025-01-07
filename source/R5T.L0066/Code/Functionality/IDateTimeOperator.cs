@@ -9,6 +9,15 @@ namespace R5T.L0066
     [FunctionalityMarker]
     public partial interface IDateTimeOperator : IFunctionalityMarker
     {
+        public DateTime From(
+            int year,
+            int month,
+            int day,
+            int hour,
+            int minute,
+            int second)
+            => new DateTime(year, month, day, hour, minute, second);
+
         public string Format(
             DateTime dateTime,
             string formatTemplate)
@@ -131,6 +140,14 @@ namespace R5T.L0066
                 dateTime,
                 formatTemplate);
 
+            return output;
+        }
+
+        public DateTime Subtract_Days(DateTime dateTime, int days)
+        {
+            var timeSpan = Instances.TimeSpanOperator.From_Days(days);
+
+            var output = dateTime.Subtract(timeSpan);
             return output;
         }
 

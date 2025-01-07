@@ -155,6 +155,24 @@ namespace R5T.L0066
                 enumerable,
                 EqualityComparer<T>.Default);
 
+        public IEnumerable<int> Enumerate_Range_Inclusive(
+            int start,
+            int end,
+            int increment)
+        {
+            var end_Inclusive = end + increment;
+
+            for (int i = start; i < end_Inclusive; i += increment)
+            {
+                yield return i;
+            }
+        }
+
+        public IEnumerable<int> Enumerate_Range_Inclusive(
+            int start,
+            int end)
+            => this.Enumerate_Range_Inclusive(start, end, Instances.Integers.One);
+
         public T[] Get_Duplicates<T>(
             IEnumerable<T> enumerable,
             IEqualityComparer<T> equalityComparer)
@@ -188,6 +206,19 @@ namespace R5T.L0066
         {
             return Enumerable.Empty<T>();
         }
+
+        public bool Equal_ElementSets<T>(
+            IEnumerable<T> a,
+            IEnumerable<T> b,
+            IEqualityComparer<T> equalityComparer)
+            => a.Except(b, equalityComparer)
+            .None();
+
+        public bool Equal_ElementSets<T>(
+            IEnumerable<T> a,
+            IEnumerable<T> b)
+            => this.Equal_ElementSets(a, b,
+                Instances.EqualityOperator.Get_EqualityComparer<T>());
 
         public IEnumerable<T> Except<T>(
             IEnumerable<T> items,
@@ -467,6 +498,8 @@ namespace R5T.L0066
                 yield return separator;
 
                 value = enumerator.Current;
+
+                output = selector(value);
             }
 
             foreach (var item in output)

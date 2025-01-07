@@ -7,7 +7,7 @@ using R5T.V0002;
 namespace R5T.L0066.V000
 {
     /// <summary>
-    /// Pather operator test article for the functionality method instances in <see cref="IPathOperator"/>.
+    /// Path operator test article for the functionality method instances in <see cref="IPathOperator"/>.
     /// </summary>
     [TestArticleImplementationMarker]
     public class PathOperatorTestArticle : ITestArticleImplementationMarker,

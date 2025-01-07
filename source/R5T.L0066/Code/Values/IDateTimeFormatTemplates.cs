@@ -19,5 +19,8 @@ namespace R5T.L0066
 
         /// <inheritdoc cref="IDateTimeFormats.YYYYMMDD_HHMMSS_Dashed"/>
         public string YYYYMMDD_HHMMSS_Dashed => $"{{0:{Instances.DateTimeFormats.YYYYMMDD_HHMMSS_Dashed}}}";
+
+        /// <inheritdoc cref="IDateTimeFormats.YYYY_MM_DD_Dashed"/>
+        public string YYYY_MM_DD_Dashed => $"{{0:{Instances.DateTimeFormats.YYYY_MM_DD_Dashed}}}";
     }
 }

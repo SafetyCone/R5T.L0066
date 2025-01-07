@@ -25,7 +25,7 @@ namespace R5T.L0066
         public void Write_Line(string line)
             => Console.WriteLine(line);
 
-        public void Write_Line_WithTrailingBlankLink(string line)
+        public void Write_Line_WithTrailingBlankLine(string line)
         {
             this.Write_Line(line);
             this.Write_Line();
@@ -37,6 +37,21 @@ namespace R5T.L0066
             {
                 this.Write_Line(line);
             }
+        }
+
+        public void Write_Lines<T>(IEnumerable<T> values)
+        {
+            foreach (var value in values)
+            {
+                this.Write_Line(value.ToString());
+            }
+        }
+
+        public void Write_Lines_WithTrailingBlankLine<T>(IEnumerable<T> values)
+        {
+            this.Write_Lines(values);
+
+            this.Write_Line();
         }
 
         /// <summary>

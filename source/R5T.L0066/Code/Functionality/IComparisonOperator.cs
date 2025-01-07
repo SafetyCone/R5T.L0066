@@ -18,12 +18,19 @@ namespace R5T.L0066
         public Comparer<T> Get_Comparer_DefaultForType<T>()
             => Comparer<T>.Default;
 
+        /// <summary>
+        /// Determines if the comparison result is the equal to result (<see cref="IComparisonResults.EqualTo"/>, <inheritdoc cref="IComparisonResults.EqualTo" path="descendant::value"/>).
+        /// </summary>
         public bool IsEqualResult(int comparisonResult)
         {
             var output = comparisonResult == Instances.ComparisonResults.EqualTo;
             return output;
         }
 
+        /// <summary>
+        /// Determines if the comparison result is one of the values other than the equal to result (<see cref="IComparisonResults.EqualTo"/>, <inheritdoc cref="IComparisonResults.EqualTo" path="descendant::value"/>)
+        /// such as <see cref="IComparisonResults.GreaterThan"/>, <inheritdoc cref="IComparisonResults.GreaterThan" path="descendant::value"/>, or <see cref="IComparisonResults.LessThan"/>, <inheritdoc cref="IComparisonResults.LessThan" path="descendant::value"/>.
+        /// </summary>
         public bool IsNotEqualResult(int comparisonResult)
         {
             var output = !this.IsEqualResult(comparisonResult);

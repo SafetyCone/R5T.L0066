@@ -1,6 +1,8 @@
 using System;
+using System.Linq;
 
 using R5T.T0132;
+using R5T.T0143;
 
 
 namespace R5T.L0066
@@ -8,6 +10,67 @@ namespace R5T.L0066
     [FunctionalityMarker]
     public partial interface IEnumerationOperator : IFunctionalityMarker
     {
+#pragma warning disable IDE1006 // Naming Styles
+
+        [Ignore]
+        public Implementations.IEnumerationOperator _Implementations => Implementations.EnumerationOperator.Instance;
+
+#pragma warning restore IDE1006 // Naming Styles
+
+
+        public TEnum[] Get_Values<TEnum>()
+            where TEnum : Enum
+            => _Implementations.Get_Values_SimpleSyntax<TEnum>();
+
+        public Array Get_Values(Type enumerationType)
+        {
+            var output = Enum.GetValues(enumerationType);
+            return output;
+        }
+
+        public Type Get_EnumerationType<TEnum>()
+            where TEnum : Enum
+        {
+            var output = Instances.TypeOperator.Get_TypeOf<TEnum>();
+            return output;
+        }
+
+        public Type Get_EnumerationType<TEnum>(TEnum enumerationValue)
+            where TEnum : Enum
+            => this.Get_EnumerationType<TEnum>();
+
+        public Type Get_UnderlyingType(Enum value)
+        {
+            var enumerationType = value.GetType();
+
+            var output = this.Get_UnderlyingType(enumerationType);
+            return output;
+        }
+
+        public Type Get_UnderlyingType<TEnum>(TEnum enumerationValue)
+            where TEnum : Enum
+        {
+            var enumerationType = Instances.TypeOperator.Get_TypeOf(enumerationValue);
+
+            var output = this.Get_UnderlyingType(enumerationType);
+            return output;
+        }
+
+        public Type Get_UnderlyingType<TEnum>()
+            where TEnum : Enum
+        {
+            var enumerationType = typeof(TEnum);
+
+            var output = this.Get_UnderlyingType(enumerationType);
+            return output;
+        }
+
+        public Type Get_UnderlyingType(Type enumerationType)
+        {
+            var output = Enum.GetUnderlyingType(enumerationType);
+            return output;
+        }
+
         /// <summary>
         /// Gets a message indicating the the input value of the <typeparamref name="TEnum"/> enumeration was unexpected.
         /// This is useful in producing an error in the default case for switch statements based on enumeration values.
@@ -89,5 +152,75 @@ namespace R5T.L0066
         public Exception Get_DefaultCaseException<TEnum>(TEnum value)
             where TEnum : Enum
             => Instances.SwitchOperator.Get_DefaultCaseException(value);
+
+        public int Get_ValueOf_Integer32_Unchecked<TEnum>(TEnum enumerationValue)
+        {
+            var output = Convert.ToInt32(enumerationValue);
+            return output;
+        }
+
+        public int Get_ValueOf_Integer32_Checked<TEnum>(TEnum enumerationValue)
+            where TEnum : Enum
+        {
+            this.Verify_UnderlyingType_IsInteger32(enumerationValue);
+
+            var output = this.Get_ValueOf_Integer32_Unchecked(enumerationValue);
+            return output;
+        }
+
+        /// <summary>
+        /// Chooses <see cref="Get_ValueOf_Integer32_Unchecked{TEnum}(TEnum)"/> as the default.
+        /// (Because an exception wil be thrown anyway.)
+        /// </summary>
+        public int Get_ValueOf_Integer32<TEnum>(TEnum enumerationValue)
+            where TEnum : Enum
+            => this.Get_ValueOf_Integer32_Unchecked(enumerationValue);
+
+        public bool Is_UnderlyingType_Integer32<TEnum>()
+            where TEnum : Enum
+        {
+            var underlyingType = this.Get_UnderlyingType<TEnum>();
+
+            var integer32Type = Instances.TypeOperator.Get_TypeOf<int>();
+
+            var output = Instances.TypeOperator.Equals(
+                underlyingType,
+                integer32Type);
+
+            return output;
+        }
+
+        //public bool Is<T>(Enum value, Enum flag)
+        //    where T : Enum
+        //{
+
+        //}
+
+        public bool Is_UnderlyingType_Integer32<TEnum>(TEnum enumerationValue)
+            where TEnum : Enum
+            => this.Is_UnderlyingType_Integer32<TEnum>();
+
+        public void Verify_UnderlyingType_IsInteger32<TEnum>()
+            where TEnum : Enum
+        {
+            var is_Interger32 = this.Is_UnderlyingType_Integer32<TEnum>();
+            if(!is_Interger32)
+            {
+                var underlyingType = this.Get_UnderlyingType<TEnum>();
+
+                var enumerationType = Instances.TypeOperator.Get_TypeOf<TEnum>();
+
+                var message = Instances.EnumerableOperator.From("Underlying type for enumeration type was not Integer32")
+                    .Append($"{Instances.TypeOperator.Get_NamespacedTypeName(underlyingType)}: underlying type found")
+                    .Append($"{Instances.TypeOperator.Get_NamespacedTypeName(enumerationType): enumertion type}")
+                    .Join_Lines();
+
+                throw new Exception(message);
+            }
+        }
+
+        public void Verify_UnderlyingType_IsInteger32<TEnum>(TEnum enuemrationVaue)
+            where TEnum : Enum
+            => this.Verify_UnderlyingType_IsInteger32<TEnum>();
     }
 }
