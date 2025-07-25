@@ -7,9 +7,13 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
+
 using R5T.Extensions;
 
 using R5T.T0132;
+using R5T.T0143;
+
+using IXElementOperator_Common = F10Y.L0000.IXElementOperator;
 
 using XmlDocumentation = R5T.Y0006.Documentation.For_Xml;
 
@@ -26,51 +30,20 @@ namespace R5T.L0066
     /// </list>
     /// </remarks>
     [FunctionalityMarker]
-    public partial interface IXElementOperator : IFunctionalityMarker
+    public partial interface IXElementOperator : IFunctionalityMarker,
+        F10Y.L0000.IXElementOperator
     {
 #pragma warning disable IDE1006 // Naming Styles
+
+        [Ignore]
         public Implementations.IXElementOperator _Implementations => Implementations.XElementOperator.Instance;
+
+
+        [Ignore]
+        public F10Y.L0000.IXElementOperator _F10Y_L0000 => F10Y.L0000.XElementOperator.Instance;
+
 #pragma warning restore IDE1006 // Naming Styles
 
-
-        /// <summary>
-        /// Acquires an attribute with the specified name.
-        /// </summary>
-        public XAttribute Acquire_Attribute(
-            XElement element,
-            string attributeName)
-        {
-            var hasAttribute = this.Has_Attribute(
-                element,
-                attributeName,
-                out var attribute);
-
-            if (!hasAttribute)
-            {
-                attribute = this.Add_Attribute(
-                    element,
-                    attributeName);
-            }
-
-            return attribute;
-        }
-
-        public XAttribute Get_Attribute(
-            XElement element,
-            string attributeName)
-        {
-            var hasAttribute = this.Has_Attribute(
-                element,
-                attributeName,
-                out var attribute);
-
-            if (!hasAttribute)
-            {
-                throw Instances.ExceptionOperator.Get_AttributeNotFoundException(attributeName);
-            }
-
-            return attribute;
-        }
 
         public string Get_AttributeValue(
             XElement element,
@@ -82,35 +55,6 @@ namespace R5T.L0066
 
             var output = Instances.XAttributeOperator.Get_Value(attribute);
             return output;
-        }
-
-        public XElement Acquire_Child(
-            XElement element,
-            string elementName)
-        {
-            var output = Instances.XContainerOperator.Acquire_Child(
-                element,
-                elementName);
-
-            return output;
-        }
-
-        public XAttribute Add_Attribute(XElement element, string attributeName)
-        {
-            var attribute = Instances.XAttributeOperator.New_Attribute(attributeName);
-
-            element.Add(attribute);
-
-            return attribute;
-        }
-
-        public void Add_Child(
-            XElement parent,
-            XElement child)
-        {
-            Instances.XContainerOperator.Add_Child(
-                parent,
-                child);
         }
 
         /// <summary>
@@ -149,15 +93,6 @@ namespace R5T.L0066
             XElement child)
         {
             this.Append_Child(
-                parent,
-                child);
-        }
-
-        public void Append_Child(
-            XElement parent,
-            XElement child)
-        {
-            Instances.XContainerOperator.Append_Child(
                 parent,
                 child);
         }
@@ -212,14 +147,8 @@ namespace R5T.L0066
             return output;
         }
 
-        public XElement Create_Element_FromName(string elementName)
-        {
-            var output = new XElement(elementName);
-            return output;
-        }
-
         /// <summary>
-        /// Quality-of-life overload for <see cref="Parse(string, LoadOptions)"/>.
+        /// Quality-of-life overload for <see cref="IXElementOperator_Common.Parse(string, LoadOptions)"/>.
         /// </summary>
         public XElement Create_Element_FromText(
             string xmlText,
@@ -229,12 +158,6 @@ namespace R5T.L0066
                 xmlText,
                 loadOptions);
 
-            return output;
-        }
-
-        public XElement Create_Element(string elementName)
-        {
-            var output = this.Create_Element_FromName(elementName);
             return output;
         }
 
@@ -332,11 +255,6 @@ namespace R5T.L0066
             return output;
         }
 
-        public IEnumerable<XAttribute> Get_Attributes(XElement element)
-        {
-            return element.Attributes();
-        }
-
         /// <summary>
         /// Chooses <see cref="Get_ChildElement_ByLocalName(XElement, string)"/> as the default.
         /// </summary>
@@ -394,7 +312,7 @@ namespace R5T.L0066
         {
             var output = this.Enumerate_ChildElements(element)
                 .Where_NameIs(childName)
-                .Now();
+                .ToArray();
 
             return output;
         }
@@ -402,7 +320,7 @@ namespace R5T.L0066
         public XElement[] Get_ChildElements(XElement element)
         {
             var output = this.Enumerate_ChildElements(element)
-                .Now();
+                .ToArray();
 
             return output;
         }
@@ -413,7 +331,7 @@ namespace R5T.L0066
         public XElement[] Get_Children(XElement element)
         {
             var output = this.Enumerate_Children(element)
-                .Now();
+                .ToArray();
 
             return output;
         }
@@ -421,7 +339,7 @@ namespace R5T.L0066
         public XNode[] Get_ChildNodes(XElement element)
         {
             var output = this.Enumerate_ChildNodes(element)
-                .Now();
+                .ToArray();
 
             return output;
         }
@@ -430,7 +348,7 @@ namespace R5T.L0066
             where TNode : XNode
         {
             var output = this.Enumerate_ChildNodesOfType<TNode>(element)
-                .Now();
+                .ToArray();
 
             return output;
         }
@@ -439,7 +357,7 @@ namespace R5T.L0066
             where TNode : XNode
         {
             var output = this.Enumerate_DescendantNodesOfType<TNode>(element)
-                .Now();
+                .ToArray();
 
             return output;
         }
@@ -447,7 +365,7 @@ namespace R5T.L0066
         public XText[] Get_DescendantTextNodes(XElement element)
         {
             var output = this.Enumerate_DescendantTextNodes(element)
-                .Now();
+                .ToArray();
 
             return output;
         }
@@ -488,30 +406,6 @@ namespace R5T.L0066
 
             var output = Instances.DefaultOperator.Is_NotDefault(firstDescendantNode_OrDefault);
             return output;
-        }
-
-        public bool Has_Attribute_First(
-            XElement element,
-            string attributeName,
-            out XAttribute attributeOrDefault)
-        {
-            attributeOrDefault = this.Get_Attributes(element)
-                .Where_NameIs(attributeName)
-                .FirstOrDefault();
-
-            var output = Instances.DefaultOperator.Is_NotDefault(attributeOrDefault);
-            return output;
-        }
-
-        /// <summary>
-        /// Chooses <see cref="Has_Attribute_First(XElement, string, out XAttribute)"/> as the default.
-        /// </summary>
-        public bool Has_Attribute(
-            XElement element,
-            string attributeName,
-            out XAttribute attribute_OrDefault)
-        {
-            return this.Has_Attribute_First(element, attributeName, out attribute_OrDefault);
         }
 
         public bool HasChild_Any<TElement>(TElement element, string childName)
@@ -584,20 +478,6 @@ namespace R5T.L0066
         public bool Is_Name(XElement element, string elementName)
             => this.Is_LocalName(element, elementName);
 
-        public bool Is_LocalName(XElement element, string elementName)
-        {
-            var output = element.Name.LocalName == elementName;
-            return output;
-        }
-
-        public Func<XElement, bool> Get_Is_LocalName(string elementName)
-            => element => this.Is_LocalName(
-                element,
-                elementName);
-
-        public Func<XElement, bool> Get_Is_Name(string elementName)
-            => this.Get_Is_LocalName(elementName);
-
         /// <inheritdoc cref="Is_Name(XElement, string)"/>
         public bool Name_Is(XElement element, string elementName)
         {
@@ -618,44 +498,17 @@ namespace R5T.L0066
             return output;
         }
 
-        public XElement Parse(
-            string xmlText,
-            LoadOptions loadOptions = LoadOptions.None)
-        {
-            var output = XElement.Parse(
-                xmlText,
-                loadOptions);
-
-            return output;
-        }
-
         /// <summary>
-        /// Quality-of-life overload for <see cref="New()"/>.
+        /// Quality-of-life overload for <see cref="IXElementOperator_Common.New()"/>.
         /// </summary>
         public XElement Get_New()
             => this.New();
 
         /// <summary>
-        /// Quality-of-life overload for <see cref="New(string)"/>.
+        /// Quality-of-life overload for <see cref="IXElementOperator_Common.New(string)"/>.
         /// </summary>
         public XElement Get_New(string elementName)
             => this.New(elementName);
-
-        /// <summary>
-        /// Constructs a new <see cref="XElement"/> using the default XElement name (<see cref="IValues.Default_XElementName"/>).
-        /// XElements cannot be constructed without a name, but you can change the name after construction.
-        /// You might want to just construct an element, then set its name (as in this method).
-        /// The default name is used to allow this.
-        /// </summary>
-        public XElement New()
-            => new XElement(
-                Instances.Values.Default_XElementName);
-
-        public XElement New(string elementName)
-        {
-            var output = new XElement(elementName);
-            return output;
-        }
 
         public XElement New(
             string elementName,
@@ -700,43 +553,6 @@ namespace R5T.L0066
             }
         }
 
-        public string Get_Name(XElement element)
-        {
-            var name = element.Name.LocalName;
-            return name;
-        }
-
-        /// <summary>
-        /// Gets the inner text of the element, without any XML tags.
-        /// To get the inner XML of the element (text including XML tags), use <see cref="Get_InnerXml(XElement)"/>.
-        /// </summary>
-        public string Get_Value(XElement element)
-        {
-            var output = element.Value;
-            return output;
-        }
-
-        /// <summary>
-        /// Quality-of-life overload for <see cref="Get_Value(XElement)"/>
-        /// </summary>
-        public string Get_InnerText(XElement element)
-            => this.Get_Value(element);
-
-        /// <summary>
-        /// Gets the inner XML of the element (text including XML tags).
-        /// To get the inner text of the element, without any XML tags, use <see cref="Get_Value(XElement)"/>.
-        /// </summary>
-        // Source: https://stackoverflow.com/questions/3793/best-way-to-get-innerxml-of-an-xelement
-        public string Get_InnerXml(XElement element)
-        {
-            using var reader = element.CreateReader();
-
-            reader.MoveToContent();
-
-            var output = reader.ReadInnerXml();
-            return output;
-        }
-
         public IEnumerable<XElement> SelectElements_ByXPath(
             XElement element,
             string xPath)
@@ -747,16 +563,6 @@ namespace R5T.L0066
             string xPath)
             => element.XPathSelectElement(
                 xPath);
-
-        public void Set_Name(
-            XElement element,
-            string name)
-            => element.Name = name;
-
-        public void Set_Value(XElement element, string value)
-        {
-            element.Value = value;
-        }
 
         public XElement Set_ChildValue(
             XElement propertyGroupElement,
@@ -775,7 +581,7 @@ namespace R5T.L0066
         }
 
         /// <summary>
-        /// Quality-of-life overload for <see cref="Parse(string, LoadOptions)"/>.
+        /// Quality-of-life overload for <see cref="IXElementOperator_Common.Parse(string, LoadOptions)"/>.
         /// </summary>
         public XElement From_Text(
             string xmlText,
@@ -872,7 +678,7 @@ namespace R5T.L0066
                 element);
 
         /// <summary>
-        /// Writes an <see cref="XElement"/> to a file using the "as-is" XML writer settings (<see cref="IXmlWriterSettingsSets.AsIs"/>).
+        /// Writes an <see cref="XElement"/> to a file using the "as-is" XML writer settings (<see cref="IXmlWriterSettingsSet.AsIs"/>).
         /// </summary>
         public Task To_File_AsIs(
             string xmlFilePath,
@@ -987,21 +793,6 @@ namespace R5T.L0066
             return output;
         }
 
-        public string To_Text(
-            XElement element,
-            XmlWriterSettings writerSettings)
-        {
-            var stringBuilder = new StringBuilder();
-
-            using (var xmlWriter = XmlWriter.Create(stringBuilder, writerSettings))
-            {
-                element.WriteTo(xmlWriter);
-            }
-
-            var output = stringBuilder.ToString();
-            return output;
-        }
-
         public string To_Text_PrettyPrint(XElement element)
             => this.To_Text(
                 element,
@@ -1021,17 +812,6 @@ namespace R5T.L0066
 
                 throw new Exception($"Element did not have expected name '{name}'; name was '{actualName}'.");
             }
-        }
-
-        public IEnumerable<XElement> Where_NameIs(IEnumerable<XElement> elements, string elementName)
-        {
-            var predicate = this.Get_Is_Name(elementName);
-
-            var output = elements
-                .Where(predicate)
-                ;
-
-            return output;
         }
 
         public void To_Writer_AsIs_Synchronous(

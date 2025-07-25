@@ -1,6 +1,7 @@
 using System;
 
 using R5T.T0132;
+using R5T.T0143;
 
 using Glossary = R5T.Y0006.Glossary;
 
@@ -8,37 +9,16 @@ using Glossary = R5T.Y0006.Glossary;
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface IIndexOperator : IFunctionalityMarker
+    public partial interface IIndexOperator : IFunctionalityMarker,
+        F10Y.L0000.IIndexOperator
     {
-        /// <summary>
-        /// Given a zero-based index value, get the count of elements that index represents.
-        /// Exclusive in the sense that the element at the index is not included.
-        /// (Basically, just return the index.)
-        /// </summary>
-        public int Get_Count_Exclusive(int index)
-        {
-            var output = index;
-            return output;
-        }
+#pragma warning disable IDE1006 // Naming Styles
 
-        /// <summary>
-        /// Given a zero-based index value, get the count of elements that index represents.
-        /// Inclusive in the sense that the element at the index is included.
-        /// (Basically, just add one to the index.)
-        /// </summary>
-        public int Get_Count_Inclusive(int index)
-        {
-            var output = index + 1;
-            return output;
-        }
+        [Ignore]
+        public F10Y.L0000.IIndexOperator _F10Y_L0000 => F10Y.L0000.IndexOperator.Instance;
 
-        /// <summary>
-        /// Chooses <see cref="Get_Count_Inclusive(int)"/> as the default.
-        /// </summary>
-        public int Get_Count(int index)
-        {
-            return this.Get_Count_Inclusive(index);
-        }
+#pragma warning restore IDE1006 // Naming Styles
+
 
         /// <summary>
         /// Gets the count of elements starting at the start index (inclusive) and ending at the end index (inclusive).
@@ -56,22 +36,6 @@ namespace R5T.L0066
             int endIndex)
         {
             var output = endIndex - startIndex - 1;
-            return output;
-        }
-
-        /// <summary>
-        /// Gets the last <inheritdoc cref="Glossary.For_Index.Exclusive" path="/name"/> index from a last <inheritdoc cref="Glossary.For_Index.Inclusive" path="/name"/> index by adding one.
-        /// <para><inheritdoc cref="Glossary.For_Index.ExclusiveInclusiveRelationship" path="/definition"/></para>
-        /// </summary>
-        public int Get_ExclusiveIndex(int inclusiveIndex)
-        {
-            var output = inclusiveIndex + 1;
-            return output;
-        }
-
-        public int Get_InclusiveIndex(int exclusiveIndex)
-        {
-            var output = exclusiveIndex - 1;
             return output;
         }
 
@@ -111,31 +75,6 @@ namespace R5T.L0066
         {
             var output = Instances.Indices.Zero == index;
             return output;
-        }
-
-        public bool Is_Found(int index)
-        {
-            var output = Instances.Indices.NotFound != index;
-            return output;
-        }
-
-        public bool Was_Found(int index)
-        {
-            return this.Is_Found(index);
-        }
-
-        /// <summary>
-        /// Note: somewhat useless, since it's usually better to say what was being searched for was not found,
-        /// instead of just that the result of searching was not found.
-        /// But here anyway.
-        /// </summary>
-        public void Verify_IsFound(int index)
-        {
-            var isFound = this.Is_Found(index);
-            if (!isFound)
-            {
-                throw new Exception("Index is not found.");
-            }
         }
     }
 }

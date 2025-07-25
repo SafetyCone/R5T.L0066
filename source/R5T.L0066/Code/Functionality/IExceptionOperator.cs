@@ -3,20 +3,22 @@ using System.Collections.Generic;
 using System.Diagnostics;
 
 using R5T.T0132;
+using R5T.T0143;
 
 
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface IExceptionOperator : IFunctionalityMarker
+    public partial interface IExceptionOperator : IFunctionalityMarker,
+        F10Y.L0000.IExceptionOperator
     {
-        public Exception Get_AttributeNotFoundException(string attributeName)
-        {
-            var message = Instances.ExceptionMessageOperator.Get_AttributeNotFoundMessage(attributeName);
+#pragma warning disable IDE1006 // Naming Styles
 
-            var output = new Exception(message);
-            return output;
-        }
+        [Ignore]
+        public F10Y.L0000.IExceptionOperator _F10Y_L0000 => F10Y.L0000.ExceptionOperator.Instance;
+
+#pragma warning restore IDE1006 // Naming Styles
+
 
         public Exception Get_ErrorDataReceivedException(DataReceivedEventArgs eventArgs)
         {

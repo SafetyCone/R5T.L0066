@@ -3,26 +3,30 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
+using F10Y.T0011;
 using R5T.T0132;
 
 
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface IEnvironmentOperator : IFunctionalityMarker
+    public partial interface IEnvironmentOperator : IFunctionalityMarker,
+        F10Y.L0000.IEnvironmentOperator
     {
 #pragma warning disable IDE1006 // Naming Styles
+
+        [Ignore]
+        public F10Y.L0000.IEnvironmentOperator _F10Y_L0000 => F10Y.L0000.EnvironmentOperator.Instance;
+
+        [Ignore]
         public Implementations.IEnvironmentOperator _Implementations => Implementations.EnvironmentOperator.Instance;
+
 #pragma warning restore IDE1006 // Naming Styles
 
 
         /// <inheritdoc cref="IDirectorySeparatorOperator.Get_EnvironmentAlternateDirectorySeparator"/>
         public char Get_AlternateDirectorySeparator()
             => Instances.DirectorySeparatorOperator.Get_EnvironmentAlternateDirectorySeparator();
-
-        /// <inheritdoc cref="IDirectorySeparatorOperator.Get_EnvironmentDirectorySeparator"/>
-        public char Get_DirectorySeparator()
-            => Instances.DirectorySeparatorOperator.Get_EnvironmentDirectorySeparator();
 
         public DriveInfo Get_DriveInformation(string driveName = IValues.C_DriveName)
             => new DriveInfo(driveName);
@@ -103,9 +107,6 @@ namespace R5T.L0066
             return output;
         }
 
-        public string Get_NewLine()
-            => Environment.NewLine;
-
         /// <inheritdoc cref="IRuntimeOperator.Get_RuntimeDirectoryPath"/>
         public string Get_RuntimeDirectoryPath()
             => Instances.RuntimeOperator.Get_RuntimeDirectoryPath();
@@ -149,7 +150,7 @@ namespace R5T.L0066
             var output = pathDirectories_WithDuplicates
                 .Select(Instances.StringOperator.To_Lower)
                 .Distinct()
-                .Now();
+                .ToArray();
 
             return output;
         }

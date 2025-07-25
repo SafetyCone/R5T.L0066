@@ -13,7 +13,10 @@ namespace R5T.L0066
         /// <inheritdoc cref="CharactersDocumentation.ForAsterix"/>
         public const char Asterix_Constant = '*';
 
-        /// <inheritdoc cref="Asterix_Constant"/>
+        ///// <inheritdoc cref="Asterix_Constant"/>
+        /// <summary>
+        /// <inheritdoc cref="CharactersDocumentation.ForAsterix" path="/summary/descendant::description"/>
+        /// </summary>
         public char Asterix => ICharacters.Asterix_Constant;
 
         /// <inheritdoc cref="CharactersDocumentation.ForBackslash"/>

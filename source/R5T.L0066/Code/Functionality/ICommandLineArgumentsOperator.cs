@@ -20,7 +20,7 @@ namespace R5T.L0066
         public string Get_ExecutableFilePath(string[] commandLineArguments)
         {
             // In .NET, the file path for the currently executing executable is the first argument.
-            var output = this.Get_FirstCommandLineArgument();
+            var output = Instances.ArrayOperator.Get_First(commandLineArguments);
             return output;
         }
 

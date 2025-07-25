@@ -6,6 +6,7 @@ namespace R5T.L0066.Extensions
 {
     public static class DictionaryExtensions
     {
+        /// <inheritdoc cref="IDictionaryOperator.Acquire_Value{TKey, TValue}(IDictionary{TKey, TValue}, TKey, Func{TValue})"/>
         public static TValue Acquire_Value<TKey, TValue>(this IDictionary<TKey, TValue> dictionary,
             TKey key,
             Func<TValue> valueConstructor)

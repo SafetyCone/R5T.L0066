@@ -1,35 +1,33 @@
 using System;
 
 using R5T.T0131;
+using R5T.T0143;
 
 
 namespace R5T.L0066
 {
     [ValuesMarker]
-    public partial interface IPredicates : IValuesMarker
+    public partial interface IPredicates : IValuesMarker,
+        F10Y.L0000.IPredicates
     {
-        /// <inheritdoc cref="IPredicateOperator.For{T}" path="/summary"/>
-        /// <remarks>
-        /// See: <see cref="IPredicateOperator.For{T}"/>
-        /// </remarks>
-        // Allow a method in this values instance, for quality-of-life.
-        // It will *not* get picked up in instances survey.
-        public IPredicates<T> For<T>()
-            => Predicates<T>.Instance;
+#pragma warning disable IDE1006 // Naming Styles
+
+        [Ignore]
+        public F10Y.L0000.IPredicates _F10Y_L0000 => F10Y.L0000.Predicates.Instance;
+
+#pragma warning restore IDE1006 // Naming Styles
     }
 
 
     [ValuesMarker]
-    public partial interface IPredicates<T> : IValuesMarker
+    public partial interface IPredicates<T> : IValuesMarker,
+        F10Y.L0000.IPredicates<T>
     {
-        /// <summary>
-        /// Always returns false.
-        /// </summary>
-        Func<T, bool> False => x => false;
+#pragma warning disable IDE1006 // Naming Styles
 
-        /// <summary>
-        /// Always returns true.
-        /// </summary>
-        Func<T, bool> True => x => true;
+        [Ignore]
+        public F10Y.L0000.IPredicates<T> _F10Y_L0000 => F10Y.L0000.Predicates<T>.Instance;
+
+#pragma warning restore IDE1006 // Naming Styles
     }
 }

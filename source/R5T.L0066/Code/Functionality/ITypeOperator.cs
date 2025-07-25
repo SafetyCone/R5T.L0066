@@ -47,7 +47,7 @@ namespace R5T.L0066
 
         public Type[] Get_Interfaces_DirectlyImplementedOnly(Type type)
             => this.Enumerate_Interfaces_DirectlyImplementedOnly(type)
-                .Now();
+                .ToArray();
 
         /// <summary>
         /// Note, includes the generic parameter count. Example: ExampleClass01`1.
@@ -163,7 +163,10 @@ namespace R5T.L0066
         /// <inheritdoc cref="Get_TypeName(Type)"/>
         public string Get_TypeNameOf<T>(T value)
         {
-            var type = this.Get_TypeOf(value);
+            var type = value is null
+                ? this.Get_TypeOf<T>()
+                : this.Get_TypeOf(value)
+                ;
 
             // The full name corresponds to our concept of type name.
             var typeName = this.Get_TypeName(type);

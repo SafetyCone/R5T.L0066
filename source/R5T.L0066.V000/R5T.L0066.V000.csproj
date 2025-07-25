@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Main">
     <TargetFramework>net8.0</TargetFramework>
-    <NoWarn>1573;1587;1591</NoWarn>
+    <NoWarn>1573;1587;1591;IDE0130</NoWarn>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
 
     <IsPackable>false</IsPackable>
@@ -17,8 +17,10 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="3.2.0" />
-    <!--Needed, even though this package comes in via a recursive reference to R5T.NG0017,
-    because Visual Studio Test Explorer will find tests, but *not* actually run them if it's missing.-->
+    <!--
+    Needed, even though this package comes in via a recursive reference to R5T.NG0017,
+    because Visual Studio Test Explorer will find tests, but *not* actually run them if it's missing.
+    -->
     <PackageReference Include="MSTest.TestFramework" Version="3.2.0" />
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
   </ItemGroup>

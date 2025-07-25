@@ -3,43 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 
 using R5T.T0132;
+using R5T.T0143;
 
 
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface IPredicateOperator : IFunctionalityMarker
+    public partial interface IPredicateOperator : IFunctionalityMarker,
+        F10Y.L0000.IPredicateOperator
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Short-circuiting.
-        /// </remarks>
-        public Func<T, bool> And<T>(
-            IEnumerable<Func<T, bool>> predicates)
-        {
-            bool Internal(T meal)
-            {
-                foreach (var predicate in predicates)
-                {
-                    var stool = predicate(meal);
-                    if(!stool)
-                    {
-                        return false;
-                    }
-                }
+#pragma warning disable IDE1006 // Naming Styles
 
-                // Else, if all predicates pass.
-                return true;
-            }
+        [Ignore]
+        public F10Y.L0000.IPredicateOperator _F10Y_L0000 => F10Y.L0000.PredicateOperator.Instance;
 
-            return Internal;
-        }
+#pragma warning restore IDE1006 // Naming Styles
 
-        public Func<T, bool> And<T>(
-            params Func<T, bool>[] predicates)
-            => this.And(predicates.AsEnumerable());
 
         /// <summary>
         /// 
@@ -81,12 +60,6 @@ namespace R5T.L0066
             T input,
             params Func<T, bool>[] predicates)
             => this.And(predicates)(input);
-
-        /// <summary>
-        /// Returns a typed predicates value instance (<see cref="IPredicates{T}"/>).
-        /// </summary>
-        public IPredicates<T> For<T>()
-            => Predicates<T>.Instance;
 
         public Func<string, bool> Get_Predicate_ForEquals(string value)
         {

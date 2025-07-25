@@ -19,8 +19,10 @@ namespace R5T.L0066
         public static readonly object CollectionCountsNotActuallyChecked;
 
         /// <summary>
+        /// <para>OBSOLETE: <see cref="F10Y.Y0000.Documentation.CompareTo_XtoY"/></para>
         /// For x.CompareTo(y) in <see cref="IComparable{T}.CompareTo(T)"/>.
         /// </summary>
+        [Obsolete]
         public static readonly object CompareToXY;
 
         /// <summary>

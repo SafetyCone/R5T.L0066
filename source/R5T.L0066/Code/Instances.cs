@@ -122,7 +122,7 @@ namespace R5T.L0066
         public static IXmlOperator XmlOperator => L0066.XmlOperator.Instance;
         public static IXmlTextOperator XmlTextOperator => L0066.XmlTextOperator.Instance;
         public static IXmlWriterSettingsOperator XmlWriterSettingsOperator => L0066.XmlWriterSettingsOperator.Instance;
-        public static IXmlWriterSettingsSets XmlWriterSettingsSets => L0066.XmlWriterSettingsSets.Instance;
+        public static IXmlWriterSettingsSet XmlWriterSettingsSets => L0066.XmlWriterSettingsSet.Instance;
         public static IXTextOperator XTextOperator => L0066.XTextOperator.Instance;
     }
 }

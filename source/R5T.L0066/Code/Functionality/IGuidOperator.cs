@@ -43,7 +43,7 @@ namespace R5T.L0066
 
         public Guid[] Get_From(IEnumerable<string> guidStrings)
             => this.Enumerate_From(guidStrings)
-                .Now();
+                .ToArray();
 
         public Guid GetDefault()
         {

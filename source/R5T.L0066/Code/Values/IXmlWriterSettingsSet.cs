@@ -7,7 +7,7 @@ using R5T.T0131;
 namespace R5T.L0066
 {
     [ValuesMarker]
-    public partial interface IXmlWriterSettingsSets : IValuesMarker
+    public partial interface IXmlWriterSettingsSet : IValuesMarker
     {
         /// <summary>
         /// Writes XML content exactly as-is, with no modifications.
@@ -15,8 +15,8 @@ namespace R5T.L0066
         public XmlWriterSettings AsIs => new XmlWriterSettings
         {
             ConformanceLevel = ConformanceLevel.Fragment,
-            Indent = false,
-            OmitXmlDeclaration = true,
+            //Indent = false,
+            //OmitXmlDeclaration = true,
             NewLineHandling = NewLineHandling.None,
         };
 

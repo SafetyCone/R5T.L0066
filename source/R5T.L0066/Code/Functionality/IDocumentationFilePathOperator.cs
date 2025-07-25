@@ -59,7 +59,7 @@ namespace R5T.L0066
             string directoryPath)
         {
             var output = this.Enumerate_DocumentationFilePaths_AssemblyPaired(directoryPath)
-                .Now();
+                .ToArray();
 
             return output;
         }
@@ -69,7 +69,7 @@ namespace R5T.L0066
             string directoryPath)
         {
             var output = this.Enumerate_DocumentationFilePaths_AssemblyPaired_ForDirectory(directoryPath)
-                .Now();
+                .ToArray();
 
             return output;
         }

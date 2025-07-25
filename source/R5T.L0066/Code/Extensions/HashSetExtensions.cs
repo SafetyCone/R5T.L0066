@@ -6,13 +6,13 @@ namespace R5T.L0066.Extensions
 {
     public static class HashSetExtensions
     {
-        /// <inheritdoc cref="IHashSetOperator.Add_Range{T}(HashSet{T}, IEnumerable{T})"/>
+        /// <inheritdoc cref="F10Y.L0000.IHashSetOperator.Add_Range{T}(HashSet{T}, IEnumerable{T})"/>
         public static HashSet<T> Add_Range<T>(this HashSet<T> hashSet, IEnumerable<T> items)
         {
             return Instances.HashSetOperator.Add_Range(hashSet, items);
         }
 
-        /// <inheritdoc cref="IHashSetOperator.Add_Range_KeepLast{T}(HashSet{T}, IEnumerable{T})"/>
+        /// <inheritdoc cref="F10Y.L0000.IHashSetOperator.Add_Range_KeepLast{T}(HashSet{T}, IEnumerable{T})"/>
         public static HashSet<T> Add_Range_KeepLast<T>(this HashSet<T> hashSet, IEnumerable<T> items)
         {
             return HashSetOperator.Instance.Add_Range_KeepLast(hashSet, items);

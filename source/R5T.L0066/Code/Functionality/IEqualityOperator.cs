@@ -46,7 +46,7 @@ namespace R5T.L0066
         public EqualityComparer<T> Get_EqualityComparer<T>()
             => this.Get_EqualityComparer_DefaultForType<T>();
 
-        /// <inheritdoc cref="INullOperator.NullCheckDeterminesEquality_Else{T}(T, T, Func{T, T, bool})"/>
+        /// <inheritdoc cref="F10Y.L0000.INullOperator.NullCheckDeterminesEquality_Else{T}(T, T, Func{T, T, bool})"/>
         public bool NullCheckDeterminesEquality_Else<T>(T a, T b,
             Func<T, T, bool> equality)
             where T : class

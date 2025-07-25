@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
+using F10Y.T0011;
+
 using R5T.Extensions;
 
 using R5T.T0132;
@@ -11,31 +13,16 @@ using R5T.T0132;
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface IXContainerOperator : IFunctionalityMarker
+    public partial interface IXContainerOperator : IFunctionalityMarker,
+        F10Y.L0000.IXContainerOperator
     {
-        public XElement Acquire_Child(
-            XContainer container,
-            string elementName)
-        {
-            var hasChild = this.Has_Child(container, elementName, out var child);
-            if (!hasChild)
-            {
-                child = this.Append_Child(
-                    container,
-                    elementName);
-            }
+#pragma warning disable IDE1006 // Naming Styles
 
-            return child;
-        }
+        [Ignore]
+        public F10Y.L0000.IXContainerOperator _F10Y_L0000 => F10Y.L0000.XContainerOperator.Instance;
 
-        public void Add_Child(
-            XContainer parent,
-            XElement child)
-        {
-            this.Append_Child(
-                parent,
-                child);
-        }
+#pragma warning restore IDE1006 // Naming Styles
+
 
         /// <summary>
         /// Creates a child with the given name and text value, adds the child to the container, then returns the newly created child element.
@@ -74,57 +61,11 @@ namespace R5T.L0066
                 children.AsEnumerable());
         }
 
-        public void Append_Child(
-            XContainer parent,
-            XElement child)
-        {
-            parent.Add(child);
-        }
-
-        public XElement Append_Child(
-            XContainer parent,
-            string childName)
-        {
-            var child = Instances.XElementOperator.New(childName);
-
-            this.Append_Child(
-                parent,
-                child);
-
-            return child;
-        }
-
-        /// <summary>
-        /// A better named quality-of-life method for <see cref="XContainer.Elements()"/>.
-        /// </summary>
-        public IEnumerable<XElement> Enumerate_Children(XContainer container)
-        {
-            return container.Elements();
-        }
-
         public XElement[] Get_Children(XContainer container)
         {
             var output = this.Enumerate_Children(container)
-                .Now();
+                .ToArray();
 
-            return output;
-        }
-
-        /// <summary>
-        /// Chooses <see cref="Has_Child_First(XContainer, string, out XElement)"/> as the default.
-        /// </summary>
-        public bool Has_Child(XContainer container, string childName, out XElement child)
-        {
-            return this.Has_Child_First(container, childName, out child);
-        }
-
-        public bool Has_Child_First(XContainer container, string childName, out XElement childOrDefault)
-        {
-            childOrDefault = this.Enumerate_Children(container)
-                .Where_NameIs(childName)
-                .FirstOrDefault();
-
-            var output = Instances.DefaultOperator.Is_NotDefault(childOrDefault);
             return output;
         }
 

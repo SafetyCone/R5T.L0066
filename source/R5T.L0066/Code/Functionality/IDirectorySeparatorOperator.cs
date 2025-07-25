@@ -3,18 +3,28 @@ using System.IO;
 using System.Linq;
 
 using R5T.T0132;
+using R5T.T0143;
 
 
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface IDirectorySeparatorOperator : IFunctionalityMarker
+    public partial interface IDirectorySeparatorOperator : IFunctionalityMarker,
+        F10Y.L0000.IDirectorySeparatorOperator
     {
+#pragma warning disable IDE1006 // Naming Styles
+
+        [Ignore]
+        public F10Y.L0000.IDirectorySeparatorOperator _F10Y_L0000 => F10Y.L0000.DirectorySeparatorOperator.Instance;
+
+#pragma warning restore IDE1006 // Naming Styles
+
+
         /// <summary>
-		/// Given the Windows directory separator, get the non-Windows directory separator and vice-versa.
-		/// Note: will throw an exception if the input <paramref name="directorySeparator"/> is not either the Windows or non-Windows directory separator.
-		/// </summary>
-		public char Get_AlternateDirectorySeparator(char directorySeparator)
+        /// Given the Windows directory separator, get the non-Windows directory separator and vice-versa.
+        /// Note: will throw an exception if the input <paramref name="directorySeparator"/> is not either the Windows or non-Windows directory separator.
+        /// </summary>
+        public char Get_AlternateDirectorySeparator(char directorySeparator)
         {
             this.Verify_IsDirectorySeparator(directorySeparator);
 
@@ -65,14 +75,6 @@ namespace R5T.L0066
         public char Get_CurrentPlatformAlternateDirectorySeparator()
         {
             var output = Path.AltDirectorySeparatorChar;
-            return output;
-        }
-
-        public bool Is_DirectorySeparator(char character)
-        {
-            var directorySeparators = Instances.DirectorySeparators.Both;
-
-            var output = directorySeparators.Contains(character);
             return output;
         }
 

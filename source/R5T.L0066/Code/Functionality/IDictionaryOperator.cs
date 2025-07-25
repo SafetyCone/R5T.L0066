@@ -11,6 +11,10 @@ namespace R5T.L0066
     [FunctionalityMarker]
     public partial interface IDictionaryOperator : IFunctionalityMarker
     {
+        /// <summary>
+        /// If the dictionary already contains the given key, return the associated value.
+        /// Else, using the provided constructor to generate a value, add the value with the given key, and return the value.
+        /// </summary>
         public TValue Acquire_Value<TKey, TValue>(
             IDictionary<TKey, TValue> dictionary,
             TKey key,

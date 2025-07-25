@@ -8,7 +8,8 @@ using R5T.T0143;
 namespace R5T.L0066
 {
     [ValuesMarker]
-    public partial interface IValues : IValuesMarker
+    public partial interface IValues : IValuesMarker,
+        F10Y.L0000.IValues
     {
 #pragma warning disable IDE1006 // Naming Styles
 
@@ -100,7 +101,7 @@ namespace R5T.L0066
         /// <see cref="System.Xml.Linq.XElement"/>s cannot be constructed without a name,
         /// but you can change the element's name after construction.
         /// You might want to just construct an element, and then set its name.
-        /// This value is used by <see cref="IXElementOperator.New()"/> to do this.
+        /// This value is used by <see cref="F10Y.L0000.IXElementOperator.New()"/> to do this.
         /// </remarks>
         public string Default_XElementName => _Raw.DEFAULT;
 
@@ -113,15 +114,6 @@ namespace R5T.L0066
         public byte[] ByteOrderMark => IValues.zByteOrderMark.Value;
 
         /// <summary>
-        /// <para>true</para>
-        /// By default, files are overwritten.
-        /// </summary>
-        public const bool Default_OverwriteValue_Constant = true;
-
-        /// <inheritdoc cref="Default_OverwriteValue_Constant"/>
-        public bool Default_OverwriteValue => Default_OverwriteValue_Constant;
-
-        /// <summary>
         /// 1024, the default for <see cref="System.IO.StreamReader"/>.
         /// </summary>
         public const int Default_StreamReaderBufferSize_Constant = 1024;
@@ -132,7 +124,7 @@ namespace R5T.L0066
         /// <summary>
 		/// The value for the command line to have no arguments is null.
 		/// </summary>
-		public string EmptyCommandArguments => null;
+		public new string EmptyCommandArguments => F10Y.L0000.IValues.EmptyCommandArguments_Constant;
 
         /// <inheritdoc cref="ICharacters.Period_Constant"/>
         public const char NamespaceNameTokenSeparator_Constant = ICharacters.Period_Constant;

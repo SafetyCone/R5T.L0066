@@ -1,6 +1,7 @@
 using System;
 
 using R5T.T0131;
+using R5T.T0143;
 
 using StringsDocumentation = R5T.Y0006.Documentation.For_Strings;
 
@@ -8,41 +9,16 @@ using StringsDocumentation = R5T.Y0006.Documentation.For_Strings;
 namespace R5T.L0066
 {
     [ValuesMarker]
-    public partial interface IStrings : IValuesMarker
+    public partial interface IStrings : IValuesMarker,
+        F10Y.L0000.IStrings
     {
-        #region Capital Letters
+#pragma warning disable IDE1006 // Naming Styles
 
-        /// <inheritdoc cref="StringsDocumentation.For_A"/>
-        public const string A_Constant = "A";
+        [Ignore]
+        public F10Y.L0000.IStrings _F10Y_L0000 => F10Y.L0000.Strings.Instance;
 
-        /// <inheritdoc cref="A_Constant"/>
-        public string A => IStrings.A_Constant;
+#pragma warning restore IDE1006 // Naming Styles
 
-        /// <inheritdoc cref="StringsDocumentation.For_B"/>
-        public const string B_Constant = "B";
-
-        /// <inheritdoc cref="B_Constant"/>
-        public string B => IStrings.B_Constant;
-
-        /// <inheritdoc cref="StringsDocumentation.For_C"/>
-        public const string C_Constant = "C";
-
-        /// <inheritdoc cref="C_Constant"/>
-        public string C => IStrings.C_Constant;
-
-        /// <inheritdoc cref="StringsDocumentation.For_D"/>
-        public const string D_Constant = "D";
-
-        /// <inheritdoc cref="D_Constant"/>
-        public string D => IStrings.D_Constant;
-
-        /// <inheritdoc cref="StringsDocumentation.For_E"/>
-        public const string E_Constant = "E";
-
-        /// <inheritdoc cref="E_Constant"/>
-        public string E => IStrings.E_Constant;
-
-        #endregion
 
         /// <inheritdoc cref="StringsDocumentation.ForAsterix"/>
         public const string Asterix_Constant = "*";
@@ -74,18 +50,6 @@ namespace R5T.L0066
         /// <inheritdoc cref="CommaSeparatedListSpacedSeparator_Constant"/>
         public string CommaSpaceSeparatedListSeparator => IStrings.CommaSeparatedListSpacedSeparator_Constant;
 
-        /// <inheritdoc cref="ICharacters.Copyright_Constant"/>
-        public const string Copyright_Constant = "©";
-
-        /// <inheritdoc cref="IStrings.Copyright_Constant"/>
-        public string Copyright => IStrings.Copyright_Constant;
-
-        /// <inheritdoc cref="StringsDocumentation.ForDoubleDash"/>
-        public const string DoubleDash_Constant = "--";
-
-        /// <inheritdoc cref="DoubleDash_Constant"/>
-        public string DoubleDash => IStrings.DoubleDash_Constant;
-
         /// <inheritdoc cref="StringsDocumentation.ForDoubleDot"/>
         public const string DoubleDot_Constant = "..";
 
@@ -104,12 +68,6 @@ namespace R5T.L0066
         /// <inheritdoc cref="Ellipsis_Constant"/>
         public string Ellipsis => IStrings.Ellipsis_Constant;
 
-        /// <inheritdoc cref="StringsDocumentation.ForEmpty_Constant"/>
-        public const string Empty_Constant = "";
-
-        /// <inheritdoc cref="StringsDocumentation.ForEmpty"/>
-        public string Empty => IStrings.Empty_Constant;
-
         /// <inheritdoc cref="StringsDocumentation.ForEquals"/>
         public const string Equals_Constant = "=";
 
@@ -122,50 +80,11 @@ namespace R5T.L0066
         /// <inheritdoc cref="ExclamationPoint_Constant"/>
         public string ExclamationPoint => IStrings.ExclamationPoint_Constant;
 
-        /// <inheritdoc cref="StringsDocumentation.ForFalse_Lowercase"/>
-        public const string False_Lowercase_Constant = "false";
-
-        /// <inheritdoc cref="False_Lowercase_Constant"/>
-        public string False_Lowercase => IStrings.False_Lowercase_Constant;
-
         /// <inheritdoc cref="StringsDocumentation.ForFalse_PascalCase"/>
         public const string False_PascalCase_Constant = "False";
 
         /// <inheritdoc cref="False_PascalCase_Constant"/>
         public string False_PascalCase => IStrings.False_Lowercase_Constant;
-
-        /// <inheritdoc cref="StringsDocumentation.ForFalse_Uppercase"/>
-        public const string False_Uppercase_Constant = "FALSE";
-
-        /// <inheritdoc cref="False_Uppercase_Constant"/>
-        public string False_Uppercase => IStrings.False_Uppercase_Constant;
-
-        /// <inheritdoc cref="StringsDocumentation.ForHyphen"/>
-        public const string Hyphen_Constant = "-";
-
-        /// <inheritdoc cref="Hyphen_Constant"/>
-        public string Hyphen => IStrings.Hyphen_Constant;
-
-        /// <inheritdoc cref="StringsDocumentation.ForNewLine"/>
-        public const string NewLine_Constant = "\n";
-
-        /// <inheritdoc cref="NewLine_Constant"/>
-        public string NewLine => IStrings.NewLine_Constant;
-
-        /// <inheritdoc cref="IStringOperator.Get_NewLine_ForEnvironment"/>
-        public string NewLine_ForEnvironment => Instances.StringOperator.Get_NewLine_ForEnvironment();
-
-        /// <inheritdoc cref="StringsDocumentation.ForNewLine_Windows"/>
-        public const string NewLine_Windows_Constant = "\r\n";
-
-        /// <inheritdoc cref="NewLine_Windows_Constant"/>
-        public string NewLine_Windows => IStrings.NewLine_Windows_Constant;
-
-        /// <inheritdoc cref="NewLine_Constant"/>
-        public const string NewLine_NonWindows_Constant = IStrings.NewLine_Constant;
-
-        /// <inheritdoc cref="NewLine_NonWindows_Constant"/>
-        public string NewLine_NonWindows => IStrings.NewLine_NonWindows_Constant;
 
         /// <inheritdoc cref="StringsDocumentation.For_Percent"/>
         public const string Percent_Constant = "%";
@@ -191,30 +110,6 @@ namespace R5T.L0066
         /// <inheritdoc cref="QuestionMark_Constant"/>
         public string QuestionMark => IStrings.QuestionMark_Constant;
 
-        /// <inheritdoc cref="StringsDocumentation.ForQuote"/>
-        public const string Quote_Constant = "\"";
-
-        /// <inheritdoc cref="Quote_Constant"/>
-        public string Quote => IStrings.Quote_Constant;
-
-        /// <inheritdoc cref="StringsDocumentation.ForSpace"/>
-        public const string Space_Constant = " ";
-
-        /// <inheritdoc cref="Space_Constant"/>
-        public string Space => IStrings.Space_Constant;
-
-        /// <inheritdoc cref="StringsDocumentation.ForSlash"/>
-        public const string Semicolon_Constant = ";";
-
-        /// <inheritdoc cref="Semicolon_Constant"/>
-        public string Semicolon => IStrings.Semicolon_Constant;
-
-        /// <inheritdoc cref="StringsDocumentation.ForSlash"/>
-        public const string Slash_Constant = "/";
-
-        /// <inheritdoc cref="Slash_Constant"/>
-        public string Slash => IStrings.Slash_Constant;
-
         /// <inheritdoc cref="StringsDocumentation.ForTab"/>
         public const string Tab_Constant = "\t";
 
@@ -239,29 +134,11 @@ namespace R5T.L0066
         /// <inheritdoc cref="Triple_Slashes_Constant"/>
         public string Triple_Slashes => IStrings.Triple_Slashes_Constant;
 
-
-        /// <inheritdoc cref="StringsDocumentation.ForTrue_Lowercase"/>
-        public const string True_Lowercase_Constant = "true";
-
-        /// <inheritdoc cref="True_Lowercase_Constant"/>
-        public string True_Lowercase => IStrings.True_Lowercase_Constant;
-
         /// <inheritdoc cref="StringsDocumentation.ForTrue_PascalCase"/>
         public const string True_PascalCase_Constant = "True";
 
         /// <inheritdoc cref="True_PascalCase_Constant"/>
         public string True_PascalCase => IStrings.True_Lowercase_Constant;
-
-        /// <inheritdoc cref="StringsDocumentation.ForTrue_Uppercase"/>
-        public const string True_Uppercase_Constant = "TRUE";
-
-        /// <inheritdoc cref="True_Uppercase_Constant"/>
-        public string True_Uppercase => IStrings.True_Uppercase_Constant;
-
-        /// <summary>
-        /// Chooses <see cref="True_PascalCase"/> as the default.
-        /// </summary>
-        public string True => this.True_PascalCase;
 
         /// <summary>
         /// <para><value>yes</value></para>

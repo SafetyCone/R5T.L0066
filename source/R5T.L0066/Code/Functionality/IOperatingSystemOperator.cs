@@ -3,14 +3,23 @@ using System.Runtime.InteropServices;
 
 using R5T.T0132;
 
+using F10Y.T0011;
+
 
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface IOperatingSystemOperator : IFunctionalityMarker
+    public partial interface IOperatingSystemOperator : IFunctionalityMarker,
+        F10Y.L0000.IOperatingSystemOperator
     {
 #pragma warning disable IDE1006 // Naming Styles
-        protected Internal.IOperatingSystemOperator _Internal => Internal.OperatingSystemOperator.Instance;
+
+        [Ignore]
+        public F10Y.L0000.IOperatingSystemOperator _F10Y_L0000 => F10Y.L0000.OperatingSystemOperator.Instance;
+
+        [Ignore]
+        public new Internal.IOperatingSystemOperator _Internal => Internal.OperatingSystemOperator.Instance;
+
 #pragma warning restore IDE1006 // Naming Styles
 
 
@@ -31,25 +40,7 @@ namespace R5T.L0066
         /// </summary>
         // Prior work: R5T.D0024.Default.OSPlatformProvider
         public OSPlatform Get_OSPlatform()
-        {
-            // Implementation note: there is no RuntimeInformation.GetOSPlatform() method, so the only way to determine the OSPlatform is to test each one.
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                return OSPlatform.Windows;
-            }
-
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            {
-                return OSPlatform.OSX;
-            }
-
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                return OSPlatform.Linux;
-            }
-
-            throw _Internal.Get_UnknownOSPlatformException();
-        }
+            => this.Get_CurrentOperatingSystemPlatform();
 
         public bool Is_LinuxOSPlatform(OSPlatform oSPlatform)
         {
@@ -58,10 +49,7 @@ namespace R5T.L0066
         }
 
         public bool Is_OsxOSPlatform(OSPlatform oSPlatform)
-        {
-            var output = OSPlatform.OSX == oSPlatform;
-            return output;
-        }
+            => this.Is_OSX_OperatingSystemPlatform(oSPlatform);
 
         public bool Is_WindowsOSPlatform(OSPlatform oSPlatform)
         {
@@ -152,97 +140,6 @@ namespace R5T.L0066
                 windowsValue,
                 osxValue,
                 linuxValue);
-        }
-
-        public T SwitchOn_OSPlatform_ByValue<T>(
-            T windowsValue,
-            T osxValue,
-            T linuxValue)
-        {
-            var osPlatform = this.Get_OSPlatform();
-
-            return this.SwitchOn_OSPlatform_ByValue(
-                osPlatform,
-                windowsValue,
-                osxValue,
-                linuxValue);
-        }
-
-        public T SwitchOn_OSPlatform_ByValue<T>(
-            T windowsValue,
-            T osxValue,
-            T linuxValue,
-            T unknownValue)
-        {
-            var osPlatform = this.Get_OSPlatform();
-
-            return this.SwitchOn_OSPlatform_ByValue(
-                osPlatform,
-                windowsValue,
-                osxValue,
-                linuxValue,
-                unknownValue);
-        }
-
-        public T SwitchOn_OSPlatform_ByValue<T>(
-            OSPlatform osPlatform,
-            T windowsValue,
-            T osxValue,
-            T linuxValue)
-        {
-            // Unable to use basic switch statement since OSPlatform values are not constant.
-            // Unable to use relational switch statement since it is not available until C# 9.0 (net5.0).
-
-            // Put Linux first, since this is most common in production.
-            if (this.Is_LinuxOSPlatform(osPlatform))
-            {
-                return linuxValue;
-            }
-
-            // Put Windows second, since this is most common in development.
-            if (this.Is_WindowsOSPlatform(osPlatform))
-            {
-                return windowsValue;
-            }
-
-            // Put OSX last, since this is least common.
-            if (this.Is_OsxOSPlatform(osPlatform))
-            {
-                return osxValue;
-            }
-
-            throw _Internal.Get_UnknownOSPlatformException();
-        }
-
-        public T SwitchOn_OSPlatform_ByValue<T>(
-            OSPlatform osPlatform,
-            T windowsValue,
-            T osxValue,
-            T linuxValue,
-            T unknownValue)
-        {
-            // Unable to use basic switch statement since OSPlatform values are not constant.
-            // Unable to use relational switch statement since it is not available until C# 9.0 (net5.0).
-
-            // Put Linux first, since this is most common in production.
-            if (this.Is_LinuxOSPlatform(osPlatform))
-            {
-                return linuxValue;
-            }
-
-            // Put Windows second, since this is most common in development.
-            if (this.Is_WindowsOSPlatform(osPlatform))
-            {
-                return windowsValue;
-            }
-
-            // Put OSX last, since this is least common.
-            if (this.Is_OsxOSPlatform(osPlatform))
-            {
-                return osxValue;
-            }
-
-            return unknownValue;
-        }
+        }  
     }
 }

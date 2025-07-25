@@ -175,7 +175,7 @@ namespace R5T.L0066
 
             var output = Internal_Reversed(directoryInfo)
                 .Reverse()
-                .Now();
+                .ToArray();
 
             return output;
         }

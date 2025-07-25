@@ -70,7 +70,7 @@ namespace R5T.L0066
             return relativePathsByDestinationPath;
         }
 
-        public string Get_RelativePath(
+        public new string Get_RelativePath(
             string sourcePath,
             string destinationPath)
         {

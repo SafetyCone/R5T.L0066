@@ -8,9 +8,13 @@ using R5T.T0143;
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface IEnumerationOperator : IFunctionalityMarker
+    public partial interface IEnumerationOperator : IFunctionalityMarker,
+        F10Y.L0000.IEnumerationOperator
     {
 #pragma warning disable IDE1006 // Naming Styles
+
+        [Ignore]
+        public F10Y.L0000.IEnumerationOperator _F10Y_L0000 => F10Y.L0000.EnumerationOperator.Instance;
 
         [Ignore]
         public Implementations.IEnumerationOperator _Implementations => Implementations.EnumerationOperator.Instance;

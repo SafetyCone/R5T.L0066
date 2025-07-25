@@ -56,7 +56,7 @@ namespace R5T.L0066
         /// </summary>
         public StreamWriter New_Write(
             string filePath,
-            bool overwrite = IValues.Default_OverwriteValue_Constant)
+            bool overwrite = IValues.Overwrite_Default_Constant)
         {
             var stream = Instances.FileStreamOperator.Open_Write(filePath, overwrite);
 

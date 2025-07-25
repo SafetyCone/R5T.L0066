@@ -1,7 +1,6 @@
 ﻿using System;
 
 using R5T.T0243;
-using R5T.V0002;
 
 
 namespace R5T.L0066.V000
@@ -11,7 +10,7 @@ namespace R5T.L0066.V000
     /// </summary>
     [TestArticleImplementationMarker]
     public class PathOperatorTestArticle : ITestArticleImplementationMarker,
-        IPathOperatorTestArticle
+        V0002.IPathOperatorTestArticle
     {
         public string Combine_ToFilePath(string[] pathParts)
         {

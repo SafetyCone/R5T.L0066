@@ -8,7 +8,8 @@ using R5T.T0132;
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface IListOperator : IFunctionalityMarker
+    public partial interface IListOperator : IFunctionalityMarker,
+        F10Y.L0000.IListOperator
     {
 #pragma warning disable IDE1006 // Naming Styles
         private Implementations.IListOperator _Implementations => Implementations.ListOperator.Instance;
@@ -59,12 +60,6 @@ namespace R5T.L0066
             return output;
         }
 
-        public int Get_Count<T>(IList<T> list)
-        {
-            var output = list.Count;
-            return output;
-        }
-
         public T Get_Item<T>(
             IList<T> list,
             int index)
@@ -82,12 +77,6 @@ namespace R5T.L0066
             => this.Get_Item(
                 list,
                 index);
-
-        public T Get_First<T>(IList<T> list)
-        {
-            var output = list[0];
-            return output;
-        }
 
         public T Get_Second<T>(IList<T> list)
         {
@@ -129,7 +118,7 @@ namespace R5T.L0066
         /// <summary>
         /// Quality-of-life overload for <see cref="Get_Item_Last{T}(IList{T})"/>.
         /// </summary>
-        public T Get_Last<T>(IList<T> list)
+        public new T Get_Last<T>(IList<T> list)
             => this.Get_Item_Last(list);
 
         public T Get_Last<T>(IReadOnlyList<T> list)

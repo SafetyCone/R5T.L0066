@@ -205,7 +205,7 @@ namespace R5T.L0066
         /// <remarks>
         /// <inheritdoc cref="Make_DirectoryIndicated(string, bool)" path="descendant::if_no_directory_separator_found"/>
         /// </remarks>
-		public string Make_DirectoryIndicated(string path)
+		public new string Make_DirectoryIndicated(string path)
         {
             var output = this.Make_DirectoryIndicated(path, true);
             return output;

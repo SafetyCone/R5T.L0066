@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 
+using IXElementOperator_Common = F10Y.L0000.IXElementOperator;
+
 using Instances = R5T.L0066.Instances;
 
 
@@ -9,7 +11,7 @@ namespace R5T.Extensions
 {
     public static class XElementExtensions
     {
-        /// <inheritdoc cref="L0066.IXElementOperator.Acquire_Attribute(XElement, string)"/>
+        /// <inheritdoc cref="IXElementOperator_Common.Acquire_Attribute(XElement, string)"/>
         public static XAttribute Acquire_Attribute(this XElement element, string attributeName)
         {
             return Instances.XElementOperator.Acquire_Attribute(element, attributeName);

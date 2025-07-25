@@ -8,6 +8,12 @@ namespace R5T.L0066
     [FunctionalityMarker]
     public partial interface IUriOperator : IFunctionalityMarker
     {
+        public string Escape_DataString(string value)
+        {
+            var output = Uri.EscapeDataString( value);
+            return output;
+        }
+
         public Uri From(string uri)
         {
             var output = new Uri(uri);

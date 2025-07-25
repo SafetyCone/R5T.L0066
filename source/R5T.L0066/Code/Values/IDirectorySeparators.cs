@@ -8,7 +8,7 @@ namespace R5T.L0066
     [ValuesMarker]
     public partial interface IDirectorySeparators : IValuesMarker
     {
-        /// <inheritdoc cref="IEnvironmentOperator.Get_DirectorySeparator"/>
+        /// <inheritdoc cref="F10Y.L0000.IEnvironmentOperator.Get_DirectorySeparator"/>
         public char Environment => Instances.EnvironmentOperator.Get_DirectorySeparator();
 
         /// <inheritdoc cref="IEnvironmentOperator.Get_AlternateDirectorySeparator"/>

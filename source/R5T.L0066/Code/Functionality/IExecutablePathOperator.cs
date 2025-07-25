@@ -94,7 +94,7 @@ namespace R5T.L0066
         public string[] Get_AssemblyFilePaths()
         {
             var output = this.Enumerate_AssemblyFilePaths()
-                .Now();
+                .ToArray();
 
             return output;
         }

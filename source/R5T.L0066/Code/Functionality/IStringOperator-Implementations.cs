@@ -8,14 +8,14 @@ namespace R5T.L0066.Implementations
     [FunctionalityMarker]
     public partial interface IStringOperator : IFunctionalityMarker
     {
-        /// <inheritdoc cref="L0066.IStringOperator.Get_NewLine_ForEnvironment" path="/summary"/>
+        /// <inheritdoc cref="F10Y.L0000.IStringOperator.Get_NewLine_ForEnvironment" path="/summary"/>
         /// <remarks>
         /// Returns the value from <see cref="System.Environment.NewLine"/>.
         /// </remarks>
         public string Get_NewLine_ForEnvironment_FromSystem()
             => Instances.EnvironmentOperator.Get_NewLine();
 
-        /// <inheritdoc cref="L0066.IStringOperator.Get_NewLine_ForEnvironment" path="/summary"/>
+        /// <inheritdoc cref="F10Y.L0000.IStringOperator.Get_NewLine_ForEnvironment" path="/summary"/>
         /// <remarks>
         /// Switch on the OSPlatform value from <see cref="IOperatingSystemOperator.Get_OSPlatform"/>.
         /// </remarks>
@@ -30,7 +30,7 @@ namespace R5T.L0066.Implementations
 
         /// <inheritdoc cref="L0066.IStringOperator.Is_WhitespaceOnly(string)" path="/summary"/>
         /// <remarks>
-        /// Works by testing each character against <see cref="ICharacterOperator.Is_NotWhitespace(char)"/>,
+        /// Works by testing each character against <see cref="F10Y.L0000.ICharacterOperator.Is_NotWhitespace(char)"/>,
         /// and if any are not whitespacer, returns false.
         /// Otherwise, returns true.
         /// </remarks>

@@ -94,7 +94,7 @@ namespace R5T.L0066
             var output = this.Run_Functions(
                 value,
                 functions.AsEnumerable())
-                .Now();
+                .ToArray();
 
             return output;
         }

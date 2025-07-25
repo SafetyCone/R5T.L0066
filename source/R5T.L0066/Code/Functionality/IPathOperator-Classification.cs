@@ -65,7 +65,7 @@ namespace R5T.L0066
         /// <remarks>
         /// Works by testing if the last character of the path is one of the two directory separators.
         /// </remarks>
-        public bool Is_DirectoryIndicated(string pathPart)
+        public new bool Is_DirectoryIndicated(string pathPart)
         {
             // Test last character of path.
             var lastCharacter = Instances.StringOperator.Get_LastCharacter(pathPart);
@@ -168,7 +168,7 @@ namespace R5T.L0066
             return output;
         }
 
-        public bool Is_Resolved(string path)
+        public new bool Is_Resolved(string path)
         {
             var isUnresolved = this.Is_Unresolved(path);
 
@@ -209,7 +209,7 @@ namespace R5T.L0066
         /// <summary>
 		/// Determines whether the <paramref name="path"/> is <inheritdoc cref="Glossary.RootIndicated" path="/name"/>.
 		/// </summary>
-		public bool Is_RootIndicated(string path)
+		public new bool Is_RootIndicated(string path)
         {
             // Now get the first character.
             var firstCharacter = path.First();
@@ -234,7 +234,7 @@ namespace R5T.L0066
             return output;
         }
 
-        public bool Is_Unresolved(string path)
+        public new bool Is_Unresolved(string path)
         {
             // Is the path simply one of the relative directory names?
             // Files named "." or ".." are illegal, because there is already an entry in every directory named "." or "..".
@@ -299,7 +299,9 @@ namespace R5T.L0066
 
             var invalidFileNameCharacters = Instances.PathOperator.Get_InvalidFileNameCharacters();
 
-            var invalidFileNameCharactersExceptVolumeSeparator = invalidFileNameCharacters.Except(Instances.PathSeparators.VolumeSeparator).Now();
+            var invalidFileNameCharactersExceptVolumeSeparator = invalidFileNameCharacters
+                .Except(Instances.PathSeparators.VolumeSeparator)
+                .ToArray();
 
             var firstPathPart = pathParts.First();
 

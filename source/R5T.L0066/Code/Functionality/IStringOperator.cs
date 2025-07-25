@@ -5,19 +5,28 @@ using System.Linq;
 using System.Text;
 
 using R5T.T0132;
+using R5T.T0143;
 
 using R5T.L0066.Extensions;
-using System.Security.Cryptography;
 
 
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface IStringOperator : IFunctionalityMarker
+    public partial interface IStringOperator : IFunctionalityMarker,
+        F10Y.L0000.IStringOperator
     {
 #pragma warning disable IDE1006 // Naming Styles
-        private static Internal.IStringOperator _Internal => Internal.StringOperator.Instance;
-        private static Implementations.IStringOperator _Implementations => Implementations.StringOperator.Instance;
+
+        [Ignore]
+        public F10Y.L0000.IStringOperator _F10Y_L0000 => F10Y.L0000.StringOperator.Instance;
+
+        [Ignore]
+        public Internal.IStringOperator _Internal => Internal.StringOperator.Instance;
+
+        [Ignore]
+        public new Implementations.IStringOperator _Implementations => Implementations.StringOperator.Instance;
+
 #pragma warning restore IDE1006 // Naming Styles
 
 
@@ -37,6 +46,11 @@ namespace R5T.L0066
             return output;
         }
 
+        public IEnumerable<string> Append_BlankLine(IEnumerable<string> lines)
+            => Instances.EnumerableOperator.Append(
+                lines,
+                Instances.Strings.Empty);
+
         /// <summary>
         /// Quality-of-life overload for <see cref="StartsWith(string, string)"/>.
         /// </summary>
@@ -51,14 +65,6 @@ namespace R5T.L0066
             string b)
         {
             var output = a + b;
-            return output;
-        }
-
-        public bool Contains(
-            string @string,
-            char @char)
-        {
-            var output = @string.Contains(@char);
             return output;
         }
 
@@ -99,16 +105,8 @@ namespace R5T.L0066
             return wasFound;
         }
 
-        public bool Contains_ConsiderCase(
-            string @string,
-            string subString)
-        {
-            var output = @string.Contains(subString);
-            return output;
-        }
-
         /// <summary>
-        /// Chooses <see cref="Contains_ConsiderCase(string, string)"/> as the default.
+        /// Chooses <see cref="F10Y.L0000.IStringOperator.Contains_ConsiderCase(string, string)"/> as the default.
         /// </summary>
         public bool Contains(
             string @string,
@@ -116,30 +114,6 @@ namespace R5T.L0066
             => this.Contains_ConsiderCase(
                 @string,
                 subString);
-
-        public bool Contains(
-            string @string,
-            string subString,
-            StringComparison stringComparison)
-        {
-            var output = @string.Contains(
-                subString,
-                stringComparison);
-
-            return output;
-        }
-
-        public bool Contains_IgnoreCase(
-            string @string,
-            string subString)
-        {
-            var output = this.Contains(
-                @string,
-                subString,
-                StringComparison.InvariantCultureIgnoreCase);
-
-            return output;
-        }
 
         /// <summary>
         /// Converts \r\n and \r to \n.
@@ -274,25 +248,6 @@ namespace R5T.L0066
                 output,
                 character);
 
-            return output;
-        }
-
-        public string Ensure_Enquoted(string @string)
-        {
-            var firstChar = @string.First();
-            var lastChar = @string.Last();
-
-            var firstQuoteToken = firstChar == Instances.Characters.Quote
-                ? Instances.Strings.Empty
-                : Instances.Strings.Quote
-                ;
-
-            var lastQuoteToken = lastChar == Instances.Characters.Quote
-                ? Instances.Strings.Empty
-                : Instances.Strings.Quote
-                ;
-
-            var output = $"{firstQuoteToken}{@string}{lastQuoteToken}";
             return output;
         }
 
@@ -450,7 +405,7 @@ namespace R5T.L0066
         /// Chooses <see cref="Except_First_Strict(string)"/> as the default.
         /// Check your string lengths!
         /// </summary>
-        public string Except_First(string @string)
+        public new string Except_First(string @string)
         {
             var output = this.Except_First_Strict(@string);
             return output;
@@ -468,17 +423,6 @@ namespace R5T.L0066
             return formatTemplate;
         }
 
-        public string Format_WithTemplate(
-            string template,
-            params object[] objects)
-        {
-            var output = System.String.Format(
-                template,
-                objects);
-
-            return output;
-        }
-
         /// <summary>
         /// Note: singular.
         /// </summary>
@@ -492,27 +436,6 @@ namespace R5T.L0066
                 formatTemplate,
                 @object);
 
-            return output;
-        }
-
-        /// <summary>
-        /// Chooses <see cref="Format_WithTemplate(string, object[])"/> as the default.
-        /// </summary>
-        public string Format(
-            string template,
-            params object[] objects)
-            => this.Format_WithTemplate(
-                template,
-                objects);
-
-        /// <summary>
-        /// Returns the character at the provided index.
-        /// </summary>
-        public char Get_Character(
-            string @string,
-            int index)
-        {
-            var output = @string[index];
             return output;
         }
 
@@ -610,31 +533,11 @@ namespace R5T.L0066
             return output;
         }
 
-        public char Get_Character_First(string @string)
-        {
-            var output = this.Get_Character(
-                @string,
-                Instances.Indices.Zero);
-
-            return output;
-        }
-
         public char Get_Character_Last(
             string @string,
             int indexOfLast)
         {
             var output = this.Get_Character(
-                @string,
-                indexOfLast);
-
-            return output;
-        }
-
-        public char Get_Character_Last(string @string)
-        {
-            var indexOfLast = this.Get_Index_Last(@string);
-
-            var output = this.Get_Character_Last(
                 @string,
                 indexOfLast);
 
@@ -666,46 +569,7 @@ namespace R5T.L0066
         }
 
         /// <summary>
-        /// Chooses <see cref="Internal.IStringOperator.Get_Length_Unchecked(string)"/> as the default.
-        /// </summary>
-        public int Get_Length(string @string)
-        {
-            var output = _Internal.Get_Length_Unchecked(@string);
-            return output;
-        }
-
-        public bool Length_IsAtLeast(
-            string @string,
-            int length)
-        {
-            var length_OfString = this.Get_Length(@string);
-
-            var output = length >= length_OfString;
-            return output;
-        }
-
-        public bool Length_IsGreaterThan(
-            string @string,
-            int length)
-        {
-            var length_OfString = this.Get_Length(@string);
-
-            var output = length_OfString > length;
-            return output;
-        }
-
-        public bool Length_IsLessThan(
-            string @string,
-            int length)
-        {
-            var length_OfString = this.Get_Length(@string);
-
-            var output = length_OfString < length;
-            return output;
-        }
-
-        /// <summary>
-        /// Quality-of-life overload for <see cref="Length_IsAtLeast(string, int)"/> 
+        /// Quality-of-life overload for <see cref="F10Y.L0000.IStringOperator.Length_IsAtLeast(string, int)"/> 
         /// </summary>
         public bool Is_Length_AtLeast(
             string @string,
@@ -715,7 +579,7 @@ namespace R5T.L0066
                 length);
 
         /// <summary>
-        /// Quality-of-life overload for <see cref="Length_IsGreaterThan(string, int)"/> 
+        /// Quality-of-life overload for <see cref="F10Y.L0000.IStringOperator.Length_IsGreaterThan(string, int)"/> 
         /// </summary>
         public bool Is_Length_GreaterThan(
             string @string,
@@ -725,7 +589,7 @@ namespace R5T.L0066
                 length);
 
         /// <summary>
-        /// Quality-of-life overload for <see cref="Length_IsGreaterThan(string, int)"/> 
+        /// Quality-of-life overload for <see cref="F10Y.L0000.IStringOperator.Length_IsGreaterThan(string, int)"/> 
         /// </summary>
         public bool Is_Length_LessThan(
             string @string,
@@ -733,15 +597,6 @@ namespace R5T.L0066
             => this.Length_IsLessThan(
                 @string,
                 length);
-
-        /// <summary>
-        /// Gets the new line string for the currently executing environment.
-        /// </summary>
-        public string Get_NewLine_ForEnvironment()
-        {
-            var output = _Implementations.Get_NewLine_ForEnvironment_FromSystem();
-            return output;
-        }
 
         public IEnumerable<string> Get_NonWhitespaceStrings(IEnumerable<string> strings)
         {
@@ -1009,37 +864,16 @@ namespace R5T.L0066
             return false;
         }
 
-        /// <summary>
-        /// Determines if the input is specifically the <see cref="IStrings.Empty"/> string.
-        /// </summary>
-        public bool Is_Empty(string value)
-        {
-            var isEmpty = value == Instances.Strings.Empty;
-            return isEmpty;
-        }
-
         public bool Is_Found(int index)
         {
             return Instances.IndexOperator.Is_Found(index);
         }
-
-        public bool Is_Null(string @string)
-            => Instances.NullOperator.Is_Null(@string);
-
-        public bool Is_NotNull(string @string)
-            => Instances.NullOperator.Is_NotNull(@string);
 
         public bool Is_NotNullOrEmpty(string @string)
         {
             var isNullOrEmpty = this.Is_NullOrEmpty(@string);
 
             var output = !isNullOrEmpty;
-            return output;
-        }
-
-        public bool Is_NullOrEmpty(string @string)
-        {
-            var output = System.String.IsNullOrEmpty(@string);
             return output;
         }
 
@@ -1090,25 +924,9 @@ namespace R5T.L0066
 
         public string Join(
             char separator,
-            IEnumerable<string> strings)
-        {
-            var output = System.String.Join(separator, strings);
-            return output;
-        }
-
-        public string Join(
-            char separator,
             params string[] strings)
         {
             var output = this.Join(separator, strings.AsEnumerable());
-            return output;
-        }
-
-        public string Join(
-            string separator,
-            IEnumerable<string> strings)
-        {
-            var output = System.String.Join(separator, strings);
             return output;
         }
 
@@ -1140,7 +958,7 @@ namespace R5T.L0066
         }
 
         /// <summary>
-        /// Uses the <see cref="IStrings.Empty"/> value as a separator.
+        /// Uses the <see cref="F10Y.L0000.IStrings.Empty"/> value as a separator.
         /// </summary>
         public string Join(IEnumerable<string> strings)
         {
@@ -1187,30 +1005,12 @@ namespace R5T.L0066
             return output;
         }
 
-        public string Join_ToString(IEnumerable<string> strings)
-        {
-            var output = String.Concat(strings);
-            return output;
-        }
-
-        public string Join_ToString(params string[] strings)
-        {
-            var output = String.Concat(strings);
-            return output;
-        }
-
         /// <summary>
-        /// Quality-of-life overload for <see cref="To_Lower(string)"/>.
+        /// Quality-of-life overload for <see cref="F10Y.L0000.IStringOperator.To_Lower(string)"/>.
         /// </summary>
-        /// <inheritdoc cref="To_Lower(string)" path="/remarks"/>
+        /// <inheritdoc cref="F10Y.L0000.IStringOperator.To_Lower(string)" path="/remarks"/>
         public string Lower(string @string)
             => this.To_Lower(@string);
-
-        public IEnumerable<string> Order_Alphabetically(IEnumerable<string> items)
-        {
-            var output = items.OrderBy(x => x);
-            return output;
-        }
 
         public IEnumerable<string> Order_Alphabetically_OnlyIfDebug(IEnumerable<string> items)
         {
@@ -1222,6 +1022,9 @@ namespace R5T.L0066
 
             return output;
         }
+
+        public IEnumerable<IEnumerable<string>> OrderBy_First(IEnumerable<IEnumerable<string>> values)
+            => Instances.EnumerableOperator.OrderBy_First(values);
 
         public string PrefixWith(
             string prefix,
@@ -1408,21 +1211,6 @@ namespace R5T.L0066
                 selector,
                 Instances.Strings.Empty);
 
-        public string Serialize_UsingMemoryStream(
-            Action<MemoryStream> memoryStreamAction)
-        {
-            using var memoryStream = Instances.MemoryStreamOperator.Get_New();
-
-            memoryStreamAction(memoryStream);
-
-            Instances.StreamOperator.Seek_Beginnning(memoryStream);
-
-            using var reader = Instances.StreamReaderOperator.Get_New(memoryStream);
-
-            var output = reader.ReadToEnd();
-            return output;
-        }
-
         public string[] Split_On(
             string @string,
             int index)
@@ -1441,24 +1229,6 @@ namespace R5T.L0066
                 secondToken
             };
 
-            return output;
-        }
-
-        public string[] Split(
-            char separator,
-            string @string,
-            StringSplitOptions options = StringSplitOptions.None)
-        {
-            var output = @string.Split(separator, options);
-            return output;
-        }
-
-        public string[] Split(
-            string separator,
-            string @string,
-            StringSplitOptions options = StringSplitOptions.None)
-        {
-            var output = @string.Split(separator, options);
             return output;
         }
 
@@ -1511,15 +1281,6 @@ namespace R5T.L0066
             var output = @string.Trim();
             return output;
         }
-
-        /// <summary>
-        /// Returns the lowered version of a string.
-        /// </summary>
-        /// <remarks>
-        /// Returns the result of <see cref="String.ToLowerInvariant"/>.
-        /// </remarks>
-        public string To_Lower(string @string)
-            => @string.ToLowerInvariant();
 
         /// <inheritdoc cref="Trim(string)"/>
         public IEnumerable<string> Trim(IEnumerable<string> strings)
@@ -1681,11 +1442,6 @@ namespace R5T.L0066
             {
                 throw new Exception("String was null or empty.");
             }
-        }
-
-        public bool Was_Found(int index)
-        {
-            return Instances.IndexOperator.Was_Found(index);
         }
 
         public string Wrap(

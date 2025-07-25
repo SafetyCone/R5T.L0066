@@ -2,14 +2,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using F10Y.T0011;
 using R5T.T0132;
 
 
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface ITextOperator : IFunctionalityMarker
+    public partial interface ITextOperator : IFunctionalityMarker,
+        F10Y.L0000.ITextOperator
     {
+#pragma warning disable IDE1006 // Naming Styles
+
+        [Ignore]
+        public F10Y.L0000.ITextOperator _F10Y_L0000 => F10Y.L0000.TextOperator.Instance;
+
+#pragma warning restore IDE1006 // Naming Styles
+
+
         public string Join_AsSeparatedList<T>(
             string separator,
             IEnumerable<T> values)
@@ -63,32 +73,6 @@ namespace R5T.L0066
             var output = this.Join_AsSeparatedList(
                 separator,
                 values.AsEnumerable());
-
-            return output;
-        }
-
-        /// <summary>
-        /// Joins lines using the specified line separator into a single string of text.
-        /// </summary>
-        public string Join_Lines(
-            IEnumerable<string> lines,
-            string lineSeparator)
-        {
-            var output = StringOperator.Instance.Join(
-                lineSeparator,
-                lines);
-
-            return output;
-        }
-
-        /// <summary>
-        /// Joins lines using the <see cref="IStrings.NewLine_ForEnvironment"/> separator into a single string of text.
-        /// </summary>
-        public string Join_Lines(IEnumerable<string> lines)
-        {
-            var output = this.Join_Lines(
-                lines,
-                Instances.Strings.NewLine_ForEnvironment);
 
             return output;
         }

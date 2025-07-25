@@ -11,7 +11,7 @@ namespace R5T.L0066
         /// <summary>
         /// Indicates that x is less than y.
         /// <para>Value: <value>-1</value></para>
-        /// <para><inheritdoc cref="Documentation.CompareToXY" path="/summary"/></para>
+        /// <para><inheritdoc cref="F10Y.Y0000.Documentation.CompareTo_XtoY" path="/summary"/></para>
         /// </summary>
         public int LessThan => -1;
 

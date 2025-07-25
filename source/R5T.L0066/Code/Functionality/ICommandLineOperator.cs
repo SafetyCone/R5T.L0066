@@ -13,7 +13,8 @@ using R5T.L0066.Extensions;
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface ICommandLineOperator : IFunctionalityMarker
+    public partial interface ICommandLineOperator : IFunctionalityMarker,
+        F10Y.L0000.ICommandLineOperator
     {
         public void Default_DataReceivedHandler(object sender, DataReceivedEventArgs eventArgs)
         {
@@ -233,7 +234,7 @@ namespace R5T.L0066
             return exitCode;
         }
 
-        public int Run_Synchronous(
+        public new int Run_Synchronous(
             string command,
             string arguments)
         {
@@ -304,7 +305,7 @@ namespace R5T.L0066
                 UseShellExecute = false,
                 CreateNoWindow = true,
                 RedirectStandardError = true,
-                RedirectStandardOutput = true
+                RedirectStandardOutput = true,
             };
 
             Process process = new Process()

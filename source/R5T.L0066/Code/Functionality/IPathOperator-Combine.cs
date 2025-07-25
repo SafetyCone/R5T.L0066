@@ -70,7 +70,7 @@ namespace R5T.L0066
             return output;
         }
 
-        public string Combine(params string[] pathParts)
+        public new string Combine(params string[] pathParts)
         {
             var output = Path.Combine(pathParts);
             return output;

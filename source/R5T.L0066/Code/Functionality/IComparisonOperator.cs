@@ -1,14 +1,20 @@
 using System;
 using System.Collections.Generic;
 
+using F10Y.T0011;
 using R5T.T0132;
 
 
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface IComparisonOperator : IFunctionalityMarker
+    public partial interface IComparisonOperator : IFunctionalityMarker,
+        F10Y.L0000.IComparisonOperator
     {
+        [Ignore]
+        public F10Y.L0000.IComparisonOperator _F10Y_L0000 => F10Y.L0000.ComparisonOperator.Instance;
+
+
         /// <summary>
         /// Chooses <see cref="Get_Comparer_DefaultForType{T}"/> as the default.
         /// </summary>

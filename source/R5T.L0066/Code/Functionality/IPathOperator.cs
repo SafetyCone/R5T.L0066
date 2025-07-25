@@ -9,11 +9,12 @@ using R5T.T0132;
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface IPathOperator : IFunctionalityMarker
+    public partial interface IPathOperator : IFunctionalityMarker,
+        F10Y.L0000.IPathOperator
     {
 #pragma warning disable IDE1006 // Naming Styles
         public Checked.IPathOperator _Checked => Checked.PathOperator.Instance;
-        public Implementations.IPathOperator _Implementations => Implementations.PathOperator.Instance;
+        public new Implementations.IPathOperator _Implementations => Implementations.PathOperator.Instance;
         public Internal.IPathOperator _Internal => Internal.PathOperator.Instance;
 #pragma warning restore IDE1006 // Naming Styles
 
@@ -143,25 +144,7 @@ namespace R5T.L0066
             return pathParts;
         }
 
-        public string[] Get_PathParts_NonEmpty(string path)
-        {
-            var directorySeparators = Instances.DirectorySeparators.Both;
-
-            // Split path on directory separators, removing empty entries.
-            var pathParts = path.Split(directorySeparators, StringSplitOptions.RemoveEmptyEntries);
-            return pathParts;
-        }
-
-        /// <summary>
-        /// Chooses <see cref="Get_PathParts_NonEmpty(string)"/> as the default.
-        /// </summary>
-        public string[] Get_PathParts(string path)
-        {
-            var output = this.Get_PathParts_NonEmpty(path);
-            return output;
-        }
-
-        public string Get_DirectoryPath(
+        public new string Get_DirectoryPath(
             string baseDirectoryPath,
             string directoryName)
         {
@@ -271,7 +254,7 @@ namespace R5T.L0066
         /// Quality-of-life overload for <see cref="IPathOperator.Combine(string, string)"/>.
         /// <para><inheritdoc cref="IPathOperator.Combine(string, string)" path="/summary"/></para>
         /// </summary>
-        public string Get_FilePath(
+        public new string Get_FilePath(
             string directoryPath,
             string fileName)
         {
@@ -362,7 +345,7 @@ namespace R5T.L0066
         /// <remarks>
         /// Chooses <see cref="Implementations.IPathOperator.Get_DirectoryName_ViaLastPathPart(string)"/> as the default implementation.
         /// </remarks>
-        public string Get_DirectoryName(string directoryPath)
+        public new string Get_DirectoryName(string directoryPath)
         {
             var output = _Implementations.Get_DirectoryName_ViaLastPathPart(directoryPath);
             return output;
@@ -389,8 +372,6 @@ namespace R5T.L0066
         {
             return this.Get_DirectoryPath(pathParts.AsEnumerable());
         }
-
-        
 
         /// <summary>
         /// Gets both directory separators.
@@ -429,7 +410,7 @@ namespace R5T.L0066
         /// <remarks>
         /// Uses the <see cref="DirectoryInfo"/> class.
         /// </remarks>
-        public string Get_ParentDirectoryPath_ForDirectory(string directoryPath)
+        public new string Get_ParentDirectoryPath_ForDirectory(string directoryPath)
         {
             var directoryInfo = new DirectoryInfo(directoryPath);
 
@@ -466,13 +447,13 @@ namespace R5T.L0066
         /// <remarks>
         /// Chooses the <see cref="Implementations.IPathOperator.Get_ParentDirectoryPath_ForFile_UsingFileInfo(string)"/> as the default implementation.
         /// </remarks>
-        public string Get_ParentDirectoryPath_ForFile(string filePath)
+        public new string Get_ParentDirectoryPath_ForFile(string filePath)
         {
             var output = _Implementations.Get_ParentDirectoryPath_ForFile_UsingFileInfo(filePath);
             return output;
         }
 
-        public string Get_Path(
+        public new string Get_Path(
             string basePath,
             string path_RelativeToBasePath)
         {

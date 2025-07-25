@@ -10,7 +10,8 @@ using R5T.T0132;
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface IEnumerableOperator : IFunctionalityMarker
+    public partial interface IEnumerableOperator : IFunctionalityMarker,
+        F10Y.L0000.IEnumerableOperator
     {
 #pragma warning disable IDE1006 // Naming Styles
         private Implementations.IEnumerableOperator _Implementations => Implementations.EnumerableOperator.Instance;
@@ -41,20 +42,6 @@ namespace R5T.L0066
             => this.Any_Duplicates(
                 enumerable,
                 EqualityComparer<T>.Default);
-
-        public IEnumerable<T> Append<T>(
-            IEnumerable<T> enumerable,
-            IEnumerable<T> appendix)
-        {
-            return enumerable.Concat(appendix);
-        }
-
-        public IEnumerable<T> Append<T>(
-            IEnumerable<T> enumerable,
-            params T[] appendix)
-        {
-            return enumerable.Concat(appendix);
-        }
 
         public IEnumerable<T> Append_If<T>(
             IEnumerable<T> enumerable,
@@ -180,7 +167,7 @@ namespace R5T.L0066
             var output = this.Enumerate_Duplicates(
                 enumerable,
                 equalityComparer)
-                .Now();
+                .ToArray();
 
             return output;
         }
@@ -200,11 +187,6 @@ namespace R5T.L0066
                 ;
 
             return output;
-        }
-
-        public IEnumerable<T> Empty<T>()
-        {
-            return Enumerable.Empty<T>();
         }
 
         public bool Equal_ElementSets<T>(
@@ -238,50 +220,6 @@ namespace R5T.L0066
             return output;
         }
 
-        /// <summary>
-		/// Returns the entire sequence, except for the first element (skips the first element).
-		/// </summary>
-		public IEnumerable<T> Except_First<T>(IEnumerable<T> enumerable)
-        {
-            // Skip the last element.
-            var output = this.Except_First(enumerable, 1);
-            return output;
-        }
-
-        /// <summary>
-		/// Quality-of-life name for <see cref="Enumerable.Skip{TSource}(IEnumerable{TSource}, int)"/>
-		/// </summary>
-		public IEnumerable<T> Except_First<T>(
-            IEnumerable<T> enumerable,
-            int numberOfElements)
-        {
-            // Use SkipLast().
-            var output = enumerable.Skip(numberOfElements);
-            return output;
-        }
-
-        /// <summary>
-		/// Returns the entire sequence, except for the last element (skips the last element).
-		/// </summary>
-		public IEnumerable<T> Except_Last<T>(IEnumerable<T> enumerable)
-        {
-            // Skip the last element.
-            var output = this.Except_Last(enumerable, 1);
-            return output;
-        }
-
-        /// <summary>
-		/// Quality-of-life name for <see cref="Enumerable.SkipLast{TSource}(IEnumerable{TSource}, int)"/>
-		/// </summary>
-		public IEnumerable<T> Except_Last<T>(
-            IEnumerable<T> enumerable,
-            int numberOfElements)
-        {
-            // Use SkipLast().
-            var output = enumerable.SkipLast(numberOfElements);
-            return output;
-        }
-
         public void For_Each<T>(IEnumerable<T> enumerable, Action<T> action)
         {
             foreach (var item in enumerable)
@@ -303,18 +241,9 @@ namespace R5T.L0066
             yield return instance;
         }
 
-        public IEnumerable<T> From<T>(params T[] instances)
+        public IEnumerable<T[]> From_Array<T>(T[] instance)
         {
-            foreach (var instance in instances)
-            {
-                yield return instance;
-            }
-        }
-
-        public IEnumerable<T> From<T>(params IEnumerable<T>[] enumerables)
-        {
-            var output = enumerables.SelectMany(enumerable => enumerable);
-            return output;
+            yield return instance;
         }
 
         public T Get_Second<T>(IEnumerable<T> values)
@@ -341,35 +270,6 @@ namespace R5T.L0066
         }
 
         /// <summary>
-        /// Returns true if the enumerable has no elements.
-        /// </summary>
-        public bool Is_Empty<T>(IEnumerable<T> items)
-        {
-            var any = items.Any();
-
-            // None is not-any.
-            var output = !any;
-            return output;
-        }
-
-        /// <summary>
-        /// Returns a new empty enumerable.
-        /// </summary>
-        public IEnumerable<T> New<T>()
-        {
-            return Enumerable.Empty<T>();
-        }
-
-        /// <summary>
-        /// <para>The opposite of Any().</para>
-        /// Quality-of-life overload for <see cref="Is_Empty{T}(IEnumerable{T})"/>.
-        /// </summary>
-        public bool None<T>(IEnumerable<T> items)
-        {
-            return this.Is_Empty(items);
-        }
-
-        /// <summary>
 		/// Enumerates the enumerable at the current moment.
 		/// </summary>
         /// <remarks>
@@ -389,6 +289,17 @@ namespace R5T.L0066
         {
             var output = items.OrderBy(keySelector);
             return output;
+        }
+
+        public IEnumerable<IEnumerable<T>> OrderBy_First<T>(IEnumerable<IEnumerable<T>> values)
+        {
+            var valuesAndFirst = values
+                .Select(x => (First: x.FirstOrDefault(), Values: x))
+                .OrderBy(x => x.First)
+                .Select(x => x.Values)
+                ;
+
+            return valuesAndFirst;
         }
 
         public IEnumerable<T> Prepend<T>(
@@ -453,25 +364,31 @@ namespace R5T.L0066
         {
             var enumerator = enumerable.GetEnumerator();
 
-            enumerator.MoveNext();
-
-            var value = enumerator.Current;
-
-            while (enumerator.MoveNext())
+            var any = enumerator.MoveNext();
+            if(any)
             {
+                var value = enumerator.Current;
+
+                while (enumerator.MoveNext())
+                {
+                    foreach (var item in value)
+                    {
+                        yield return item;
+                    }
+
+                    yield return separator;
+
+                    value = enumerator.Current;
+                }
+
                 foreach (var item in value)
                 {
                     yield return item;
                 }
-
-                yield return separator;
-
-                value = enumerator.Current;
             }
-
-            foreach (var item in value)
+            else
             {
-                yield return item;
+                yield break;
             }
         }
 
@@ -482,29 +399,35 @@ namespace R5T.L0066
         {
             var enumerator = enumerable.GetEnumerator();
 
-            enumerator.MoveNext();
-
-            var value = enumerator.Current;
-
-            var output = selector(value);
-
-            while (enumerator.MoveNext())
+            var any = enumerator.MoveNext();
+            if (any)
             {
+                var value = enumerator.Current;
+
+                var output = selector(value);
+
+                while (enumerator.MoveNext())
+                {
+                    foreach (var item in output)
+                    {
+                        yield return item;
+                    }
+
+                    yield return separator;
+
+                    value = enumerator.Current;
+
+                    output = selector(value);
+                }
+
                 foreach (var item in output)
                 {
                     yield return item;
                 }
-
-                yield return separator;
-
-                value = enumerator.Current;
-
-                output = selector(value);
             }
-
-            foreach (var item in output)
+            else
             {
-                yield return item;
+                yield break;
             }
         }
 
@@ -575,16 +498,5 @@ namespace R5T.L0066
 
         public IEnumerable<T> To_Generic<T>(IEnumerable enumerable)
             => enumerable.Cast<T>();
-
-        public IEnumerable<(T, T)> Zip<T>(
-            IEnumerable<T> a,
-            IEnumerable<T> b)
-        {
-            var output = a.Zip(
-                b,
-                (a, b) => (a, b));
-
-            return output;
-        }
     }
 }

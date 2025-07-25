@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using System.IO;
 using System.Linq;
 
@@ -475,6 +474,21 @@ namespace R5T.L0066
                 directoryPath,
                 Instances.SearchPatterns.All);
 
+        public IEnumerable<string> Enumerate_ChildDirectoryPaths(
+            IEnumerable<string> directoryPaths)
+        {
+            var output = directoryPaths
+                .SelectMany(this.Enumerate_ChildDirectoryPaths)
+                ;
+
+            return output;
+        }
+
+        public IEnumerable<string> Enumerate_ChildDirectoryPaths(
+            params string[] directoryPaths)
+            => this.Enumerate_ChildDirectoryPaths(
+                directoryPaths.AsEnumerable());
+
         /// <summary>
         /// Enumerates all child and child-of-child (grandchild) directory paths.
         /// </summary>=
@@ -596,10 +610,11 @@ namespace R5T.L0066
         }
 
         /// <summary>
-        /// Obnoxiously, the .NET file system info objects do <strong>NOT</strong> provide any way to get the actual, case-sensitive, paths for files.
-        /// 
-        /// <para>NOTE! This is an expensive operation, involving many file-system searches. Use this method sparingly (for example, only for display of paths of interest instead of for bulk formatting of paths).</para>
+        /// Obnoxiously, the .NET file system info objects do <strong>NOT</strong> provide any way to get the actual, case-sensitive, paths for files or directories.
         /// </summary>
+        /// <remarks>
+        /// NOTE! This is an expensive operation, involving many file-system searches. Use this method sparingly (for example, only for display of paths of interest instead of for bulk formatting of paths).
+        /// </remarks>
         public string Get_ActualPath_ForFile(string path)
         {
             var pathParts = Instances.PathOperator.Get_PathParts(path);
@@ -609,7 +624,8 @@ namespace R5T.L0066
             var directoryNames = pathParts
                 .Except_First()
                 .Except_Last()
-                .Now();
+                .ToArray();
+
             var fileName = pathParts.Get_Last();
 
             var drives = DriveInfo.GetDrives();
@@ -726,11 +742,11 @@ namespace R5T.L0066
 
         public string[] Get_ChildDllFiles(string directoryPath)
             => this.Enumerate_ChildDllFiles(directoryPath)
-                .Now();
+                .ToArray();
 
         public string[] Get_ChildXmlFiles(string directoryPath)
             => this.Enumerate_ChildXmlFiles(directoryPath)
-                .Now();
+                .ToArray();
 
         /// <summary>
         /// Ensures that all returned directory paths are directory-indicated.
@@ -746,7 +762,7 @@ namespace R5T.L0066
                 searchOption);
 
             var output = Instances.PathOperator.Ensure_AreDirectoryIndicated(nonDirectoryIndicatedDirectoryPaths)
-                .Now();
+                .ToArray();
 
             return output;
         }

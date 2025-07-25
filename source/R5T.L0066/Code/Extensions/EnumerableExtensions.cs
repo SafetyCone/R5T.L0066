@@ -34,28 +34,28 @@ namespace System.Linq
             return output;
         }
 
-        /// <inheritdoc cref="R5T.L0066.IEnumerableOperator.Except_First{T}(IEnumerable{T})"/>
+        /// <inheritdoc cref="F10Y.L0000.IEnumerableOperator.Except_First{T}(IEnumerable{T})"/>
         public static IEnumerable<T> Except_First<T>(this IEnumerable<T> enumerable)
         {
             var output = Instances.EnumerableOperator.Except_First(enumerable);
             return output;
         }
 
-        /// <inheritdoc cref="R5T.L0066.IEnumerableOperator.Except_First{T}(IEnumerable{T}, int)"/>
+        /// <inheritdoc cref="F10Y.L0000.IEnumerableOperator.Except_First{T}(IEnumerable{T}, int)"/>
         public static IEnumerable<T> Except_First<T>(this IEnumerable<T> enumerable, int numberOfElements)
         {
             var output = Instances.EnumerableOperator.Except_First(enumerable, numberOfElements);
             return output;
         }
 
-        /// <inheritdoc cref="R5T.L0066.IEnumerableOperator.Except_Last{T}(IEnumerable{T})"/>
+        /// <inheritdoc cref="F10Y.L0000.IEnumerableOperator.Except_Last{T}(IEnumerable{T})"/>
         public static IEnumerable<T> Except_Last<T>(this IEnumerable<T> enumerable)
         {
             var output = Instances.EnumerableOperator.Except_Last(enumerable);
             return output;
         }
 
-        /// <inheritdoc cref="R5T.L0066.IEnumerableOperator.Except_Last{T}(IEnumerable{T}, int)"/>
+        /// <inheritdoc cref="F10Y.L0000.IEnumerableOperator.Except_Last{T}(IEnumerable{T}, int)"/>
         public static IEnumerable<T> Except_Last<T>(this IEnumerable<T> enumerable, int numberOfElements)
         {
             var output = Instances.EnumerableOperator.Except_Last(enumerable, numberOfElements);
@@ -72,12 +72,6 @@ namespace System.Linq
         public static bool None<T>(this IEnumerable<T> items)
         {
             return Instances.EnumerableOperator.None(items);
-        }
-
-        public static T[] Now<T>(this IEnumerable<T> items)
-        {
-            var output = Instances.EnumerableOperator.Now(items);
-            return output;
         }
 
         public static IEnumerable<T> OrderAlphabeticallyBy<T>(this IEnumerable<T> items,
@@ -133,16 +127,6 @@ namespace System.Linq
         public static IEnumerable<T> Skip_First<T>(this IEnumerable<T> enumerable)
         {
             var output = Instances.EnumerableOperator.Skip_First(enumerable);
-            return output;
-        }
-
-        public static IEnumerable<(T, T)> Zip<T>(this IEnumerable<T> items,
-            IEnumerable<T> b)
-        {
-            var output = Instances.EnumerableOperator.Zip(
-                items,
-                b);
-
             return output;
         }
     }
