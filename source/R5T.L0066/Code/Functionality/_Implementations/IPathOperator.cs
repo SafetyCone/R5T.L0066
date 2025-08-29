@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 
+using F10Y.T0011;
 using R5T.T0132;
 
 using Glossary = R5T.Y0006.Glossary.For_Paths;
@@ -9,33 +10,22 @@ using Glossary = R5T.Y0006.Glossary.For_Paths;
 namespace R5T.L0066.Implementations
 {
     [FunctionalityMarker]
-    public partial interface IPathOperator : IFunctionalityMarker
+    public partial interface IPathOperator : IFunctionalityMarker,
+        F10Y.L0000.Implementations.IPathOperator
     {
-        public string Get_DirectoryName_ViaDirectoryInfo(string directoryPath)
-        {
-            var directoryInfo = new DirectoryInfo(directoryPath);
-            
-            var output = directoryInfo.Name;
-            return output;
-        }
+#pragma warning disable IDE1006 // Naming Styles
 
-        public string Get_DirectoryName_ViaLastPathPart(string directoryPath)
-        {
-            var output = Instances.PathOperator.Get_LastPathPart(directoryPath);
-            return output;
-        }
+        [Ignore]
+        public F10Y.L0000.Implementations.IPathOperator _F10Y_L0000 => F10Y.L0000.Implementations.PathOperator.Instance;
 
-        public string Get_FileName_ViaFileInfo(string filePath)
-        {
-            var fileInfo = new FileInfo(filePath);
-                
-            var output = fileInfo.Name;
-            return output;
-        }
+#pragma warning restore IDE1006 // Naming Styles
 
-        public string Get_FileName_ViaLastPathPart(string filePath)
+
+        public string Get_FileNameStem(string filePath)
         {
-            var output = Instances.PathOperator.Get_LastPathPart(filePath);
+            var fileName = Instances.PathOperator.Get_FileName(filePath);
+
+            var output = Instances.FileNameOperator.Get_FileNameStem(fileName);
             return output;
         }
 

@@ -4,13 +4,27 @@ using System.Linq;
 using System.Reflection;
 
 using R5T.T0132;
+using R5T.T0143;
 
 
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface ITypeOperator : IFunctionalityMarker
+    public partial interface ITypeOperator : IFunctionalityMarker,
+        F10Y.L0000.ITypeOperator,
+        F10Y.L0001.L000.ITypeOperator
     {
+#pragma warning disable IDE1006 // Naming Styles
+
+        [Ignore]
+        public F10Y.L0000.ITypeOperator _F10Y_L0000 => F10Y.L0000.TypeOperator.Instance;
+
+        [Ignore]
+        public F10Y.L0001.L000.ITypeOperator _F10Y_L0001_L000 => F10Y.L0001.L000.TypeOperator.Instance;
+
+#pragma warning restore IDE1006 // Naming Styles
+
+
         /// <summary>
         /// Enumerates only the interfaces 
         /// </summary>
@@ -49,13 +63,6 @@ namespace R5T.L0066
             => this.Enumerate_Interfaces_DirectlyImplementedOnly(type)
                 .ToArray();
 
-        /// <summary>
-        /// Note, includes the generic parameter count. Example: ExampleClass01`1.
-        /// <para>Gets the <see cref="MemberInfo.Name"/> of the type.</para>
-        /// </summary>
-        public string Get_Name(Type type)
-            => type.Name;
-
         /// <inheritdoc cref="Get_NameOf(Type)"/>
         public string Get_NameOf<T>()
         {
@@ -66,50 +73,14 @@ namespace R5T.L0066
         }
 
         /// <summary>
-        /// Quality-of-life overload for <see cref="Get_Name(Type)"/>.
+        /// Quality-of-life overload for <see cref="F10Y.L0000.ITypeOperator.Get_Name(Type)"/>.
         /// Returns <see cref="MemberInfo.Name"/> of the type.
         /// </summary>
         public string Get_NameOf(Type type)
             => this.Get_Name(type);
 
-        public string Get_NamespaceName(Type type)
-            => type.Namespace;
-
         /// <summary>
-        /// Includes the generic parameter count (example: R5T.T0140.ExampleClass01`1),
-        /// and handles nested types (example: R5T.T0225.T000.NestedType_001_Parent+NestedType_001_Child).
-        /// <para>This replicates the behavior of <see cref="Type.FullName"/>.</para>
-        /// </summary>
-        /// <remarks>
-        /// Can handle nested types, using the nested type name separator used by <see cref="Type.FullName"/> (which is <see cref="ITokenSeparators.NestedTypeNameTokenSeparator"/>).
-        /// </remarks>
-        public string Get_NamespacedTypeName(Type type)
-        {
-            var isNestedType = this.Is_NestedType(type);
-            if (isNestedType)
-            {
-                var parentNamespacedTypeName = this.Get_NamespacedTypeName(type.DeclaringType);
-
-                var basicTypeName = this.Get_Name(type);
-
-                var output = $"{parentNamespacedTypeName}{Instances.TokenSeparators.NestedTypeNameTokenSeparator}{basicTypeName}";
-                return output;
-            }
-            else
-            {
-                var namespaceName = this.Get_NamespaceName(type);
-                var typeName = this.Get_Name(type);
-
-                var namespacedTypeName = Instances.NamespacedTypeNameOperator.Get_NamespacedTypeName(
-                    namespaceName,
-                    typeName);
-
-                return namespacedTypeName;
-            }
-        }
-
-        /// <summary>
-		/// Quality-of-life overload for <see cref="ITypeOperator.Get_NamespacedTypeName(Type)"/>.
+		/// Quality-of-life overload for <see cref="F10Y.L0000.ITypeOperator.Get_NamespacedTypeName(Type)"/>.
 		/// </summary>
 		public string GetNamespacedTypeName_ForType(Type type)
         {
@@ -117,7 +88,7 @@ namespace R5T.L0066
         }
 
         /// <summary>
-		/// Quality-of-life overload for <see cref="ITypeOperator.Get_NamespacedTypeName(Type)"/>.
+		/// Quality-of-life overload for <see cref="F10Y.L0000.ITypeOperator.Get_NamespacedTypeName(Type)"/>.
 		/// </summary>
 		public string GetNamespacedTypeName_ForTypeInfo(TypeInfo typeInfo)
         {
@@ -143,7 +114,7 @@ namespace R5T.L0066
         /// <summary>
         /// Returns the <inheritdoc cref="Documentation.TypeNameMeansFullyQualifiedTypeName" path="/summary"/> of the type.
         /// </summary>
-        public string Get_TypeName(Type type)
+        public new string Get_TypeName(Type type)
         {
             // The full name corresponds to our concept of type name.
             var typeName = type.FullName;
@@ -151,7 +122,7 @@ namespace R5T.L0066
         }
 
         /// <inheritdoc cref="Get_TypeName(Type)"/>
-        public string Get_TypeNameOf<T>()
+        public new string Get_TypeNameOf<T>()
         {
             var type = this.Get_TypeOf<T>();
 
@@ -171,16 +142,6 @@ namespace R5T.L0066
             // The full name corresponds to our concept of type name.
             var typeName = this.Get_TypeName(type);
             return typeName;
-        }
-
-        /// <summary>
-		/// Gets the type of the <typeparamref name="T"/>.
-		/// Note: same as the typeof() operator.
-		/// </summary>
-		public Type Get_TypeOf<T>()
-        {
-            var output = typeof(T);
-            return output;
         }
 
         public Type Get_TypeOf<T>(T instance)
@@ -218,12 +179,6 @@ namespace R5T.L0066
             return output;
         }
 
-        public bool Is_NestedType(Type type)
-        {
-            var output = Instances.NullOperator.Is_NotNull(type.DeclaringType);
-            return output;
-        }
-
         public bool Is_NamespacedTypeName(
             Type type,
             string namespacedTypeName)
@@ -235,39 +190,10 @@ namespace R5T.L0066
         }
 
         /// <summary>
-        /// Chooses <see cref="TypeCheckDeterminesEquality_Instance{T}(T, T, out bool)"/> as the default.
-        /// </summary>
-        /// <remarks>
-        /// <inheritdoc cref="Documentation.TypeCheckDeterminesEquality" path="/summary"/>
-        /// </remarks>
-        public bool TypeCheckDeterminesEquality<T>(T a, T b, out bool typesAreEqual)
-        {
-            var output = this.TypeCheckDeterminesEquality_Instance(a, b, out typesAreEqual);
-            return output;
-        }
-
-        /// <summary>
         /// Use the type returned by the <see cref="object.GetType"/> method of each instance to determine type by equality.
         /// </summary>
         /// <remarks>
-        /// <inheritdoc cref="Documentation.TypeCheckDeterminesEquality" path="/summary"/>
-        /// </remarks>
-        public bool TypeCheckDeterminesEquality_Instance<T>(T a, T b, out bool typesAreEqual)
-        {
-            var typeA = a.GetType();
-            var typeB = b.GetType();
-
-            typesAreEqual = typeA == typeB;
-
-            var typeDeterminesEquality = !typesAreEqual;
-            return typeDeterminesEquality;
-        }
-
-        /// <summary>
-        /// Use the type returned by the <see cref="object.GetType"/> method of each instance to determine type by equality.
-        /// </summary>
-        /// <remarks>
-        /// <inheritdoc cref="Documentation.TypeCheckDeterminesEquality" path="/summary"/>
+        /// <inheritdoc cref="F10Y.Y0000.Documentation.TypeCheckDeterminesEquality" path="/summary"/>
         /// </remarks>
         public bool TypeCheckDeterminesEquality_Instance<T1, T2>(
             T1 a,

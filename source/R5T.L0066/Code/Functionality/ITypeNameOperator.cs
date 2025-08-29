@@ -6,7 +6,8 @@ using R5T.T0132;
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface ITypeNameOperator : IFunctionalityMarker
+    public partial interface ITypeNameOperator : IFunctionalityMarker,
+        F10Y.L0000.ITypeNameOperator
     {
         public string Get_AttributeNameFromAttributeTypeName(
             string attributeTypeName)
@@ -32,13 +33,7 @@ namespace R5T.L0066
             return output;
         }
 
-        public string Get_TypeNameOf<T>()
-        {
-            var output = Instances.TypeOperator.Get_TypeNameOf<T>();
-            return output;
-        }
-
-        public string Get_TypeNameOf<T>(T instance)
+        public new string Get_TypeNameOf<T>(T instance)
         {
             var output = Instances.TypeOperator.Get_TypeNameOf(instance);
             return output;

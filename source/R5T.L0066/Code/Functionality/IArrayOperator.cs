@@ -50,18 +50,6 @@ namespace R5T.L0066
         public T[] CastTo<T>(Array array)
             => (T[])array;
 
-        public T[] Empty_IfNull<T>(T[] array)
-        {
-            var isNull = Instances.NullOperator.Is_Null(array);
-
-            var output = isNull
-                ? this.Empty<T>()
-                : array
-                ;
-
-            return output;
-        }
-
         public T[] Except_Last<T>(T[] array)
         {
             //if(array.Length < 2)
@@ -80,12 +68,6 @@ namespace R5T.L0066
                 value,
             };
 
-            return output;
-        }
-
-        public int Get_IndexOfLast(Array array)
-        {
-            var output = array.Length - 1;
             return output;
         }
 
@@ -145,18 +127,6 @@ namespace R5T.L0066
                     var output = lengthA == lengthB;
                     return output;
                 });
-
-            return output;
-        }
-
-        public T[] Null_IfEmpty<T>(T[] array)
-        {
-            var isEmpty = this.Is_Empty(array);
-
-            var output = isEmpty
-                ? null
-                : array
-                ;
 
             return output;
         }

@@ -8,7 +8,7 @@ namespace R5T.L0066
     [ValuesMarker]
     public partial interface IDirectoryNames : IValuesMarker
     {
-        /// <inheritdoc cref="IStrings.Period"/>
+        /// <inheritdoc cref="F10Y.L0000.IStrings.Period"/>
         public string CurrentDirectory => Instances.Strings.Period;
 
         /// <inheritdoc cref="IStrings.DoubleDot"/>

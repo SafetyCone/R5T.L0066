@@ -5,7 +5,7 @@ namespace R5T.L0066
 {
     public partial interface IStrings
     {
-        /// <inheritdoc cref="Period_Constant"/>
+        /// <inheritdoc cref="F10Y.L0000.IStrings.Period_Constant"/>
         public const string Dot_Constant = IStrings.Period_Constant;
 
         /// <inheritdoc cref="Dot_Constant"/>

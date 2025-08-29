@@ -127,20 +127,6 @@ namespace R5T.L0066
             }
         }
 
-        /// <summary>
-        /// Creates a separate, but identical instance.
-        /// <para>Same as <see cref="Deep_Copy(XElement)"/></para>
-        /// </summary>
-        /// <remarks>
-        /// <inheritdoc cref="XmlDocumentation.WhichXObjectsAreCloneable" path="/summary"/>
-        /// </remarks>
-        public XElement Clone(XElement element)
-        {
-            // Use the constructor.
-            var output = new XElement(element);
-            return output;
-        }
-
         public XElement Clone_OnlyName(XElement element)
         {
             var output = new XElement(element.Name);
@@ -162,25 +148,7 @@ namespace R5T.L0066
         }
 
         /// <summary>
-        /// Creates a copy of the element, and all child-nodes.
-        /// <para>Same as <see cref="Clone(XElement)"/></para>
-        /// </summary>
-        /// <remarks>
-        /// <inheritdoc cref="XmlDocumentation.WhichXObjectsAreCloneable" path="/summary"/>
-        /// </remarks>
-        public XElement Deep_Copy(XElement element)
-        {
-            return this.Clone(element);
-        }
-
-        public IEnumerable<XElement> Enumerate_ChildElements(XElement element)
-        {
-            var output = element.Elements();
-            return output;
-        }
-
-        /// <summary>
-        /// Quality-of-life overload for <see cref="Enumerate_ChildElements(XElement)"/>
+        /// Quality-of-life overload for <see cref="F10Y.L0000.IXElementOperator.Enumerate_ChildElements(XElement)"/>
         /// </summary>
         public IEnumerable<XElement> Enumerate_Children(XElement element)
         {
@@ -207,75 +175,6 @@ namespace R5T.L0066
                     childElement,
                     grandchildName))
                 ;
-
-            return output;
-        }
-
-        public IEnumerable<XNode> Enumerate_ChildNodes(XElement element)
-        {
-            var output = element.Nodes();
-            return output;
-        }
-
-        public IEnumerable<TNode> Enumerate_ChildNodesOfType<TNode>(XElement element)
-            where TNode : XNode
-        {
-            var output = this.Enumerate_ChildNodes(element)
-                .OfType<TNode>()
-                ;
-
-            return output;
-        }
-
-        public IEnumerable<XElement> Enumerate_DescendantElements(XElement element)
-        {
-            var output = element.Descendants();
-            return output;
-        }
-
-        public IEnumerable<XNode> Enumerate_DescendantNodes(XElement element)
-        {
-            var output = element.DescendantNodes();
-            return output;
-        }
-
-        public IEnumerable<TNode> Enumerate_DescendantNodesOfType<TNode>(XElement element)
-            where TNode : XNode
-        {
-            var output = this.Enumerate_DescendantNodes(element)
-                .OfType<TNode>()
-                ;
-
-            return output;
-        }
-
-        public IEnumerable<XText> Enumerate_DescendantTextNodes(XElement element)
-        {
-            var output = this.Enumerate_DescendantNodesOfType<XText>(element);
-            return output;
-        }
-
-        /// <summary>
-        /// Chooses <see cref="Get_ChildElement_ByLocalName(XElement, string)"/> as the default.
-        /// </summary>
-        public XElement Get_ChildElement(
-            XElement element,
-            string childName)
-        {
-            var output = this.Get_ChildElement_ByLocalName(
-                element,
-                childName);
-            
-            return output;
-        }
-
-        public XElement Get_ChildElement_ByLocalName(
-            XElement element,
-            string childName)
-        {
-            var output = this.Enumerate_ChildElements(element)
-                .Where_NameIs(childName)
-                .FirstOrDefault();
 
             return output;
         }
@@ -353,23 +252,6 @@ namespace R5T.L0066
             return output;
         }
 
-        public TNode[] Get_DescendantNodesOfType<TNode>(XElement element)
-            where TNode : XNode
-        {
-            var output = this.Enumerate_DescendantNodesOfType<TNode>(element)
-                .ToArray();
-
-            return output;
-        }
-
-        public XText[] Get_DescendantTextNodes(XElement element)
-        {
-            var output = this.Enumerate_DescendantTextNodes(element)
-                .ToArray();
-
-            return output;
-        }
-
         public XNode Get_FirstChildNode(XElement element)
         {
             var hasFirstChildNode = this.Has_FirstChildNode(
@@ -382,17 +264,6 @@ namespace R5T.L0066
             }
 
             return firstChildNode_OrDefault;
-        }
-
-        public bool Has_FirstChildNode(
-            XElement element,
-            out XNode firstChildNode_OrDefault)
-        {
-            firstChildNode_OrDefault = this.Enumerate_ChildNodes(element)
-                .FirstOrDefault();
-
-            var output = Instances.DefaultOperator.Is_NotDefault(firstChildNode_OrDefault);
-            return output;
         }
 
         public bool Has_FirstDescendantElement_OfName(
@@ -470,18 +341,6 @@ namespace R5T.L0066
 
             var output = Instances.DefaultOperator.Is_NotDefault(grandChildOrDefault);
             return output;
-        }
-
-        /// <summary>
-        /// Uses the <see cref="XName.LocalName"/> property to avoid the crazed namespace BS.
-        /// </summary>
-        public bool Is_Name(XElement element, string elementName)
-            => this.Is_LocalName(element, elementName);
-
-        /// <inheritdoc cref="Is_Name(XElement, string)"/>
-        public bool Name_Is(XElement element, string elementName)
-        {
-            return this.Is_Name(element, elementName);
         }
 
         /// <summary>
@@ -797,22 +656,6 @@ namespace R5T.L0066
             => this.To_Text(
                 element,
                 Instances.XmlWriterSettingsSets.Indented);
-
-        public void Verify_NameIs(
-            XElement element,
-            string name)
-        {
-            var nameIs = this.Name_Is(
-                element,
-                name);
-
-            if(!nameIs)
-            {
-                var actualName = this.Get_Name(element);
-
-                throw new Exception($"Element did not have expected name '{name}'; name was '{actualName}'.");
-            }
-        }
 
         public void To_Writer_AsIs_Synchronous(
             TextWriter writer,

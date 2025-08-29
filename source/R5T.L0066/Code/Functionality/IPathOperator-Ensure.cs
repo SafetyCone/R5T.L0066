@@ -5,7 +5,8 @@ using System.Linq;
 
 namespace R5T.L0066
 {
-    public partial interface IPathOperator
+    public partial interface IPathOperator :
+        F10Y.L0000.IPathOperator
     {
         /// <summary>
         /// Make sure the path uses the given directory separator.
@@ -37,28 +38,6 @@ namespace R5T.L0066
                 directoryPath,
                 Instances.DirectorySeparators.Standard);
         }
-
-        /// <summary>
-		/// Ensures the path ends with a directory separator.
-		/// The directory separator to use is detected within the path.
-		/// </summary>
-        /// <inheritdoc cref="Make_DirectoryIndicated(string)" path="/remarks"/>
-		public string Ensure_IsDirectoryIndicated(string pathPart)
-        {
-            var isDirectoryIndicated = this.Is_DirectoryIndicated(pathPart);
-
-            var output = isDirectoryIndicated
-                ? pathPart
-                : this.Make_DirectoryIndicated(pathPart)
-                ;
-
-            return output;
-        }
-
-        public IEnumerable<string> Ensure_AreDirectoryIndicated(IEnumerable<string> paths)
-            => paths
-                .Select(this.Ensure_IsDirectoryIndicated)
-                ;
 
         /// <summary>
         /// If a directory separator cannot be detected in the input directory path, use the provided directory separator.
@@ -250,7 +229,7 @@ namespace R5T.L0066
 
         /// <summary>
         /// Makes a directory path directory-indicated by appending the provided directory separator.
-        /// Unchecked in the sense that no check is done on whether the directory path is already directory indicated (see <see cref="IPathOperator.Ensure_IsDirectoryIndicated(string)"/>)
+        /// Unchecked in the sense that no check is done on whether the directory path is already directory indicated (see <see cref="F10Y.L0000.IPathOperator.Ensure_IsDirectoryIndicated(string)"/>)
         /// or whether the directory separator is actually one of the valid directory separators (see <see cref="IDirectorySeparators.Both"/>).
         /// </summary>
         public string Make_DirectoryIndicated(

@@ -49,14 +49,14 @@ namespace R5T.Extensions
                 grandChildName,
                 out childOrDefault);
 
-        /// <inheritdoc cref="L0066.IXElementOperator.Is_Name(XElement, string)"/>
+        /// <inheritdoc cref="F10Y.L0000.IXElementOperator.Is_Name(XElement, string)"/>
         public static bool Is_Name(this XElement element,
             string elementName)
         {
             return Instances.XElementOperator.Is_Name(element, elementName);
         }
 
-        /// <inheritdoc cref="L0066.IXElementOperator.Name_Is(XElement, string)"/>
+        /// <inheritdoc cref="F10Y.L0000.IXElementOperator.Name_Is(XElement, string)"/>
         public static bool Name_Is(this XElement element,
             string elementName)
         {

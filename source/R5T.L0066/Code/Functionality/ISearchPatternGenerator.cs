@@ -1,43 +1,20 @@
 using System;
 
 using R5T.T0132;
+using R5T.T0143;
 
 
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface ISearchPatternGenerator : IFunctionalityMarker
+    public partial interface ISearchPatternGenerator : IFunctionalityMarker,
+        F10Y.L0000.ISearchPatternOperator
     {
-        public string Directories_StartingWith(string directoryNameStart)
-        {
-            var output = this.Entries_StartingWith(directoryNameStart);
-            return output;
-        }
+#pragma warning disable IDE1006 // Naming Styles
 
-        /// <summary>
-        /// Entries are files and directories.
-        /// </summary>
-        public string Entries_StartingWith(string nameStart)
-        {
-            var output = $"{nameStart}{Instances.SearchPatterns.All}";
-            return output;
-        }
+        [Ignore]
+        public F10Y.L0000.ISearchPatternOperator _F10Y_L0000_SearchPatternOperator => F10Y.L0000.SearchPatternOperator.Instance;
 
-        public string Files_StartingWith(string fileNameStart)
-        {
-            var output = this.Entries_StartingWith(fileNameStart);
-            return output;
-        }
-
-        public string Files_WithExtension(string fileExtension)
-        {
-            var output = $"{Instances.SearchPatterns.All}{fileExtension}";
-            return output;
-        }
-
-        //public string Files_WithExtensions()
-        //{
-
-        //}
+#pragma warning restore IDE1006 // Naming Styles
     }
 }

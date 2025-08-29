@@ -8,21 +8,21 @@ namespace R5T.L0066
     [FunctionalityMarker]
     public partial interface INowOperator : IFunctionalityMarker
     {
-        /// <inheritdoc cref="IDateTimeOperator.Get_Now"/>
+        /// <inheritdoc cref="F10Y.L0000.IDateTimeOperator.Get_Now"/>
 		public DateTime Get_Now()
         {
             var output = Instances.DateTimeOperator.Get_Now();
             return output;
         }
 
-        /// <inheritdoc cref="IDateTimeOperator.Get_Now_Local"/>
+        /// <inheritdoc cref="F10Y.L0000.IDateTimeOperator.Get_Now_Local"/>
         public DateTime Get_Now_Local()
         {
             var output = Instances.DateTimeOperator.Get_Now_Local();
             return output;
         }
 
-        /// <inheritdoc cref="IDateTimeOperator.Get_Now_Utc"/>
+        /// <inheritdoc cref="F10Y.L0000.IDateTimeOperator.Get_Now_Utc"/>
         public DateTime Get_Now_Utc()
         {
             var output = Instances.DateTimeOperator.Get_Now_Utc();

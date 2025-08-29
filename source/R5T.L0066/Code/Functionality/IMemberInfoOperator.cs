@@ -4,50 +4,22 @@ using System.Linq;
 using System.Reflection;
 
 using R5T.T0132;
+using R5T.T0143;
 
 
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface IMemberInfoOperator : IFunctionalityMarker
+    public partial interface IMemberInfoOperator : IFunctionalityMarker,
+        F10Y.L0000.IMemberInfoOperator
     {
-        /// <summary>
-        /// Note: the <see cref="CustomAttributeData"/> type returned by <see cref="MemberInfo.CustomAttributes"/> is more useful than
-        /// the <see cref="Attribute"/> type returned by <see cref="CustomAttributeExtensions.GetCustomAttributes(MemberInfo)"/>.
-        /// </summary>
-        public IEnumerable<CustomAttributeData> Get_Attributes(MemberInfo memberInfo)
-        {
-            var output = memberInfo.CustomAttributes;
-            return output;
-        }
+#pragma warning disable IDE1006 // Naming Styles
 
-        /// <summary>
-        /// Returns the result of <see cref="MemberInfo.DeclaringType"/>.
-        /// </summary>
-        public Type Get_DeclaringType(MemberInfo memberInfo)
-            => memberInfo.DeclaringType;
+        [Ignore]
+        public F10Y.L0000.IMemberInfoOperator _F10Y_L0000 => F10Y.L0000.MemberInfoOperator.Instance;
 
-        public bool Has_AttributeOfType(
-            MemberInfo memberInfo,
-            string attributeNamespacedTypeName,
-            out CustomAttributeData attribute_OrDefault)
-        {
-            attribute_OrDefault = this.Get_Attributes(memberInfo)
-                .Where(Instances.AttributeOperator.Get_AttributeTypeNamespacedTypeName_Is(attributeNamespacedTypeName))
-                // Choose first even though there might be multiple since this function is more like "Any()".
-                .FirstOrDefault();
+#pragma warning restore IDE1006 // Naming Styles
 
-            var output = Instances.DefaultOperator.Is_NotDefault(attribute_OrDefault);
-            return output;
-        }
-
-        public bool Has_AttributeOfType(
-            MemberInfo memberInfo,
-            string attributeNamespacedTypeName)
-            => this.Has_AttributeOfType(
-                memberInfo,
-                attributeNamespacedTypeName,
-                out _);
 
         public bool Has_DeclaringType(
             MemberInfo memberInfo,
@@ -124,21 +96,6 @@ namespace R5T.L0066
 
         public bool Is_Public(MethodInfo methodInfo)
             => methodInfo.IsPublic;
-
-        public bool Is_TypeInfo(
-            MemberInfo memberInfo,
-            out TypeInfo typeInfo_OrNull)
-        {
-            typeInfo_OrNull = memberInfo as TypeInfo;
-
-            var output = Instances.NullOperator.Is_NotNull(typeInfo_OrNull);
-            return output;
-        }
-
-        public bool Is_TypeInfo(MemberInfo memberInfo)
-            => this.Is_TypeInfo(
-                memberInfo,
-                out _);
 
         public bool Is_TypeInfo_CheckMemberType(MemberInfo memberInfo)
             => memberInfo.MemberType == MemberTypes.TypeInfo;

@@ -11,13 +11,23 @@ using System.Xml.XPath;
 
 using R5T.L0066.Extensions;
 using R5T.T0132;
+using R5T.T0143;
 
 
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface IXDocumentOperator : IFunctionalityMarker
+    public partial interface IXDocumentOperator : IFunctionalityMarker,
+        F10Y.L0001.L000.IXDocumentOperator
     {
+#pragma warning disable IDE1006 // Naming Styles
+
+        [Ignore]
+        public F10Y.L0001.L000.IXDocumentOperator _F10Y_L0001_L000 => F10Y.L0001.L000.XDocumentOperator.Instance;
+
+#pragma warning restore IDE1006 // Naming Styles
+
+
         public async Task<Dictionary<string, XDocument>> Load(IEnumerable<string> xmlFilePaths)
         {
             var documents_ByXmlFilePath = new ConcurrentDictionary<string, XDocument>();
@@ -58,57 +68,6 @@ namespace R5T.L0066
             return LoadOptions.None;
         }
 
-        /// <summary>
-        /// Gets the root element of the document, or default if it does not exist.
-        /// </summary>
-        public XElement Get_Root_OrDefault(XDocument document)
-            => document.Root;
-
-        /// <summary>
-        /// Gets the root element of the given document,
-        /// throwing an exception if the document does not have a root element.
-        /// </summary>
-        public XElement Get_Root(XDocument document)
-        {
-            var hasRoot = this.Has_Root(
-                document,
-                out var root_OrDefault);
-
-            if(!hasRoot)
-            {
-                throw new Exception("XML document did not have a root.");
-            }
-
-            return root_OrDefault;
-        }
-
-        /// <summary>
-        /// Gets the root element of the given document,
-        /// verifying that the root element exists and has the given name.
-        /// </summary>
-        public XElement Get_Root(
-            XDocument document,
-            string rootName)
-        {
-            var rootElement = this.Get_Root(document);
-
-            Instances.XElementOperator.Verify_NameIs(
-                rootElement,
-                rootName);
-
-            return rootElement;
-        }
-
-        public bool Has_Root(
-            XDocument document,
-            out XElement root_OrDefault)
-        {
-            root_OrDefault = this.Get_Root_OrDefault(document);
-
-            var output = Instances.NullOperator.Is_NotNull(root_OrDefault);
-            return output;
-        }
-
         public XDocument Load_Synchronous(string filePath)
         {
             var loadOptions = this.Get_LoadOptions_Standard();
@@ -127,20 +86,6 @@ namespace R5T.L0066
             return this.Load(
                 filePath,
                 loadOptions);
-        }
-
-        public async Task<XDocument> Load(
-            string filePath,
-            LoadOptions loadOptions)
-        {
-            using var fileStream = Instances.FileStreamOperator.Open_Read(filePath);
-
-            var xDocument = await XDocument.LoadAsync(
-                fileStream,
-                loadOptions,
-                Instances.CancellationTokens.None);
-
-            return xDocument;
         }
 
         /// <inheritdoc cref="Parse_WithoutTrimStart(string)"/>

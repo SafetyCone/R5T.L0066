@@ -2,36 +2,25 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+
 using R5T.L0066.Extensions;
 using R5T.T0132;
+using R5T.T0143;
 
 
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface IAssemblyOperator : IFunctionalityMarker
+    public partial interface IAssemblyOperator : IFunctionalityMarker,
+        F10Y.L0000.IAssemblyOperator
     {
-        public IEnumerable<MemberInfo> Enumerate_Members(Assembly assembly)
-        {
-            var output = this.Enumerate_Types(assembly)
-                .SelectMany(typeInfo => Instances.EnumerableOperator.Empty<MemberInfo>()
-                    .Append(typeInfo)
-                    .Append(
-                        Instances.TypeInfoOperator.Get_MemberInfos(typeInfo)
-                    )
-                )
-                ;
+#pragma warning disable IDE1006 // Naming Styles
 
-            return output;
-        }
+        [Ignore]
+        public F10Y.L0000.IAssemblyOperator _F10Y_L0000 => F10Y.L0000.AssemblyOperator.Instance;
 
-        /// <summary>
-        /// Returns <see cref="Assembly.DefinedTypes"/>.
-        /// </summary>
-        public IEnumerable<TypeInfo> Enumerate_Types(Assembly assembly)
-        {
-            return assembly.DefinedTypes;
-        }
+#pragma warning restore IDE1006 // Naming Styles
+
 
         public void ForTypes(
             Assembly assembly,
@@ -42,27 +31,6 @@ namespace R5T.L0066
 
             types.For_Each(typeInfo => action(typeInfo));
         }
-
-        /// <summary>
-        /// Returns the entry-point .NET assembly.
-        /// </summary>
-        /// <remarks>
-        /// Returns the result of <see cref="Assembly.GetEntryAssembly"/>.
-        /// </remarks>
-        public Assembly Get_EntryPointAssembly()
-        {
-            var output = Assembly.GetEntryAssembly();
-            return output;
-        }
-
-        /// <summary>
-        /// Get the path of the file containing the assembly.
-        /// </summary>
-        /// <remarks>
-        /// Returns the <see cref="Assembly.Location"/> value.
-        /// </remarks>
-        public string Get_FilePath(Assembly assembly)
-            => assembly.Location;
 
         /// <summary>
         /// Returns the .NET system assembly.

@@ -1,20 +1,20 @@
 using System;
 
 using R5T.T0131;
+using R5T.T0143;
 
 
 namespace R5T.L0066
 {
     [ValuesMarker]
-    public partial interface ITokenSeparators : IValuesMarker
+    public partial interface ITokenSeparators : IValuesMarker,
+        F10Y.L0000.ITokenSeparators
     {
-        /// <summary>
-        /// <para><name>'+' (plus)</name></para>
-        /// Separates tokens in a nested type name (parent type name, child type name) from each other.
-        /// </summary>
-        public const char NestedTypeNameTokenSeparator_Constant = '+';
+#pragma warning disable IDE1006 // Naming Styles
 
-        /// <inheritdoc cref="NestedTypeNameTokenSeparator_Constant"/>
-        public char NestedTypeNameTokenSeparator => NestedTypeNameTokenSeparator_Constant;
+        [Ignore]
+        public F10Y.L0000.ITokenSeparators _F10Y_L0000 => F10Y.L0000.TokenSeparators.Instance;
+
+#pragma warning restore IDE1006 // Naming Styles
     }
 }

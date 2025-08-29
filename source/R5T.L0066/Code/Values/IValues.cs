@@ -132,7 +132,7 @@ namespace R5T.L0066
         /// <inheritdoc cref="NamespaceNameTokenSeparator_Constant"/>
         public char NamespaceNameTokenSeparator => IValues.NamespaceNameTokenSeparator_Constant;
 
-        /// <inheritdoc cref="IStrings.Period_Constant"/>
+        /// <inheritdoc cref="F10Y.L0000.IStrings.Period_Constant"/>
         public const string NamespaceNameTokenSeparator_String_Constant = IStrings.Period_Constant;
 
         /// <inheritdoc cref="NamespaceNameTokenSeparator_String_Constant"/>

@@ -20,12 +20,6 @@ namespace R5T.L0066
 #pragma warning restore IDE1006 // Naming Styles
 
 
-        /// <inheritdoc cref="StringsDocumentation.ForAsterix"/>
-        public const string Asterix_Constant = "*";
-
-        /// <inheritdoc cref="Asterix_Constant"/>
-        public string Asterix => IStrings.Asterix_Constant;
-
         /// <inheritdoc cref="StringsDocumentation.ForColon"/>
         public const string Colon_Constant = "*";
 
@@ -91,12 +85,6 @@ namespace R5T.L0066
 
         /// <inheritdoc cref="Percent_Constant"/>
         public string Percent => IStrings.Percent_Constant;
-
-        /// <inheritdoc cref="StringsDocumentation.For_Period"/>
-        public const string Period_Constant = ".";
-
-        /// <inheritdoc cref="Period_Constant"/>
-        public string Period => IStrings.Period_Constant;
 
         /// <inheritdoc cref="StringsDocumentation.ForPipe"/>
         public const string Pipe_Constant = "|";

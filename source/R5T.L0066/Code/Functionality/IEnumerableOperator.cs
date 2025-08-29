@@ -5,16 +5,25 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using R5T.T0132;
+using R5T.T0143;
 
 
 namespace R5T.L0066
 {
     [FunctionalityMarker]
     public partial interface IEnumerableOperator : IFunctionalityMarker,
-        F10Y.L0000.IEnumerableOperator
+        F10Y.L0001.L000.IEnumerableOperator
     {
 #pragma warning disable IDE1006 // Naming Styles
-        private Implementations.IEnumerableOperator _Implementations => Implementations.EnumerableOperator.Instance;
+
+        [Ignore]
+        public Implementations.IEnumerableOperator _Implementations => Implementations.EnumerableOperator.Instance;
+
+
+        [Ignore]
+        public F10Y.L0001.L000.IEnumerableOperator _F10Y_L0001_L000 => F10Y.L0001.L000.EnumerableOperator.Instance;
+
+
 #pragma warning restore IDE1006 // Naming Styles
 
 
@@ -246,40 +255,9 @@ namespace R5T.L0066
             yield return instance;
         }
 
-        public T Get_Second<T>(IEnumerable<T> values)
-        {
-            var output = this.Get_Nth(values, 2);
-            return output;
-        }
-
         public T Get_First<T>(IEnumerable<T> values)
         {
             var output = _Implementations.Get_First_UsingEnumerator(values);
-            return output;
-        }
-
-        public T Get_Nth<T>(
-            IEnumerable<T> values,
-            int n)
-        {
-            var output = values
-                .Skip(n - 1)
-                .First();
-
-            return output;
-        }
-
-        /// <summary>
-		/// Enumerates the enumerable at the current moment.
-		/// </summary>
-        /// <remarks>
-        /// This is a quality-of-life overload of <see cref="Enumerable.ToArray{TSource}(IEnumerable{TSource})"/>.
-        /// While the method does enumerate the enumerable at the moment it is called, it's name suggests this is just a side effect.
-        /// You frequently want to communicate to callers that you aver enumerating the enumerable now, not turning it into an array.
-        /// </remarks>
-        public T[] Now<T>(IEnumerable<T> items)
-        {
-            var output = items.ToArray();
             return output;
         }
 
@@ -335,28 +313,6 @@ namespace R5T.L0066
             IEnumerable<TSource> sources,
             Func<TSource, IEnumerable<TResult>> selector)
             => sources.SelectMany(selector);
-
-        public IEnumerable<T> Separate<T>(
-            IEnumerable<T> enumerable,
-            T separator)
-        {
-            var enumerator = enumerable.GetEnumerator();
-
-            enumerator.MoveNext();
-
-            var value = enumerator.Current;
-
-            while(enumerator.MoveNext())
-            {
-                yield return value;
-
-                yield return separator;
-
-                value = enumerator.Current;
-            }
-
-            yield return value;
-        }
 
         public IEnumerable<T> SeparateMany<T>(
             IEnumerable<IEnumerable<T>> enumerable,

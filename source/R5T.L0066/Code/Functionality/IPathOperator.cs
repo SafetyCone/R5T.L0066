@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 
 using R5T.T0132;
+using R5T.T0143;
 
 
 namespace R5T.L0066
@@ -13,9 +14,17 @@ namespace R5T.L0066
         F10Y.L0000.IPathOperator
     {
 #pragma warning disable IDE1006 // Naming Styles
+
         public Checked.IPathOperator _Checked => Checked.PathOperator.Instance;
+
         public new Implementations.IPathOperator _Implementations => Implementations.PathOperator.Instance;
+
         public Internal.IPathOperator _Internal => Internal.PathOperator.Instance;
+
+
+        [Ignore]
+        public F10Y.L0000.IPathOperator _F10Y_L0000 => F10Y.L0000.PathOperator.Instance;
+
 #pragma warning restore IDE1006 // Naming Styles
 
 
@@ -207,14 +216,6 @@ namespace R5T.L0066
             return output;
         }
 
-        public string Get_FileNameStem(string filePath)
-        {
-            var fileName = this.Get_FileName(filePath);
-
-            var output = Instances.FileNameOperator.Get_FileNameStem(fileName);
-            return output;
-        }
-
         public string Get_FilePath_ForFileName(
             string directoryPath,
             string fileName)
@@ -343,7 +344,7 @@ namespace R5T.L0066
         /// Get the directory name of a directory path.
         /// </summary>
         /// <remarks>
-        /// Chooses <see cref="Implementations.IPathOperator.Get_DirectoryName_ViaLastPathPart(string)"/> as the default implementation.
+        /// Chooses <see cref="F10Y.L0000.Implementations.IPathOperator.Get_DirectoryName_ViaLastPathPart(string)"/> as the default implementation.
         /// </remarks>
         public new string Get_DirectoryName(string directoryPath)
         {
@@ -464,25 +465,8 @@ namespace R5T.L0066
             return output;
         }
 
-        /// <summary>
-        /// Gets the file name of a file path.
-        /// </summary>
-        /// <remarks>
-        /// Chooses <see cref="Implementations.IPathOperator.Get_FileName_ViaLastPathPart(string)"/> as the default implementation.
-        /// </remarks>
-        public string Get_FileName(string filePath)
-        {
-            var output = _Implementations.Get_FileName_ViaLastPathPart(filePath);
-            return output;
-        }
-
         public string Get_LastPathPart(string path)
-        {
-            var pathParts = this.Get_PathParts_NonEmpty(path);
-
-            var fileName = Instances.ArrayOperator.Get_Last(pathParts);
-            return fileName;
-        }
+            => this.Get_PathPart_Last(path);
 
         public int Get_LastDirectorySeparatorIndex(string path)
         {
@@ -501,17 +485,6 @@ namespace R5T.L0066
                 directorySeparators);
 
             return output;
-        }
-
-        public bool Has_FileExtension(
-            string filePath,
-            string fileExtension)
-        {
-            var hasFileExtension = Instances.StringOperator.EndsWith(
-                filePath,
-                fileExtension);
-
-            return hasFileExtension;
         }
 
         public bool Has_InvalidPathCharacters(string path)

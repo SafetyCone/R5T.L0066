@@ -15,7 +15,7 @@ namespace R5T.L0066.Checked
 #pragma warning restore IDE1006 // Naming Styles
 
 
-        /// <inheritdoc cref="L0066.IPathOperator.Ensure_IsDirectoryIndicated(string)" path="/summary"/>
+        /// <inheritdoc cref="F10Y.L0000.IPathOperator.Ensure_IsDirectoryIndicated(string)" path="/summary"/>
         /// <remarks>
         /// Checks that the input is not null or empty, and if it is, just returns the input.
         /// </remarks>

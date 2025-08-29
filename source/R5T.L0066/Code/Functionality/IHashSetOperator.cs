@@ -20,7 +20,7 @@ namespace R5T.L0066
 
 
         /// <summary>
-        /// Quality-of-life overload for <see cref="F10Y.L0000.IHashSetOperator.New{T}"/>.
+        /// Quality-of-life overload for <see cref="F10Y.L0000.IHashSetOperator.New{T}()"/>.
         /// </summary>
         public HashSet<T> Get_New<T>()
             => this.New<T>();
