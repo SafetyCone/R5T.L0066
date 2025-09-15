@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using R5T.T0132;
+using R5T.T0143;
 
 
 namespace R5T.L0066
@@ -12,7 +13,15 @@ namespace R5T.L0066
         F10Y.L0000.IListOperator
     {
 #pragma warning disable IDE1006 // Naming Styles
-        private Implementations.IListOperator _Implementations => Implementations.ListOperator.Instance;
+
+        [Ignore]
+        new Implementations.IListOperator _Implementations => Implementations.ListOperator.Instance;
+
+
+        [Ignore]
+        F10Y.L0000.IListOperator _F10Y_L0000 => F10Y.L0000.ListOperator.Instance;
+
+
 #pragma warning restore IDE1006 // Naming Styles
 
 
@@ -78,43 +87,6 @@ namespace R5T.L0066
                 list,
                 index);
 
-        public T Get_Second<T>(IList<T> list)
-        {
-            var output = _Implementations.Get_Second_ViaIndex(list);
-            return output;
-        }
-
-        public bool Has_Nth<T>(
-            IList<T> list,
-            int n,
-            out T nthOrDefault)
-        {
-            var count = list.Count;
-
-            if (n > count)
-            {
-                nthOrDefault = default;
-
-                return false;
-            }
-
-            nthOrDefault = list[n - 1];
-
-            return true;
-        }
-
-        public bool Has_Second<T>(
-            IList<T> list,
-            out T secondOrDefault)
-        {
-            var output = this.Has_Nth(
-                list,
-                2,
-                out secondOrDefault);
-
-            return output;
-        }
-
         /// <summary>
         /// Quality-of-life overload for <see cref="Get_Item_Last{T}(IList{T})"/>.
         /// </summary>
@@ -140,21 +112,6 @@ namespace R5T.L0066
         /// </summary>
         public int Get_LastIndex<T>(IList<T> list)
             => this.Get_Index_Last(list);
-
-        public T Get_Nth<T>(IList<T> list, int n)
-        {
-            var wasFound = this.Has_Nth(
-                list,
-                n,
-                out var nth);
-
-            if (!wasFound)
-            {
-                throw new InvalidOperationException($"List did not have an Nth (N = {n}) element.");
-            }
-
-            return nth;
-        }
 
         public T Get_NthOrDefault<T>(IList<T> list, int n)
         {

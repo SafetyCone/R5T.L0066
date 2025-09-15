@@ -136,11 +136,6 @@ namespace R5T.L0066
             return text;
         }
 
-        public Task<string> Read_Text(string filePath)
-        {
-            return File.ReadAllTextAsync(filePath);
-        }
-
         /// <summary>
         /// Quality-of-life overload for <see cref="F10Y.L0000.IFileOperator.Read_AllBytes_Synchronous(string)"/>.
         /// </summary>

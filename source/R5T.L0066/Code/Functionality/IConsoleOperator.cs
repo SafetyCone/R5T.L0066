@@ -11,9 +11,6 @@ namespace R5T.L0066
     public partial interface IConsoleOperator : IFunctionalityMarker,
         F10Y.L0000.IConsoleOperator
     {
-        public TextWriter Get_OutputWriter()
-            => Console.Out;
-
         public void Write_Line_WithTrailingBlankLine(string line)
         {
             this.Write_Line(line);

@@ -224,7 +224,7 @@ namespace R5T.L0066
             return output;
         }
 
-        public int Run_Synchronous(
+        new int Run_Synchronous(
             string command)
         {
             var exitCode = this.Run_Synchronous(

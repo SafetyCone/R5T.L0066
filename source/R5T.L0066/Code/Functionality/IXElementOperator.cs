@@ -163,22 +163,6 @@ namespace R5T.L0066
                 .Where_NameIs(childName)
                 ;
 
-        public IEnumerable<XElement> Enumerate_ChildrenOfChildren(
-            XElement element,
-            string childName,
-            string grandchildName)
-        {
-            var output = this.Enumerate_Children(
-                element,
-                childName)
-                .SelectMany(childElement => this.Enumerate_Children(
-                    childElement,
-                    grandchildName))
-                ;
-
-            return output;
-        }
-
         /// <summary>
         /// Requires the namespace node name if the element in a namespace.
         /// </summary>

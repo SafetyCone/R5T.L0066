@@ -105,16 +105,6 @@ namespace R5T.L0066
         }
 
         /// <summary>
-        /// Chooses <see cref="F10Y.L0000.IStringOperator.Contains_ConsiderCase(string, string)"/> as the default.
-        /// </summary>
-        public bool Contains(
-            string @string,
-            string subString)
-            => this.Contains_ConsiderCase(
-                @string,
-                subString);
-
-        /// <summary>
         /// Converts \r\n and \r to \n.
         /// </summary>
         /// <remarks>
@@ -650,9 +640,6 @@ namespace R5T.L0066
 
             return output;
         }
-
-        public IEnumerable<IEnumerable<string>> OrderBy_First(IEnumerable<IEnumerable<string>> values)
-            => Instances.EnumerableOperator.OrderBy_First(values);
 
         public string PrefixWith(
             string prefix,

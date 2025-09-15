@@ -9,18 +9,6 @@ namespace System.Linq
 {
     public static class EnumerableExtensions
     {
-        public static IEnumerable<T> Append<T>(this IEnumerable<T> enumerable,
-            IEnumerable<T> appendix)
-        {
-            return Instances.EnumerableOperator.Append(enumerable, appendix);
-        }
-
-        public static IEnumerable<T> Append<T>(this IEnumerable<T> enumerable,
-            params T[] appendix)
-        {
-            return Instances.EnumerableOperator.Append(enumerable, appendix);
-        }
-
         public static IEnumerable<T> AppendRange<T>(this IEnumerable<T> enumerable,
             IEnumerable<T> appendix)
         {
@@ -81,27 +69,6 @@ namespace System.Linq
             return output;
         }
 
-        public static IEnumerable<T> OrderByNames<T>(this IEnumerable<T> items,
-            Func<T, string> nameSelector,
-            IEnumerable<string> orderedNames)
-        {
-            var output = Instances.OrderOperator.Order_ByNames(
-                items,
-                nameSelector,
-                orderedNames);
-
-            return output;
-        }
-
-        public static IEnumerable<T> OrderByNames<T>(this IEnumerable<T> items,
-            Func<T, string> nameSelector,
-            params string[] orderedNames)
-        {
-            return items.OrderByNames(
-                nameSelector,
-                orderedNames.AsEnumerable());
-        }
-
         public static IEnumerable<T> Prepend<T>(this IEnumerable<T> items,
             IEnumerable<T> prependix)
         {
@@ -116,12 +83,6 @@ namespace System.Linq
             return Instances.EnumerableOperator.Prepend(
                 items,
                 prependix);
-        }
-
-        public static T Second<T>(this IEnumerable<T> items)
-        {
-            var output = Instances.EnumerableOperator.Get_Second(items);
-            return output;
         }
 
         public static IEnumerable<T> Skip_First<T>(this IEnumerable<T> enumerable)

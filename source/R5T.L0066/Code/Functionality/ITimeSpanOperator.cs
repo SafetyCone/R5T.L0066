@@ -1,41 +1,23 @@
 using System;
 
+using F10Y.T0011;
+
 using R5T.T0132;
 
 
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface ITimeSpanOperator : IFunctionalityMarker
+    public partial interface ITimeSpanOperator : IFunctionalityMarker,
+        F10Y.L0000.ITimeSpanOperator
     {
-        public TimeSpan From_Days(int days)
-            => new TimeSpan(days, 0, 0, 0);
+#pragma warning disable IDE1006 // Naming Styles
 
-        public TimeSpan From_Hours(int hours)
-            => new TimeSpan(hours, 0, 0);
+        [Ignore]
+        F10Y.L0000.ITimeSpanOperator _F10Y_L0000 => F10Y.L0000.TimeSpanOperator.Instance;
 
-        public TimeSpan From_Milliseconds(int milliseconds)
-            => new TimeSpan(0, 0, 0, 0, milliseconds);
+#pragma warning restore IDE1006 // Naming Styles
 
-        public TimeSpan From_Minutes(int minutes)
-            => new TimeSpan(0, minutes, 0);
-
-        public TimeSpan From_Seconds(int seconds)
-            => new TimeSpan(0, 0, seconds);
-
-        public TimeSpan From_Ticks(long ticks)
-            => new TimeSpan(ticks);
-
-        /// <summary>
-		/// The offset returned satisfies:
-		/// local time = UTC time + offset.
-		/// </summary>
-		/// <returns></returns>
-		public TimeSpan Get_OffsetFromUtc()
-        {
-            var offsetFromUtc = DateTimeOffset.Now.Offset;
-            return offsetFromUtc;
-        }
 
         public string ToString_NumberOfSeconds_WithMilliseconds(TimeSpan timeSpan)
         {

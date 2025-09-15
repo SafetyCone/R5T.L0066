@@ -3,14 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
+using F10Y.T0011;
+
 using R5T.T0132;
 
 
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface IDictionaryOperator : IFunctionalityMarker
+    public partial interface IDictionaryOperator : IFunctionalityMarker,
+        F10Y.L0000.IDictionaryOperator
     {
+#pragma warning disable IDE1006 // Naming Styles
+
+        [Ignore]
+        F10Y.L0000.IDictionaryOperator _F10Y_L0000 => F10Y.L0000.DictionaryOperator.Instance;
+
+#pragma warning restore IDE1006 // Naming Styles
+
+
         /// <summary>
         /// If the dictionary already contains the given key, return the associated value.
         /// Else, using the provided constructor to generate a value, add the value with the given key, and return the value.
@@ -157,31 +168,6 @@ namespace R5T.L0066
                 pairs.AsEnumerable());
 
         /// <summary>
-        /// Adds the key-value pair if the key does not exist, else replaces the value for the given key if the key already exists.
-        /// </summary>
-        public void Add_OrReplace<TKey, TValue>(
-            IDictionary<TKey, TValue> dictionary,
-            TKey key,
-            TValue value)
-        {
-            var wasAdded = dictionary.TryAdd(key, value);
-            if(!wasAdded)
-            {
-                dictionary[key] = value;
-            }
-        }
-
-        public void Add_Range<TKey, TValue>(
-            IDictionary<TKey, TValue> dictionary,
-            IEnumerable<KeyValuePair<TKey, TValue>> pairs)
-        {
-            foreach (var pair in pairs)
-            {
-                dictionary.Add(pair);
-            }
-        }
-
-        /// <summary>
         /// If there is an expandable list of values for each key, add the value to either a new list (if the key does not already exist), or the existing list.
         /// </summary>
         public void Add_Value<TKey, TValue>(
@@ -215,12 +201,6 @@ namespace R5T.L0066
             }
 
             list.Add(value);
-        }
-
-        public Dictionary<TKey, TValue> Clone<TKey, TValue>(IDictionary<TKey, TValue> dictionary)
-        {
-            var output = new Dictionary<TKey, TValue>(dictionary);
-            return output;
         }
 
         bool Equal_Counts<TKey, TValue>(

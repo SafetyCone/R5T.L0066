@@ -86,12 +86,6 @@ namespace R5T.L0066
         /// <inheritdoc cref="Percent_Constant"/>
         public string Percent => IStrings.Percent_Constant;
 
-        /// <inheritdoc cref="StringsDocumentation.ForPipe"/>
-        public const string Pipe_Constant = "|";
-
-        /// <inheritdoc cref="Pipe_Constant"/>
-        public string Pipe => IStrings.Pipe_Constant;
-
         /// <inheritdoc cref="StringsDocumentation.ForQuestionMark"/>
         public const string QuestionMark_Constant = "?";
 

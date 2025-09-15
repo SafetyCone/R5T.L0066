@@ -26,9 +26,6 @@ namespace System.Linq
             var output = Instances.StringOperator.Trim(strings);
             return output;
         }
-
-        public static string Join_Lines(this IEnumerable<string> strings)
-            => Instances.TextOperator.Join_Lines(strings);
     }
 }
 

@@ -1,25 +1,27 @@
 using System;
 
+using F10Y.T0011;
+
 using R5T.T0132;
 
 
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface IDateTimeOffsetOperator : IFunctionalityMarker
+    public partial interface IDateTimeOffsetOperator : IFunctionalityMarker,
+        F10Y.L0000.IDateTimeOffsetOperator
     {
+#pragma warning disable IDE1006 // Naming Styles
+
+        [Ignore]
+        F10Y.L0000.IDateTimeOffsetOperator _F10Y_L0000 => F10Y.L0000.DateTimeOffsetOperator.Instance;
+
+#pragma warning restore IDE1006 // Naming Styles
+
+
         public DateTimeOffset From_DateTime_Utc(DateTime dateTimeUtc)
         {
             var dateTimeOffset = new DateTimeOffset(dateTimeUtc, TimeSpan.Zero);
-
-            return dateTimeOffset;
-        }
-
-        public DateTimeOffset From_DateTime_Local(DateTime dateTimeLocal)
-        {
-            var localOffset = this.Get_LocalOffsetFromUtc();
-
-            var dateTimeOffset = new DateTimeOffset(dateTimeLocal, localOffset);
 
             return dateTimeOffset;
         }
@@ -36,33 +38,6 @@ namespace R5T.L0066
 
             var output = this.From_UnixMilliseconds(unixMilliseconds_Long);
             return output;
-        }
-
-        public DateTimeOffset Get_Now_Local()
-        {
-            var nowLocal = DateTimeOffset.Now;
-            return nowLocal;
-        }
-
-        public DateTimeOffset Get_Now_Utc()
-        {
-            var nowUtc = DateTimeOffset.UtcNow;
-            return nowUtc;
-        }
-
-        /// <summary>
-        /// Chooses <see cref="Get_Now_Local"/> as the default.
-        /// </summary>
-        public DateTimeOffset Get_Now()
-        {
-            var now = this.Get_Now_Local();
-            return now;
-        }
-
-        public TimeSpan Get_LocalOffsetFromUtc()
-        {
-            var currentOffset = Instances.TimeSpanOperator.Get_OffsetFromUtc();
-            return currentOffset;
         }
     }
 }

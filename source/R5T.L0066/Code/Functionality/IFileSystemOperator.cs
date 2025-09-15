@@ -122,75 +122,6 @@ namespace R5T.L0066
                 false);
         }
 
-        public void Delete_Directory_NonRobust(string directoryPath)
-        {
-            Directory.Delete(directoryPath, true);
-        }
-
-        /// <summary>
-        /// Deletes a directory path.
-        /// The <see cref="System.IO.Directory.Delete(string)"/> method throws a <see cref="System.IO.DirectoryNotFoundException"/> if attempting to delete a non-existent directory. This is annoying.
-        /// All you really want is the directory to not exist, so this method simply takes care of checking if the directory exists.
-        /// Also annoying, you need to specify the recursive option to delete a directory with anything in it. This method also takes care of specifying true for the recursive option.
-        /// Even more annoying, even after specifying the recursive option, the system method will not delete read-only files. Thus this method disables read-only options on all files recursively.
-        /// </summary>
-        public void Delete_Directory_Robust(string directoryPath)
-        {
-            if (this.Exists_Directory(directoryPath))
-            {
-                this.DisableReadOnly(directoryPath);
-
-                this.Delete_Directory_NonRobust(directoryPath);
-            }
-        }
-
-        /// <summary>
-        /// Non-idempotently deletes a directory.
-        /// An exception is thrown if the directory does not exist.
-        /// </summary>
-        public void Delete_Directory_NonIdempotent(string directoryPath)
-        {
-            if (!this.Exists_Directory(directoryPath))
-            {
-                throw new DirectoryNotFoundException(directoryPath);
-            }
-
-            this.Delete_Directory_Robust(directoryPath);
-        }
-
-        public bool Delete_Directory_Idempotent(string directoryPath)
-        {
-            if (this.Exists_Directory(directoryPath))
-            {
-                this.Delete_Directory_Robust(directoryPath);
-
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public void Delete_Directories_Idempotent(IEnumerable<string> directoryPaths)
-        {
-            foreach (var directoryPath in directoryPaths)
-            {
-                this.Delete_Directory_Idempotent(directoryPath);
-            }
-        }
-
-        /// <summary>
-        /// Chooses <see cref="Delete_Directories_Idempotent(IEnumerable{string})"/> as the default.
-        /// </summary>
-        public void Delete_Directories(IEnumerable<string> directoryPaths)
-            => this.Delete_Directories_Idempotent(directoryPaths);
-
-        public void Delete_Directory_OkIfNotExists(string directoryPath)
-        {
-            this.Delete_Directory_Idempotent(directoryPath);
-        }
-
         public void Delete_File_OkIfNotExists(string filePath)
         {
             var directoryForFileDirectoryPath = Instances.PathOperator.Get_ParentDirectoryPath_ForFile(filePath);
@@ -203,40 +134,6 @@ namespace R5T.L0066
             }
 
             File.Delete(filePath);
-        }
-
-        public void DisableReadOnly(string directoryPath)
-        {
-            var directoryInfo = new DirectoryInfo(directoryPath);
-
-            this.DisableReadOnly(directoryInfo);
-        }
-
-        /// <summary>
-        /// Remove the read-only attribute from all files.
-        /// </summary>
-        /// <remarks>
-        /// Adapted from: https://stackoverflow.com/questions/1982209/cannot-programatically-delete-svn-working-copy
-        /// </remarks>
-        public void DisableReadOnly(DirectoryInfo directoryInfo)
-        {
-            foreach (var file in directoryInfo.GetFiles())
-            {
-                if (file.IsReadOnly)
-                {
-                    file.IsReadOnly = false;
-                }
-            }
-
-            foreach (var subdirectory in directoryInfo.GetDirectories())
-            {
-                this.DisableReadOnly(subdirectory);
-            }
-        }
-
-        public void Ensure_DirectoryExists(string directoryPath)
-        {
-            this.Create_Directory_OkIfAlreadyExists(directoryPath);
         }
 
         /// <inheritdoc cref="F10Y.L0000.IFileSystemOperator.Enumerate_ChildFilePaths(string)"/>
@@ -505,19 +402,6 @@ namespace R5T.L0066
 
         public DateTime Get_LastModifiedTime_ForFiles(
             string directoryPath,
-            Func<DirectoryInfo, bool> descendantDirectoryRecursionPredicate)
-        {
-            var directoryInfo = Instances.DirectoryInfoOperator.From(directoryPath);
-
-            var output = Instances.DirectoryInfoOperator.Get_LastModifiedTime_ForFiles(
-                directoryInfo,
-                descendantDirectoryRecursionPredicate);
-
-            return output;
-        }
-
-        public DateTime Get_LastModifiedTime_ForFiles(
-            string directoryPath,
             Func<string, bool> descendantDirectoryRecursionPredicate)
         {
             var directoryInfo = Instances.DirectoryInfoOperator.From(directoryPath);
@@ -551,17 +435,6 @@ namespace R5T.L0066
             var file = Instances.FileInfoOperator.From(filePath);
 
             var output = Instances.FileInfoOperator.Get_LastModifiedTime(file);
-            return output;
-        }
-
-        /// <summary>
-        /// <inheritdoc cref="IDirectoryInfoOperator.Get_LastModifiedTime(DirectoryInfo)" path="/summary"/>
-        /// </summary>
-        public DateTime Get_LastModifiedTime_ForDirectory(string directoryPath)
-        {
-            var directory = Instances.DirectoryInfoOperator.From(directoryPath);
-
-            var output = Instances.DirectoryInfoOperator.Get_LastModifiedTime(directory);
             return output;
         }
 

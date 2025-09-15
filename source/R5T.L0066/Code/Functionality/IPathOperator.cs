@@ -190,32 +190,6 @@ namespace R5T.L0066
             return directoryPath;
         }
 
-        public string Get_DirectoryPath(
-            string parentDirectoryPath,
-            IEnumerable<string> directoryNames)
-        {
-            var directoryPath = parentDirectoryPath;
-
-            foreach (var directoryName in directoryNames)
-            {
-                directoryPath = this.Get_DirectoryPath(directoryPath, directoryName);
-            }
-
-            var output = this.Ensure_IsDirectoryIndicated(directoryPath);
-            return output;
-        }
-
-        public string Get_DirectoryPath(
-            string parentDirectoryPath,
-            params string[] directoryNames)
-        {
-            var output = this.Get_DirectoryPath(
-                parentDirectoryPath,
-                directoryNames.AsEnumerable());
-
-            return output;
-        }
-
         public string Get_FilePath_ForFileName(
             string directoryPath,
             string fileName)

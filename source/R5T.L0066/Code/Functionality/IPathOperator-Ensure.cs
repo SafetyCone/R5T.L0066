@@ -261,12 +261,6 @@ namespace R5T.L0066
             return output;
         }
 
-        public string Make_NotDirectoryIndicated(string path)
-        {
-            var output = path.TrimEnd(Instances.DirectorySeparators.Both);
-            return output;
-        }
-
         public string Make_NotRootIndicated(string path)
         {
             var output = path.TrimStart(Instances.DirectorySeparators.Both);

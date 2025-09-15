@@ -1,16 +1,24 @@
 using System;
 using System.IO;
 
+using F10Y.T0011;
+
 using R5T.T0132;
 
 
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface IFileSystemInfoOperator : IFunctionalityMarker
+    public partial interface IFileSystemInfoOperator : IFunctionalityMarker,
+        F10Y.L0000.IFileSystemInfoOperator
     {
-        public DateTime Get_LastModifiedTime(FileSystemInfo fileSystemInfo)
-            => fileSystemInfo.LastWriteTime;
+#pragma warning disable IDE1006 // Naming Styles
+
+        [Ignore]
+        F10Y.L0000.IFileSystemInfoOperator _F10Y_L0000 => F10Y.L0000.FileSystemInfoOperator.Instance;
+
+#pragma warning restore IDE1006 // Naming Styles
+
 
         /// <summary>
         /// Gets the name of the file system entry (e.g. "temp.txt" in "C:\Temp\temp.txt" or "Temp" in "C:\Temp\").

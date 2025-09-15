@@ -269,17 +269,6 @@ namespace R5T.L0066
             return output;
         }
 
-        public IEnumerable<IEnumerable<T>> OrderBy_First<T>(IEnumerable<IEnumerable<T>> values)
-        {
-            var valuesAndFirst = values
-                .Select(x => (First: x.FirstOrDefault(), Values: x))
-                .OrderBy(x => x.First)
-                .Select(x => x.Values)
-                ;
-
-            return valuesAndFirst;
-        }
-
         public IEnumerable<T> Prepend<T>(
             IEnumerable<T> items,
             IEnumerable<T> prependix)
