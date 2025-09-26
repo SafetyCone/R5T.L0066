@@ -19,13 +19,6 @@ namespace System.Linq
             var output = Instances.StringOperator.Order_Alphabetically_OnlyIfDebug(strings);
             return output;
         }
-
-        /// <inheritdoc cref="R5T.L0066.IStringOperator.Trim(string)"/>
-        public static IEnumerable<string> Trim(this IEnumerable<string> strings)
-        {
-            var output = Instances.StringOperator.Trim(strings);
-            return output;
-        }
     }
 }
 

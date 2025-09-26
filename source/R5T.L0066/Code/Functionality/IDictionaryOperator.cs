@@ -167,25 +167,6 @@ namespace R5T.L0066
                 dictionary,
                 pairs.AsEnumerable());
 
-        /// <summary>
-        /// If there is an expandable list of values for each key, add the value to either a new list (if the key does not already exist), or the existing list.
-        /// </summary>
-        public void Add_Value<TKey, TValue>(
-            IDictionary<TKey, List<TValue>> dictionary,
-            TKey key,
-            TValue value)
-        {
-            var hasValue = dictionary.TryGetValue(key, out List<TValue> list);
-            if (!hasValue)
-            {
-                list = new List<TValue>();
-
-                dictionary.Add(key, list);
-            }
-
-            list.Add(value);
-        }
-
         public void Add_Value<TKey, TValue>(
             IDictionary<TKey, IList<TValue>> dictionary,
             Func<IList<TValue>> listConstructor,

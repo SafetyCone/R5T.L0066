@@ -17,17 +17,17 @@ namespace R5T.L0066
 #pragma warning disable IDE1006 // Naming Styles
 
         [Ignore]
-        public Implementations.IEnumerableOperator _Implementations => Implementations.EnumerableOperator.Instance;
+        Implementations.IEnumerableOperator _Implementations => Implementations.EnumerableOperator.Instance;
 
 
         [Ignore]
-        public F10Y.L0001.L000.IEnumerableOperator _F10Y_L0001_L000 => F10Y.L0001.L000.EnumerableOperator.Instance;
+        F10Y.L0001.L000.IEnumerableOperator _F10Y_L0001_L000 => F10Y.L0001.L000.EnumerableOperator.Instance;
 
 
 #pragma warning restore IDE1006 // Naming Styles
 
 
-        public bool Any_Duplicates<T>(
+        bool Any_Duplicates<T>(
             IEnumerable<T> enumerable,
             IEqualityComparer<T> equalityComparer)
         {
@@ -47,12 +47,12 @@ namespace R5T.L0066
             return false;
         }
 
-        public bool Any_Duplicates<T>(IEnumerable<T> enumerable)
+        bool Any_Duplicates<T>(IEnumerable<T> enumerable)
             => this.Any_Duplicates(
                 enumerable,
                 EqualityComparer<T>.Default);
 
-        public IEnumerable<T> Append_If<T>(
+        IEnumerable<T> Append_If<T>(
             IEnumerable<T> enumerable,
             bool value,
             Func<IEnumerable<T>> appendix_Provider)
@@ -72,14 +72,14 @@ namespace R5T.L0066
             return enumerable;
         }
 
-        public IEnumerable<T> AppendRange<T>(
+        IEnumerable<T> AppendRange<T>(
             IEnumerable<T> enumerable,
             IEnumerable<T> appendix)
         {
             return enumerable.Concat(appendix);
         }
 
-        public IEnumerable<T> AppendRange<T>(
+        IEnumerable<T> AppendRange<T>(
             IEnumerable<T> enumerable,
             Func<IEnumerable<T>> appendixGenerator)
         {
@@ -89,7 +89,7 @@ namespace R5T.L0066
             return output;
         }
 
-        public IEnumerable<T> Concatenate<T>(IEnumerable<IEnumerable<T>> enumerables)
+        IEnumerable<T> Concatenate<T>(IEnumerable<IEnumerable<T>> enumerables)
         {
             var output = enumerables
                 .SelectMany(enumerable => enumerable)
@@ -98,12 +98,12 @@ namespace R5T.L0066
             return output;
         }
 
-        public IEnumerable<T> Concatenate<T>(
+        IEnumerable<T> Concatenate<T>(
             params IEnumerable<T>[] enumerables)
             => this.Concatenate(
                 enumerables.AsEnumerable());
 
-        public bool ContainsAll<T>(
+        bool ContainsAll<T>(
             IEnumerable<T> superset,
             IEnumerable<T> subset)
         {
@@ -111,7 +111,7 @@ namespace R5T.L0066
             return output;
         }
 
-        public bool Contains<T>(
+        bool Contains<T>(
             IEnumerable<T> array,
             T item,
             IEqualityComparer<T> equalityComparer)
@@ -123,7 +123,7 @@ namespace R5T.L0066
             return output;
         }
 
-        public bool Contains<T>(
+        bool Contains<T>(
             IEnumerable<T> array,
             T item)
         {
@@ -131,7 +131,7 @@ namespace R5T.L0066
             return output;
         }
 
-        public IEnumerable<T> Enumerate_Duplicates<T>(
+        IEnumerable<T> Enumerate_Duplicates<T>(
             IEnumerable<T> enumerable,
             IEqualityComparer<T> equalityComparer)
         {
@@ -146,12 +146,12 @@ namespace R5T.L0066
             return output;
         }
 
-        public IEnumerable<T> Enumerate_Duplicates<T>(IEnumerable<T> enumerable)
+        IEnumerable<T> Enumerate_Duplicates<T>(IEnumerable<T> enumerable)
             => this.Enumerate_Duplicates(
                 enumerable,
                 EqualityComparer<T>.Default);
 
-        public IEnumerable<int> Enumerate_Range_Inclusive(
+        IEnumerable<int> Enumerate_Range_Inclusive(
             int start,
             int end,
             int increment)
@@ -164,12 +164,12 @@ namespace R5T.L0066
             }
         }
 
-        public IEnumerable<int> Enumerate_Range_Inclusive(
+        IEnumerable<int> Enumerate_Range_Inclusive(
             int start,
             int end)
             => this.Enumerate_Range_Inclusive(start, end, Instances.Integers.One);
 
-        public T[] Get_Duplicates<T>(
+        T[] Get_Duplicates<T>(
             IEnumerable<T> enumerable,
             IEqualityComparer<T> equalityComparer)
         {
@@ -181,12 +181,12 @@ namespace R5T.L0066
             return output;
         }
 
-        public T[] Get_Duplicates<T>(IEnumerable<T> enumerable)
+        T[] Get_Duplicates<T>(IEnumerable<T> enumerable)
             => this.Get_Duplicates(
                 enumerable,
                 EqualityComparer<T>.Default);
 
-        public IEnumerable<T> Get_Empty_IfDefault<T>(IEnumerable<T> values = default)
+        IEnumerable<T> Get_Empty_IfDefault<T>(IEnumerable<T> values = default)
         {
             var isDefault = Instances.DefaultOperator.Is_Default(values);
 
@@ -198,38 +198,20 @@ namespace R5T.L0066
             return output;
         }
 
-        public bool Equal_ElementSets<T>(
+        bool Equal_ElementSets<T>(
             IEnumerable<T> a,
             IEnumerable<T> b,
             IEqualityComparer<T> equalityComparer)
             => a.Except(b, equalityComparer)
             .None();
 
-        public bool Equal_ElementSets<T>(
+        bool Equal_ElementSets<T>(
             IEnumerable<T> a,
             IEnumerable<T> b)
             => this.Equal_ElementSets(a, b,
                 Instances.EqualityOperator.Get_EqualityComparer<T>());
 
-        public IEnumerable<T> Except<T>(
-            IEnumerable<T> items,
-            T item)
-            where T : IEquatable<T>
-        {
-            var output = items.Where(x => !x.Equals(item));
-            return output;
-        }
-
-        public IEnumerable<T> Except<T>(
-            IEnumerable<T> items,
-            T item,
-            IEqualityComparer<T> equalityComparer)
-        {
-            var output = items.Where(x => !equalityComparer.Equals(x, item));
-            return output;
-        }
-
-        public void For_Each<T>(IEnumerable<T> enumerable, Action<T> action)
+        void For_Each<T>(IEnumerable<T> enumerable, Action<T> action)
         {
             foreach (var item in enumerable)
             {
@@ -237,7 +219,7 @@ namespace R5T.L0066
             }
         }
 
-        public async Task For_Each<T>(IEnumerable<T> enumerable, Func<T, Task> action)
+        async Task For_Each<T>(IEnumerable<T> enumerable, Func<T, Task> action)
         {
             foreach (var item in enumerable)
             {
@@ -245,23 +227,23 @@ namespace R5T.L0066
             }
         }
 
-        public IEnumerable<T> From<T>(T instance)
+        IEnumerable<T> From<T>(T instance)
         {
             yield return instance;
         }
 
-        public IEnumerable<T[]> From_Array<T>(T[] instance)
+        IEnumerable<T[]> From_Array<T>(T[] instance)
         {
             yield return instance;
         }
 
-        public T Get_First<T>(IEnumerable<T> values)
+        T Get_First<T>(IEnumerable<T> values)
         {
             var output = _Implementations.Get_First_UsingEnumerator(values);
             return output;
         }
 
-        public IEnumerable<T> OrderAlphabetically<T>(
+        IEnumerable<T> OrderAlphabetically<T>(
             IEnumerable<T> items,
             Func<T, string> keySelector)
         {
@@ -269,7 +251,7 @@ namespace R5T.L0066
             return output;
         }
 
-        public IEnumerable<T> Prepend<T>(
+        IEnumerable<T> Prepend<T>(
             IEnumerable<T> items,
             IEnumerable<T> prependix)
         {
@@ -284,7 +266,7 @@ namespace R5T.L0066
             }
         }
 
-        public IEnumerable<T> Prepend<T>(
+        IEnumerable<T> Prepend<T>(
             IEnumerable<T> items,
             params T[] prependix)
         {
@@ -293,17 +275,17 @@ namespace R5T.L0066
                 prependix.AsEnumerable());
         }
 
-        public IEnumerable<T> Repeat<T>(T instance, int count)
+        IEnumerable<T> Repeat<T>(T instance, int count)
         {
             return Enumerable.Repeat(instance, count);
         }
 
-        public IEnumerable<TResult> SelectMany<TSource, TResult>(
+        IEnumerable<TResult> SelectMany<TSource, TResult>(
             IEnumerable<TSource> sources,
             Func<TSource, IEnumerable<TResult>> selector)
             => sources.SelectMany(selector);
 
-        public IEnumerable<T> SeparateMany<T>(
+        IEnumerable<T> SeparateMany<T>(
             IEnumerable<IEnumerable<T>> enumerable,
             T separator)
         {
@@ -337,7 +319,7 @@ namespace R5T.L0066
             }
         }
 
-        public IEnumerable<TResult> SeparateMany<TSource, TResult>(
+        IEnumerable<TResult> SeparateMany<TSource, TResult>(
             IEnumerable<TSource> enumerable,
             Func<TSource, IEnumerable<TResult>> selector,
             TResult separator)
@@ -376,13 +358,13 @@ namespace R5T.L0066
             }
         }
 
-        public IEnumerable<T> Skip_First<T>(IEnumerable<T> enumerable)
+        IEnumerable<T> Skip_First<T>(IEnumerable<T> enumerable)
         {
             var output = enumerable.Skip(1);
             return output;
         }
 
-        public bool StartsWith<T>(
+        bool StartsWith<T>(
             IEnumerable<T> enumerable,
             IEnumerable<T> start,
             IEqualityComparer<T> equalityComparer)
@@ -412,7 +394,7 @@ namespace R5T.L0066
             return true;
         }
 
-        public bool StartsWith<T>(
+        bool StartsWith<T>(
             IEnumerable<T> enumerable,
             IEnumerable<T> start)
         {
@@ -432,7 +414,7 @@ namespace R5T.L0066
         /// <remarks>
         /// Name is "ToDictionary" instead of "To_Dictionary" in order to match the default LINQ extension method name. 
         /// </remarks>
-        public Dictionary<TKey, TValue> ToDictionary<TKey, TValue>(IEnumerable<KeyValuePair<TKey, TValue>> pairs)
+        Dictionary<TKey, TValue> ToDictionary<TKey, TValue>(IEnumerable<KeyValuePair<TKey, TValue>> pairs)
         {
             var output = pairs.ToDictionary(
                 pair => pair.Key,
@@ -441,7 +423,7 @@ namespace R5T.L0066
             return output;
         }
 
-        public IEnumerable<T> To_Generic<T>(IEnumerable enumerable)
+        IEnumerable<T> To_Generic<T>(IEnumerable enumerable)
             => enumerable.Cast<T>();
     }
 }

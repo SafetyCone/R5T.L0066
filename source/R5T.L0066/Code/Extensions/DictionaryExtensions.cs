@@ -85,15 +85,6 @@ namespace R5T.L0066.Extensions
                 dictionary,
                 pairs);
 
-        /// <inheritdoc cref="L0066.IDictionaryOperator.Add_Value{TKey, TValue}(IDictionary{TKey, List{TValue}}, TKey, TValue)"/>
-        public static void Add_Value<TKey, TValue>(this IDictionary<TKey, List<TValue>> dictionary, TKey key, TValue value)
-        {
-            Instances.DictionaryOperator.Add_Value(
-                dictionary,
-                key,
-                value);
-        }
-
         public static Dictionary<TKey, TValue> Clone<TKey, TValue>(this IDictionary<TKey, TValue> dictionary)
             => Instances.DictionaryOperator.Clone(dictionary);
 

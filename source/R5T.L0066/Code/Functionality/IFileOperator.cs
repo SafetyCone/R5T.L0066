@@ -131,10 +131,7 @@ namespace R5T.L0066
         //}
 
         public string Read_Text_Synchronous(string filePath)
-        {
-            var text = File.ReadAllText(filePath);
-            return text;
-        }
+            => this.Read_AllText_Synchronous(filePath);
 
         /// <summary>
         /// Quality-of-life overload for <see cref="F10Y.L0000.IFileOperator.Read_AllBytes_Synchronous(string)"/>.

@@ -50,13 +50,6 @@ namespace System.Linq
             return output;
         }
 
-        public static IEnumerable<T> Except<T>(this IEnumerable<T> items, T item)
-            where T : IEquatable<T>
-        {
-            var output = Instances.EnumerableOperator.Except(items, item);
-            return output;
-        }
-
         public static bool None<T>(this IEnumerable<T> items)
         {
             return Instances.EnumerableOperator.None(items);
