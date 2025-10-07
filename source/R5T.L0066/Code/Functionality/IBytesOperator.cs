@@ -6,7 +6,8 @@ using R5T.T0132;
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface IBytesOperator : IFunctionalityMarker
+    public partial interface IBytesOperator : IFunctionalityMarker,
+        F10Y.L0001.L000.IBytesOperator
     {
         public double Get_Gibibytes_double(long value)
         {

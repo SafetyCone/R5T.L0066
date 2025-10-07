@@ -28,9 +28,6 @@ namespace R5T.L0066
         public char Get_AlternateDirectorySeparator()
             => Instances.DirectorySeparatorOperator.Get_EnvironmentAlternateDirectorySeparator();
 
-        public DriveInfo Get_DriveInformation(string driveName = IValues.C_DriveName)
-            => new DriveInfo(driveName);
-
         /// <summary>
         /// Chooses <see cref="Get_EnvironmentVariable_OrNull(string)"/> as the default.
         /// </summary>
@@ -98,15 +95,6 @@ namespace R5T.L0066
             return output;
         }
 
-        /// <summary>
-        /// Gets the name of the machine on which code is currently executing.
-        /// </summary>
-        public string Get_MachineName()
-        {
-            var output = Environment.MachineName;
-            return output;
-        }
-
         /// <inheritdoc cref="IRuntimeOperator.Get_RuntimeDirectoryPath"/>
         public string Get_RuntimeDirectoryPath()
             => Instances.RuntimeOperator.Get_RuntimeDirectoryPath();
@@ -168,33 +156,5 @@ namespace R5T.L0066
 
         public bool Is_Windows()
             => Instances.OperatingSystemOperator.Is_Windows();
-
-        /// <summary>
-        /// Determines if the current machine has the given name.
-        /// </summary>
-        public bool Is_CurrentMachineName(string machineName)
-        {
-            var currentMachineName = this.Get_MachineName();
-
-            var output = currentMachineName == machineName;
-            return output;
-        }
-
-        /// <summary>
-        /// Verifies that the current machine has the given name.
-        /// </summary>
-        /// <remarks>
-        /// Useful for ensuring that some code is only run on a particular machine.
-        /// </remarks>
-        public void Verify_CurrentMachineNameIs(string machineName)
-        {
-            var isMachineName = this.Is_CurrentMachineName(machineName);
-            if (!isMachineName)
-            {
-                var currentMachineName = this.Get_MachineName();
-
-                throw new Exception($"'{currentMachineName}': machine name was not '{machineName}'.");
-            }
-        }
     }
 }
