@@ -22,15 +22,10 @@ namespace R5T.L0066
 #pragma warning restore IDE1006 // Naming Styles
 
 
-        public TEnum[] Get_Values<TEnum>()
+        new TEnum[] Get_Values<TEnum>()
             where TEnum : Enum
             => _Implementations.Get_Values_SimpleSyntax<TEnum>();
 
-        public Array Get_Values(Type enumerationType)
-        {
-            var output = Enum.GetValues(enumerationType);
-            return output;
-        }
 
         public Type Get_EnumerationType<TEnum>()
             where TEnum : Enum
@@ -43,11 +38,11 @@ namespace R5T.L0066
             where TEnum : Enum
             => this.Get_EnumerationType<TEnum>();
 
-        public Type Get_UnderlyingType(Enum value)
+        Type Get_UnderlyingType(Enum value)
         {
             var enumerationType = value.GetType();
 
-            var output = this.Get_UnderlyingType(enumerationType);
+            var output = _F10Y_L0000.Get_UnderlyingType(enumerationType);
             return output;
         }
 
@@ -56,7 +51,7 @@ namespace R5T.L0066
         {
             var enumerationType = Instances.TypeOperator.Get_TypeOf(enumerationValue);
 
-            var output = this.Get_UnderlyingType(enumerationType);
+            var output = _F10Y_L0000.Get_UnderlyingType(enumerationType);
             return output;
         }
 
@@ -65,13 +60,7 @@ namespace R5T.L0066
         {
             var enumerationType = typeof(TEnum);
 
-            var output = this.Get_UnderlyingType(enumerationType);
-            return output;
-        }
-
-        public Type Get_UnderlyingType(Type enumerationType)
-        {
-            var output = Enum.GetUnderlyingType(enumerationType);
+            var output = _F10Y_L0000.Get_UnderlyingType(enumerationType);
             return output;
         }
 

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 using F10Y.T0011;
@@ -78,12 +77,6 @@ namespace R5T.L0066
             var dictionary = Environment.GetEnvironmentVariables();
 
             var output = Instances.DictionaryOperator.To_Generic<string, string>(dictionary);
-            return output;
-        }
-
-        public string Get_CurrentDirectoryPath()
-        {
-            var output = Environment.CurrentDirectory;
             return output;
         }
 

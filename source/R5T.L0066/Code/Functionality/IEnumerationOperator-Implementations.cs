@@ -10,7 +10,9 @@ namespace R5T.L0066.Implementations
     public partial interface IEnumerationOperator : IFunctionalityMarker
     {
 #pragma warning disable IDE1006 // Naming Styles
+
         private static L0066.IEnumerationOperator _Root => L0066.EnumerationOperator.Instance;
+
 #pragma warning restore IDE1006 // Naming Styles
 
 
@@ -19,7 +21,7 @@ namespace R5T.L0066.Implementations
         {
             var enumerationType = _Root.Get_EnumerationType<TEnum>();
 
-            var array = _Root.Get_Values(enumerationType);
+            var array = _Root.Get_Values_AsArray(enumerationType);
 
             var output = Instances.ObjectOperator.As<Array, TEnum[]>(array);
             return output;
