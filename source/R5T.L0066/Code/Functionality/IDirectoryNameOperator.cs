@@ -1,72 +1,29 @@
 using System;
 
 using R5T.T0132;
+using R5T.T0143;
 
 
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface IDirectoryNameOperator : IFunctionalityMarker
+    public partial interface IDirectoryNameOperator : IFunctionalityMarker,
+        F10Y.L0000.IDirectoryNameOperator
     {
+#pragma warning disable IDE1006 // Naming Styles
+
+        [Ignore]
+        F10Y.L0000.IDirectoryNameOperator _F10Y_L0000 => F10Y.L0000.DirectoryNameOperator.Instance;
+
+#pragma warning restore IDE1006 // Naming Styles
+
+
         /// <summary>
-        /// Quality-of-life overload for <see cref="Ensure_IsValidDirectoryName(string)"/>
+        /// Quality-of-life overload for <see cref="F10Y.L0000.IDirectoryNameOperator.Ensure_IsValidDirectoryName(string)"/>
         /// </summary>
         public string Convert_ToDirectoryName(string name)
         {
             var output = this.Ensure_IsValidDirectoryName(name);
-            return output;
-        }
-
-        /// <summary>
-        /// Converts a possible directory name into a string capable of being a Windows directory name.
-        /// </summary>
-        /// <returns>
-        /// Whether the name was changed, and the directory name as an out parameter.
-        /// </returns>
-        /// <remarks>
-        /// See <see href="https://learn.microsoft.com/en-us/windows/win32/fileio/naming-a-file#naming-conventions"/>.
-        /// </remarks>
-        public bool Ensure_IsValidWindowsDirectoryName(
-            string possibleDirectoryName,
-            out string directoryName)
-        {
-            directoryName = possibleDirectoryName;
-
-            // Replace all invalid characters with '_'.
-            var invalidCharacters = Instances.PathOperator.Get_InvalidFileNameCharacters();
-
-            directoryName = Instances.StringOperator.Replace(
-                directoryName,
-                Instances.Characters.Underscore,
-                invalidCharacters);
-
-            // Trim the ending of any spaces (' ') or periods ('.').
-            directoryName = directoryName.TrimEnd(
-                Instances.Characters.Space,
-                Instances.Characters.Period);
-
-            var isChanged = possibleDirectoryName != directoryName;
-            
-            return isChanged;
-        }
-
-        /// <summary>
-        /// Chooses <see cref="Ensure_IsValidWindowsDirectoryName(string, out string)"/> as the default.
-        /// </summary>
-        public bool Ensure_IsValidDirectoryName(
-            string possibleDirectoryName,
-            out string directoryName)
-            => this.Ensure_IsValidWindowsDirectoryName(
-                possibleDirectoryName,
-                out directoryName);
-
-        public string Ensure_IsValidDirectoryName(string possibleDirectoryName)
-        {
-            // Ignore whether there was a change.
-            this.Ensure_IsValidDirectoryName(
-                possibleDirectoryName,
-                out var output);
-
             return output;
         }
 

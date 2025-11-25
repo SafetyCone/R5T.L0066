@@ -358,18 +358,6 @@ namespace R5T.L0066
         }
 
         /// <summary>
-        /// Gets the characters that cannot occur in file names on the system executing the function.
-        /// </summary>
-        /// <remarks>
-        /// Returns the result of <see cref="Path.GetInvalidFileNameChars"/>.
-        /// </remarks>
-        public char[] Get_InvalidFileNameCharacters()
-        {
-            var output = Path.GetInvalidFileNameChars();
-            return output;
-        }
-
-        /// <summary>
         /// Returns the result of <see cref="Path.GetInvalidPathChars"/>.
         /// </summary>
         public char[] Get_InvalidPathCharacters()

@@ -1,18 +1,29 @@
 using System;
 using System.Xml;
 
+using F10Y.T0011;
+
 using R5T.T0131;
 
 
 namespace R5T.L0066
 {
     [ValuesMarker]
-    public partial interface IXmlWriterSettingsSet : IValuesMarker
+    public partial interface IXmlWriterSettingsSet : IValuesMarker,
+        F10Y.L0000.IXmlWriterSettingsSet
     {
+#pragma warning disable IDE1006 // Naming Styles
+
+        [Ignore]
+        F10Y.L0000.IXmlWriterSettingsSet _F10Y_L0000 => F10Y.L0000.XmlWriterSettingsSet.Instance;
+
+#pragma warning restore IDE1006 // Naming Styles
+
+
         /// <summary>
         /// Writes XML content exactly as-is, with no modifications.
         /// </summary>
-        public XmlWriterSettings AsIs => new XmlWriterSettings
+        XmlWriterSettings AsIs => new XmlWriterSettings
         {
             ConformanceLevel = ConformanceLevel.Fragment,
             //Indent = false,
@@ -20,7 +31,7 @@ namespace R5T.L0066
             NewLineHandling = NewLineHandling.None,
         };
 
-        public XmlWriterSettings Indented => Instances.ObjectOperator.ModifyAndReturn(
+        XmlWriterSettings Indented => Instances.ObjectOperator.ModifyAndReturn(
             this.AsIs,
             writerSettings =>
             {

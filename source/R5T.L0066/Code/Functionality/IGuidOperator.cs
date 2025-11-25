@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using R5T.T0132;
+using R5T.T0143;
 
 using GuidDocumentation = R5T.Y0006.Documentation.For_Guid;
 
@@ -19,16 +20,16 @@ namespace R5T.L0066
     /// * R5T.D0004.IGuidProvider
     /// </remarks>
     [FunctionalityMarker]
-    public partial interface IGuidOperator : IFunctionalityMarker
+    public partial interface IGuidOperator : IFunctionalityMarker,
+        F10Y.L0000.IGuidOperator
     {
-        /// <summary>
-        /// A quality-of-life overload for <see cref="Parse(string)"/>.
-        /// </summary>
-        public Guid From(string guidString)
-            => this.Parse(guidString);
+#pragma warning disable IDE1006 // Naming Styles
 
-        public IEnumerable<Guid> From(IEnumerable<string> guidStrings)
-            => this.Enumerate_From(guidStrings);
+        [Ignore]
+        F10Y.L0000.IGuidOperator _F10Y_L0000 => F10Y.L0000.GuidOperator.Instance;
+
+#pragma warning restore IDE1006 // Naming Styles
+
 
         public IEnumerable<Guid> Enumerate_From(IEnumerable<string> guidStrings)
             => guidStrings
@@ -36,7 +37,7 @@ namespace R5T.L0066
                 ;
 
         /// <summary>
-        /// A quality-of-life overload for <see cref="Parse(string)"/>.
+        /// A quality-of-life overload for <see cref="F10Y.L0000.IGuidOperator.Parse(string)"/>.
         /// </summary>
         public Guid Get_From(string guidString)
             => this.Parse(guidString);
@@ -54,12 +55,6 @@ namespace R5T.L0066
         public bool IsDefault(Guid guid)
         {
             var output = guid == default;
-            return output;
-        }
-
-        public Guid New()
-        {
-            var output = Guid.NewGuid();
             return output;
         }
 
@@ -85,12 +80,6 @@ namespace R5T.L0066
 
             var guid = this.New(random);
             return guid;
-        }
-
-        public Guid Parse(string guidString)
-        {
-            var output = Guid.Parse(guidString);
-            return output;
         }
 
         /// <summary>

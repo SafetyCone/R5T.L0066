@@ -1,35 +1,29 @@
 using System;
 
+using F10Y.T0011;
+
 using R5T.T0132;
 
 
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface ISwitchOperator : IFunctionalityMarker
+    public partial interface ISwitchOperator : IFunctionalityMarker,
+        F10Y.L0000.ISwitchOperator
     {
+#pragma warning disable IDE1006 // Naming Styles
+
+        [Ignore]
+        F10Y.L0000.ISwitchOperator _F10Y_L0000 => F10Y.L0000.SwitchOperator.Instance;
+
+#pragma warning restore IDE1006 // Naming Styles
+
+
         public ArgumentException Get_UnrecognizedSwitchTypeExpression<T>(T value)
         {
             var typeName = Instances.TypeOperator.Get_TypeNameOf(value);
 
             var exception = new ArgumentException($"{typeName} - Unrecognized type.");
-            return exception;
-        }
-
-        /// <summary>
-        /// <para>Quality-of-life overload for <see cref="Get_UnexpectedEnumerationValueException{TEnum}(TEnum)"/></para>
-        /// Produces an exception for use in the default case of a switch statement based on values of the <typeparamref name="TEnum"/> enumeration.
-        /// Note: there is no method just throwing the exception, as the VS linter does not detect that a method call will always produce an exception, and thus demands that switch default case behavior cannot fall through one default case to another. The throw keyword in the switch default case must be present.
-        /// </summary>
-        public Exception Get_DefaultCaseException<TEnum>(TEnum value)
-            where TEnum : Enum
-            // Due to historical accident, enumeration types got the name first.
-            => this.Get_DefaultCaseException_ForEnumeration(value);
-
-        public Exception Get_DefaultCaseException_ForEnumeration<TEnum>(TEnum value)
-            where TEnum : Enum
-        {
-            var exception = this.Get_UnexpectedEnumerationValueException(value);
             return exception;
         }
 
@@ -93,14 +87,6 @@ namespace R5T.L0066
         {
             var exception = new ArgumentException($"{value}:{categoryName} - Unrecognized switch value for category.");
             return exception;
-        }
-
-        /// <inheritdoc cref="IEnumerationOperator.Get_UnexpectedEnumerationValueException{TEnum}(TEnum)"/>
-        public Exception Get_UnexpectedEnumerationValueException<TEnum>(TEnum unexpectedValue)
-            where TEnum : Enum
-        {
-            var output = Instances.EnumerationOperator.Get_UnexpectedEnumerationValueException(unexpectedValue);
-            return output;
         }
     }
 }

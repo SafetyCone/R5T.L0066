@@ -4,55 +4,48 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using R5T.T0132;
+using R5T.T0143;
 
 
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface IFunctionOperator : IFunctionalityMarker
+    public partial interface IFunctionOperator : IFunctionalityMarker,
+        F10Y.L0000.IFunctionOperator
     {
+#pragma warning disable IDE1006 // Naming Styles
+
+        [Ignore]
+        F10Y.L0000.IFunctionOperator _F10Y_L0000 => F10Y.L0000.FunctionOperator.Instance;
+
+#pragma warning restore IDE1006 // Naming Styles
+
+
         /// <summary>
         /// Get an instance of the function that always returns false.
         /// </summary>
-        public Func<T, bool> Get_ReturnFalse<T>()
+        Func<T, bool> Get_ReturnFalse<T>()
             => x => true;
 
         /// <summary>
         /// Get an instance of the function that always returns true.
         /// </summary>
-        public Func<T, bool> Get_ReturnTrue<T>()
+        Func<T, bool> Get_ReturnTrue<T>()
             => x => true;
 
         /// <summary>
         /// The function that, no matter its input, returns false.
         /// </summary>
-        public bool Return_False<T>(T _)
+        bool Return_False<T>(T _)
             => false;
 
         /// <summary>
         /// The function that, no matter its input, returns true.
         /// </summary>
-        public bool Return_True<T>(T _)
+        bool Return_True<T>(T _)
             => true;
 
-        /// <summary>
-		/// Chooses <see cref="Run_Function_OkIfDefault{T, TOutput}(T, Func{T, TOutput})"/> as the default.
-		/// </summary>
-        public TOutput Run<T, TOutput>(
-            T value,
-            Func<T, TOutput> function = default)
-        {
-            var output = this.Run_Function(
-                value,
-                function);
-
-            return output;
-        }
-
-        /// <summary>
-        /// Chooses <see cref="Run_Function_OkIfDefault{T, TOutput}(T, Func{T, TOutput})"/> as the default.
-        /// </summary>
-        public TOutput Run_Function<T, TOutput>(
+        TOutput Run_OkIfDefault<T, TOutput>(
             T value,
             Func<T, TOutput> function = default)
         {
@@ -63,18 +56,7 @@ namespace R5T.L0066
             return output;
         }
 
-        public TOutput Run_OkIfDefault<T, TOutput>(
-            T value,
-            Func<T, TOutput> function = default)
-        {
-            var output = this.Run_Function_OkIfDefault(
-                value,
-                function);
-
-            return output;
-        }
-
-        public IEnumerable<TOutput> Run_Functions<T, TOutput>(
+        IEnumerable<TOutput> Run_Functions<T, TOutput>(
             T value,
             IEnumerable<Func<T, TOutput>> functions)
         {
@@ -97,21 +79,6 @@ namespace R5T.L0066
                 .ToArray();
 
             return output;
-        }
-
-        public TOutput Run_Function_OkIfDefault<T, TOutput>(
-            T value,
-            Func<T, TOutput> function = default)
-        {
-            var isNotDefault = Instances.DefaultOperator.Is_NotDefault(function);
-            if (isNotDefault)
-            {
-                var output = function(value);
-                return output;
-            }
-
-            // Else
-            return default;
         }
 
         public TOut Run<T1, T2, TOut>(

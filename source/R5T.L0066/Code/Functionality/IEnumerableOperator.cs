@@ -275,11 +275,6 @@ namespace R5T.L0066
                 prependix.AsEnumerable());
         }
 
-        IEnumerable<T> Repeat<T>(T instance, int count)
-        {
-            return Enumerable.Repeat(instance, count);
-        }
-
         IEnumerable<TResult> SelectMany<TSource, TResult>(
             IEnumerable<TSource> sources,
             Func<TSource, IEnumerable<TResult>> selector)

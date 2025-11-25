@@ -459,16 +459,6 @@ namespace R5T.L0066
         public Func<string, bool> Get_Predicate_ForEquals(string value)
             => Instances.PredicateOperator.Get_Predicate_ForEquals(value);
 
-        public string Get_String(
-            StringBuilder stringBuilder,
-            Action<StringBuilder> modifier)
-        {
-            modifier(stringBuilder);
-
-            var output = stringBuilder.ToString();
-            return output;
-        }
-
         public string Get_Substring_From_Inclusive_To_Inclusive(
             int startIndex,
             int endIndex,
@@ -554,14 +544,6 @@ namespace R5T.L0066
             return false;
         }
 
-        public bool Is_NotNullOrEmpty(string @string)
-        {
-            var isNullOrEmpty = this.Is_NullOrEmpty(@string);
-
-            var output = !isNullOrEmpty;
-            return output;
-        }
-
         public bool Is_NotWhitespace(string @string)
         {
             var isWhitespace = this.Is_Whitespace(@string);
@@ -619,22 +601,6 @@ namespace R5T.L0066
             string @string)
         {
             var output = prefix + @string;
-            return output;
-        }
-
-        public string Repeat(char character, int count)
-        {
-            var output = new string(character, count);
-            return output;
-        }
-
-        public string Repeat(string @string, int count)
-        {
-            var strings = Instances.EnumerableOperator.Repeat(
-                @string,
-                count);
-
-            var output = this.Join(strings);
             return output;
         }
 

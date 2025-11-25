@@ -65,29 +65,6 @@ namespace R5T.L0066
         }
 
         /// <summary>
-        /// Gets a message indicating the the input value of the <typeparamref name="TEnum"/> enumeration was unexpected.
-        /// This is useful in producing an error in the default case for switch statements based on enumeration values.
-        /// </summary>
-        /// <remarks>
-        /// See: https://stackoverflow.com/questions/13645149/what-is-the-correct-exception-to-throw-for-unhandled-enum-values
-        /// </remarks>
-        public string Get_UnexpectedEnumerationValueExceptionMessage<TEnum>(TEnum unexpectedValue)
-            where TEnum : Enum
-        {
-            var output = $"Unexpected enumeration value: '{unexpectedValue}' for enumeration type {typeof(TEnum).FullName}";
-            return output;
-        }
-
-        public Exception Get_UnexpectedEnumerationValueException<TEnum>(TEnum unexpectedValue)
-            where TEnum : Enum
-        {
-            var message = this.Get_UnexpectedEnumerationValueExceptionMessage(unexpectedValue);
-
-            var output = new Exception(message);
-            return output;
-        }
-
-        /// <summary>
         /// Gets a message indicating that the input string representation of an enumeration value was not recognized among the string representations of a possible values of the enumeration type.
         /// </summary>
         public string Get_UnrecognizedEnumerationValueMessage(string enumerationTypeFullName, string unrecognizedValue)
@@ -140,11 +117,6 @@ namespace R5T.L0066
             var unrecognizedEnumerationValueException = this.Get_UnrecognizedEnumerationValueException(enumerationType, unrecognizedValue);
             return unrecognizedEnumerationValueException;
         }
-
-        /// <inheritdoc cref="L0066.ISwitchOperator.Get_DefaultCaseException{TEnum}(TEnum)"/>
-        public Exception Get_DefaultCaseException<TEnum>(TEnum value)
-            where TEnum : Enum
-            => Instances.SwitchOperator.Get_DefaultCaseException(value);
 
         public int Get_ValueOf_Integer32_Unchecked<TEnum>(TEnum enumerationValue)
         {

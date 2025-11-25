@@ -61,14 +61,6 @@ namespace R5T.L0066
                 children.AsEnumerable());
         }
 
-        public XElement[] Get_Children(XContainer container)
-        {
-            var output = this.Enumerate_Children(container)
-                .ToArray();
-
-            return output;
-        }
-
         public bool Has_Child_Single(XContainer container, string childName, out XElement childOrDefault)
         {
             childOrDefault = this.Enumerate_Children(container)

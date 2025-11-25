@@ -92,12 +92,6 @@ namespace R5T.L0066
         /// <inheritdoc cref="QuestionMark_Constant"/>
         public string QuestionMark => IStrings.QuestionMark_Constant;
 
-        /// <inheritdoc cref="StringsDocumentation.ForTab"/>
-        public const string Tab_Constant = "\t";
-
-        /// <inheritdoc cref="Tab_Constant"/>
-        public string Tab => IStrings.Tab_Constant;
-
         /// <inheritdoc cref="StringsDocumentation.ForTab_AsFourSpaces"/>
         public const string Tab_AsFourSpaces_Constant = "    ";
 
