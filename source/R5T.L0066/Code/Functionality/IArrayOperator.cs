@@ -20,24 +20,6 @@ namespace R5T.L0066
 #pragma warning restore IDE1006 // Naming Styles
 
 
-        public T[] Append<T>(
-            T[] array,
-            IEnumerable<T> appendix)
-        {
-            var output = array.AsEnumerable()
-                .Append_Many(appendix)
-                .ToArray();
-
-            return output;
-        }
-
-        public T[] Append<T>(
-            T[] array,
-            params T[] appendix)
-            => this.Append(
-                array,
-                appendix.AsEnumerable());
-
         public bool Are_Equal_ArrayLength<T>(
             T[] a,
             T[] b)

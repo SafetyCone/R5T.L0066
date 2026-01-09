@@ -15,12 +15,12 @@ namespace R5T.L0066
 #pragma warning disable IDE1006 // Naming Styles
 
         [Ignore]
-        public F10Y.L0000.IExceptionOperator _F10Y_L0000 => F10Y.L0000.ExceptionOperator.Instance;
+        F10Y.L0000.IExceptionOperator _F10Y_L0000 => F10Y.L0000.ExceptionOperator.Instance;
 
 #pragma warning restore IDE1006 // Naming Styles
 
 
-        public Exception Get_ErrorDataReceivedException(DataReceivedEventArgs eventArgs)
+        Exception Get_ErrorDataReceivedException(DataReceivedEventArgs eventArgs)
         {
             var exception = new Exception(
                 Instances.ExceptionMessageOperator.Get_Message_IfMessageIsNull(
@@ -30,7 +30,7 @@ namespace R5T.L0066
             return exception;
         }
 
-        public Exception Get_UnhandledValueException<TValue>(TValue value)
+        Exception Get_UnhandledValueException<TValue>(TValue value)
         {
             var message = Instances.ExceptionMessageOperator.Get_UnhandledValueExceptionMessage(value);
 
@@ -42,7 +42,7 @@ namespace R5T.L0066
 		/// <inheritdoc cref="Documentation.ListCountsNotActuallyChecked" path="/summary"/>
 		/// Just gets the exception assuming that is the case.
 		/// </summary>
-		public Exception GetListCountsUnequalException<T>(
+		Exception GetListCountsUnequalException<T>(
             IList<T> a,
             IList<T> b)
         {
@@ -52,7 +52,13 @@ namespace R5T.L0066
             return output;
         }
 
-        public Exception New(string message)
+        Exception New()
+        {
+            var output = new Exception();
+            return output;
+        }
+
+        Exception New(string message)
         {
             var output = new Exception(message);
             return output;
