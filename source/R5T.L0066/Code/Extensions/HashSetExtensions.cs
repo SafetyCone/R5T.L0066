@@ -26,7 +26,7 @@ namespace R5T.L0066.Extensions
 
         public static void Add_Range_ThrowIfDuplicate<T>(this HashSet<T> hashSet, IEnumerable<T> items)
         {
-            HashSetOperator.Instance.Add_Range_ThrowIfDuplicate(hashSet, items);
+            HashSetOperator.Instance.Add_Range_ExceptionIfDuplicate(hashSet, items);
         }
     }
 }

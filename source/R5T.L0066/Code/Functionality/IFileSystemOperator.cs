@@ -11,7 +11,7 @@ namespace R5T.L0066
 {
     [FunctionalityMarker]
     public partial interface IFileSystemOperator : IFunctionalityMarker,
-        F10Y.L0000.IFileSystemOperator
+        F10Y.L0001.L000.IFileSystemOperator
     {
 #pragma warning disable IDE1006 // Naming Styles
 
@@ -20,7 +20,7 @@ namespace R5T.L0066
 
 
         [Ignore]
-        public F10Y.L0000.IFileSystemOperator _F10Y_L0000 => F10Y.L0000.FileSystemOperator.Instance;
+        public F10Y.L0001.L000.IFileSystemOperator _F10Y_L0001_L000 => F10Y.L0001.L000.FileSystemOperator.Instance;
 
 #pragma warning restore IDE1006 // Naming Styles
 
@@ -399,44 +399,6 @@ namespace R5T.L0066
             => this.Get_LastModifiedFile_FilePathOutput(
                 directoryPath,
                 Instances.PredicateProvider.Get_True<DirectoryInfo>());
-
-        public DateTime Get_LastModifiedTime_ForFiles(
-            string directoryPath,
-            Func<string, bool> descendantDirectoryRecursionPredicate)
-        {
-            var directoryInfo = Instances.DirectoryInfoOperator.From(directoryPath);
-
-            bool DescendantDirectoryRecursionPredicate_Actual(DirectoryInfo directoryInfo)
-            {
-                var directoryPath = Instances.DirectoryInfoOperator.Get_DirectoryPath(directoryInfo);
-
-                var output = descendantDirectoryRecursionPredicate(directoryPath);
-                return output;
-            }
-
-            var output = Instances.DirectoryInfoOperator.Get_LastModifiedTime_ForFiles(
-                directoryInfo,
-                DescendantDirectoryRecursionPredicate_Actual);
-
-            return output;
-        }
-
-        public DateTime Get_LastModifiedTime_ForFilesInDirectory(
-            string directoryPath)
-        {
-            var directory = Instances.DirectoryInfoOperator.From(directoryPath);
-
-            var output = Instances.DirectoryInfoOperator.Get_LastModifiedTime_ForFilesInDirectory(directory);
-            return output;
-        }
-
-        public DateTime Get_LastModifiedTime_ForFile(string filePath)
-        {
-            var file = Instances.FileInfoOperator.From(filePath);
-
-            var output = Instances.FileInfoOperator.Get_LastModifiedTime(file);
-            return output;
-        }
 
         /// <summary>
         /// Moves a directory from one location to another.

@@ -4,38 +4,22 @@ using System.IO;
 using System.Linq;
 
 using R5T.T0132;
+using R5T.T0143;
 
 
 namespace R5T.L0066
 {
     [FunctionalityMarker]
     public partial interface IDirectoryInfoOperator : IFunctionalityMarker,
-        F10Y.L0000.IDirectoryInfoOperator
+        F10Y.L0001.L000.IDirectoryInfoOperator
     {
-        public DateTime Get_LastModifiedTime_ForFiles_UTC(
-            DirectoryInfo directoryInfo,
-            Func<DirectoryInfo, bool> descendantDirectoryRecursionPredicate)
-            => this.Get_LastModifiedFile(
-                directoryInfo,
-                descendantDirectoryRecursionPredicate)
-                // Return the UTC time.
-                .LastWriteTimeUtc;
+#pragma warning disable IDE1006 // Naming Styles
 
-        /// <summary>
-        /// Chooses <see cref="Get_LastModifiedTime_ForFilesInDirectory_Local(DirectoryInfo)"/> as the default.
-        /// </summary>
-        public DateTime Get_LastModifiedTime_ForFilesInDirectory(DirectoryInfo directoryInfo)
-            => this.Get_LastModifiedTime_ForFilesInDirectory_Local(directoryInfo);
+        [Ignore]
+        F10Y.L0001.L000.IDirectoryInfoOperator _F10Y_L0001_L000 => F10Y.L0001.L000.DirectoryInfoOperator.Instance;
 
-        public DateTime Get_LastModifiedTime_ForFilesInDirectory_Local(DirectoryInfo directoryInfo)
-            => this.Get_LastModifiedTime_ForFiles_Local(
-                directoryInfo,
-                Instances.FunctionOperator.Return_True);
+#pragma warning restore IDE1006 // Naming Styles
 
-        public DateTime Get_LastModifiedTime_ForFilesInDirectory_UTC(DirectoryInfo directoryInfo)
-            => this.Get_LastModifiedTime_ForFiles_UTC(
-                directoryInfo,
-                Instances.FunctionOperator.Return_True);
 
         public string[] Get_PathParts(DirectoryInfo directoryInfo)
         {

@@ -33,18 +33,6 @@ namespace R5T.L0066
         Func<T, bool> Get_ReturnTrue<T>()
             => x => true;
 
-        /// <summary>
-        /// The function that, no matter its input, returns false.
-        /// </summary>
-        bool Return_False<T>(T _)
-            => false;
-
-        /// <summary>
-        /// The function that, no matter its input, returns true.
-        /// </summary>
-        bool Return_True<T>(T _)
-            => true;
-
         TOutput Run_OkIfDefault<T, TOutput>(
             T value,
             Func<T, TOutput> function = default)
