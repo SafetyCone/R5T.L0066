@@ -51,17 +51,5 @@ namespace R5T.L0066
             var output = new Exception(message);
             return output;
         }
-
-        Exception New()
-        {
-            var output = new Exception();
-            return output;
-        }
-
-        Exception New(string message)
-        {
-            var output = new Exception(message);
-            return output;
-        }
     }
 }

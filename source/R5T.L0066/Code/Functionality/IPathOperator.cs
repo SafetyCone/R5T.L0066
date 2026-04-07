@@ -299,15 +299,6 @@ namespace R5T.L0066
         /// <summary>
         /// Quality-of-life overload for <see cref="Get_DirectoryName(string)"/>.
         /// </summary>
-        public string Get_DirectoryName_FromDirectoryPath(string directoryPath)
-        {
-            var output = this.Get_DirectoryName(directoryPath);
-            return output;
-        }
-
-        /// <summary>
-        /// Quality-of-life overload for <see cref="Get_DirectoryName(string)"/>.
-        /// </summary>
         public string Get_DirectoryName_OfDirectoryPath(string directoryPath)
         {
             var output = this.Get_DirectoryName(directoryPath);

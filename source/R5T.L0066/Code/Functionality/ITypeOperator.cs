@@ -132,7 +132,7 @@ namespace R5T.L0066
         }
 
         /// <inheritdoc cref="Get_TypeName(Type)"/>
-        public string Get_TypeNameOf<T>(T value)
+        new string Get_TypeNameOf<T>(T value)
         {
             var type = value is null
                 ? this.Get_TypeOf<T>()

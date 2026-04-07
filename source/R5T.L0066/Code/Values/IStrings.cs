@@ -10,12 +10,16 @@ namespace R5T.L0066
 {
     [ValuesMarker]
     public partial interface IStrings : IValuesMarker,
-        F10Y.L0000.IStrings
+        F10Y.L0000.IStrings,
+        F10Y.L0001.L000.IStrings
     {
 #pragma warning disable IDE1006 // Naming Styles
 
         [Ignore]
-        public F10Y.L0000.IStrings _F10Y_L0000 => F10Y.L0000.Strings.Instance;
+        F10Y.L0000.IStrings _F10Y_L0000 => F10Y.L0000.Strings.Instance;
+
+        [Ignore]
+        F10Y.L0001.L000.IStrings _F10Y_L0001_L000 => F10Y.L0001.L000.Strings.Instance;
 
 #pragma warning restore IDE1006 // Naming Styles
 
@@ -37,12 +41,6 @@ namespace R5T.L0066
 
         /// <inheritdoc cref="IStrings.Comma_Constant"/>
         public string Comma => IStrings.Comma_Constant;
-
-        /// <inheritdoc cref="StringsDocumentation.ForCommaSeparatedListSpacedSeparator"/>
-        public const string CommaSeparatedListSpacedSeparator_Constant = ", ";
-
-        /// <inheritdoc cref="CommaSeparatedListSpacedSeparator_Constant"/>
-        public string CommaSpaceSeparatedListSeparator => IStrings.CommaSeparatedListSpacedSeparator_Constant;
 
         /// <inheritdoc cref="StringsDocumentation.ForDoubleDot"/>
         public const string DoubleDot_Constant = "..";
@@ -91,18 +89,6 @@ namespace R5T.L0066
 
         /// <inheritdoc cref="QuestionMark_Constant"/>
         public string QuestionMark => IStrings.QuestionMark_Constant;
-
-        /// <inheritdoc cref="StringsDocumentation.ForTab_AsFourSpaces"/>
-        public const string Tab_AsFourSpaces_Constant = "    ";
-
-        /// <inheritdoc cref="Tab_AsFourSpaces_Constant"/>
-        public string Tab_AsFourSpaces => IStrings.Tab_AsFourSpaces_Constant;
-
-        /// <inheritdoc cref="Tab_AsFourSpaces_Constant"/>
-        public const string Tab_AsSpaces_Constant = IStrings.Tab_AsFourSpaces_Constant;
-
-        /// <inheritdoc cref="Tab_AsSpaces_Constant"/>
-        public string Tab_AsSpaces => IStrings.Tab_AsSpaces_Constant;
 
         /// <inheritdoc cref="StringsDocumentation.ForTripleSlashes"/>
         public const string Triple_Slashes_Constant = "///";

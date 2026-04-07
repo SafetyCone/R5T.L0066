@@ -219,14 +219,6 @@ namespace R5T.L0066
             return output;
         }
 
-        public XNode[] Get_ChildNodes(XElement element)
-        {
-            var output = this.Enumerate_ChildNodes(element)
-                .ToArray();
-
-            return output;
-        }
-
         public TNode[] Get_ChildNodesOfType<TNode>(XElement element)
             where TNode : XNode
         {

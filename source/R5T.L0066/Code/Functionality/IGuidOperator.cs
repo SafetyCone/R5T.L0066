@@ -58,22 +58,6 @@ namespace R5T.L0066
             return output;
         }
 
-        /// <summary>
-        /// Returns a new Guid use the specified random (for seeded Guids, useful in testing).
-        /// </summary>
-        /// <remarks>
-        /// Source: https://stackoverflow.com/a/13188409/10658484
-        /// </remarks>
-        public Guid New(Random random)
-        {
-            var guidBytes = new byte[16];
-
-            random.NextBytes(guidBytes);
-
-            var output = new Guid(guidBytes);
-            return output;
-        }
-
         public Guid NewSeededGuid(int seed = ISeeds.Default_Constant)
         {
             var random = RandomOperator.Instance.WithSeed(seed);

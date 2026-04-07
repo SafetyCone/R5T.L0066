@@ -19,15 +19,7 @@ namespace R5T.L0066
 #pragma warning restore IDE1006 // Naming Styles
 
 
-        public ArgumentException Get_UnrecognizedSwitchTypeExpression<T>(T value)
-        {
-            var typeName = Instances.TypeOperator.Get_TypeNameOf(value);
-
-            var exception = new ArgumentException($"{typeName} - Unrecognized type.");
-            return exception;
-        }
-
-        public Exception Get_UnrecognizedEnumerationValueException<TEnum>(string representation)
+        Exception Get_UnrecognizedEnumerationValueException<TEnum>(string representation)
             where TEnum : Enum
         {
             var enumerationTypeName = Instances.TypeOperator.Get_TypeNameOf<TEnum>();
@@ -39,20 +31,20 @@ namespace R5T.L0066
         }
 
         /// <inheritdoc cref="IExceptionMessageOperator.Get_UnhandledValueExceptionMessage{TValue}(TValue)"/>
-        public Exception Get_DefaultCaseException_ForType<T>(T value)
+        Exception Get_DefaultCaseException_ForType<T>(T value)
         {
             var message = Instances.ExceptionMessageOperator.Get_UnhandledValueExceptionMessage(value);
 
             return new Exception(message);
         }
 
-        public ArgumentException Get_DefaultCaseException(string value)
+        ArgumentException Get_DefaultCaseException(string value)
             => new ArgumentException($"Unrecognized switch value: '{value}'.");
 
-        public ArgumentException Get_DefaultCaseException(char value)
+        ArgumentException Get_DefaultCaseException(char value)
             => new ArgumentException($"Unrecognized switch value: '{value}'.");
 
-        public ArgumentException Get_DefaultCaseException(
+        ArgumentException Get_DefaultCaseException(
             string valueA,
             string valueB)
             => new ArgumentException($"Unrecognized switch values: '{valueA}', '{valueB}'.");
@@ -62,7 +54,7 @@ namespace R5T.L0066
         /// (so calling the to-string method to get a string representation of the value would result in an infinite loop).
         /// </summary>
         /// <returns></returns>
-        public ArgumentException Get_UnrecognizedSwitchValueException()
+        ArgumentException Get_UnrecognizedSwitchValueException()
         {
             var exception = new ArgumentException("Unrecognized switch value.");
             return exception;
@@ -71,19 +63,19 @@ namespace R5T.L0066
         /// <summary>
         /// Returns an exception indicating the value is unrecognized within a switch construct.
         /// </summary>
-        public ArgumentException Get_UnrecognizedSwitchValueException(string value)
+        ArgumentException Get_UnrecognizedSwitchValueException(string value)
         {
             var exception = new ArgumentException($"{value} - Unrecognized switch value.");
             return exception;
         }
 
-        public ArgumentException Get_UnrecognizedSwitchValueException<T>(T value)
+        ArgumentException Get_UnrecognizedSwitchValueException<T>(T value)
         {
             var exception = new ArgumentException($"{value} - Unrecognized switch value.");
             return exception;
         }
 
-        public ArgumentException Get_UnrecognizedSwitchValueException(string value, string categoryName)
+        ArgumentException Get_UnrecognizedSwitchValueException(string value, string categoryName)
         {
             var exception = new ArgumentException($"{value}:{categoryName} - Unrecognized switch value for category.");
             return exception;

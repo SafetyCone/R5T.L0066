@@ -142,24 +142,6 @@ namespace R5T.L0066
             return output;
         }
 
-        /// <inheritdoc cref="F10Y.L0000.IFileOperator.Write_Lines(string, IEnumerable{string})"/>
-        public Task Write_Lines(
-            string textFilePath,
-            params string[] lines)
-            => this.Write_Lines(
-                textFilePath,
-                lines.AsEnumerable());
-
-        /// <inheritdoc cref="F10Y.L0000.IFileOperator.Write_Lines(string, IEnumerable{string})"/>
-        public void Write_Lines_Synchronous(
-            string textFilePath,
-            params string[] lines)
-        {
-            this.Write_Lines_Synchronous(
-                textFilePath,
-                lines.AsEnumerable());
-        }
-
         /// <summary>
 		/// Creates a file with nothing in it.
 		/// </summary>
@@ -182,22 +164,6 @@ namespace R5T.L0066
             this.Write_Text_Synchronous(
                 textFilePath,
                 Instances.Strings.Empty);
-        }
-
-        /// <inheritdoc cref="F10Y.L0000.IFileOperator.Write_Lines(string, IEnumerable{string})"/>
-        public void Write_Lines_Synchronous(
-            string textFilePath,
-            IEnumerable<string> lines)
-        {
-            Instances.FileSystemOperator.Ensure_DirectoryExists_ForFilePath(textFilePath);
-
-            var text = Instances.StringOperator.Join(
-                Instances.Characters.NewLine,
-                lines);
-
-            File.WriteAllText(
-                textFilePath,
-                text);
         }
 
         public async Task Write_ToFile_FromIntermediateMemoryStream(
