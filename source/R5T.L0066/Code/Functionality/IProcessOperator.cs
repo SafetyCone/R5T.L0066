@@ -29,15 +29,5 @@ namespace R5T.L0066
 
             return processStartInfo;
         }
-
-        public void Start(
-            string command_ExecutableFilePath_OrExecutableName,
-            string argumentsString)
-        {
-            // Ignore the output process.
-            Process.Start(
-                command_ExecutableFilePath_OrExecutableName,
-                argumentsString);
-        }
     }
 }

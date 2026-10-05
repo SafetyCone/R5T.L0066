@@ -66,12 +66,6 @@ namespace R5T.L0066
         /// <inheritdoc cref="Equals_Constant"/>
         public string Equals => IStrings.Equals_Constant;
 
-        /// <inheritdoc cref="StringsDocumentation.For_ExclamationPoint"/>
-        public const string ExclamationPoint_Constant = "!";
-
-        /// <inheritdoc cref="ExclamationPoint_Constant"/>
-        public string ExclamationPoint => IStrings.ExclamationPoint_Constant;
-
         /// <inheritdoc cref="StringsDocumentation.ForFalse_PascalCase"/>
         public const string False_PascalCase_Constant = "False";
 

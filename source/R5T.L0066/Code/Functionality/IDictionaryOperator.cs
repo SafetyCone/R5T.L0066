@@ -87,41 +87,10 @@ namespace R5T.L0066
 
         public void Add<TKey, TValue>(
             Dictionary<TKey, TValue> dictionary,
-            KeyValuePair<TKey, TValue> pair)
-            => this.Add_KeyValuePair(
-                dictionary,
-                pair);
-
-        public void Add<TKey, TValue>(
-            Dictionary<TKey, TValue> dictionary,
-            IEnumerable<KeyValuePair<TKey, TValue>> pairs)
-            => this.Add_KeyValuePairs(
-                dictionary,
-                pairs);
-
-        public void Add<TKey, TValue>(
-            Dictionary<TKey, TValue> dictionary,
             params KeyValuePair<TKey, TValue>[] pairs)
             => this.Add_KeyValuePairs(
                 dictionary,
                 pairs);
-
-        public void Add_KeyValuePair<TKey, TValue>(
-            Dictionary<TKey, TValue> dictionary,
-            KeyValuePair<TKey, TValue> pair)
-            => dictionary.Add(pair.Key, pair.Value);
-
-        public void Add_KeyValuePairs<TKey, TValue>(
-            Dictionary<TKey, TValue> dictionary,
-            IEnumerable<KeyValuePair<TKey, TValue>> pairs)
-        {
-            foreach (var pair in pairs)
-            {
-                this.Add_KeyValuePair(
-                    dictionary,
-                    pair);
-            }
-        }
 
         public void Add_KeyValuePairs<TKey, TValue>(
             Dictionary<TKey, TValue> dictionary,

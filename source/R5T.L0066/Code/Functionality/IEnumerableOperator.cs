@@ -52,26 +52,6 @@ namespace R5T.L0066
                 enumerable,
                 EqualityComparer<T>.Default);
 
-        IEnumerable<T> Append_If<T>(
-            IEnumerable<T> enumerable,
-            bool value,
-            Func<IEnumerable<T>> appendix_Provider)
-        {
-            if (value)
-            {
-                var appendix = appendix_Provider();
-
-                var output = this.Append(
-                    enumerable,
-                    appendix);
-
-                return output;
-            }
-
-            // Else
-            return enumerable;
-        }
-
         IEnumerable<T> AppendRange<T>(
             IEnumerable<T> enumerable,
             IEnumerable<T> appendix)

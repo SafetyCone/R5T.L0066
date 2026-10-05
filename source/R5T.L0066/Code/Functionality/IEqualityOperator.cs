@@ -9,7 +9,8 @@ using R5T.T0132;
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface IEqualityOperator : IFunctionalityMarker
+    public partial interface IEqualityOperator : IFunctionalityMarker,
+        F10Y.L0000.IEqualityOperator
     {
         public EqualityComparer<T> Get_EqualityComparer_DefaultForType<T>()
             => EqualityComparer<T>.Default;
@@ -45,14 +46,5 @@ namespace R5T.L0066
         /// </summary>
         public EqualityComparer<T> Get_EqualityComparer<T>()
             => this.Get_EqualityComparer_DefaultForType<T>();
-
-        /// <inheritdoc cref="F10Y.L0000.INullOperator.NullCheckDeterminesEquality_Else{T}(T, T, Func{T, T, bool})"/>
-        public bool NullCheckDeterminesEquality_Else<T>(T a, T b,
-            Func<T, T, bool> equality)
-            where T : class
-            => Instances.NullOperator.NullCheckDeterminesEquality_Else(
-                a,
-                b,
-                equality);
     }
 }

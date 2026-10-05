@@ -25,19 +25,5 @@ namespace R5T.L0066
 
             return dateTimeOffset;
         }
-
-        public DateTimeOffset From_UnixMilliseconds(long unixMilliseconds)
-        {
-            var output = DateTimeOffset.FromUnixTimeMilliseconds(unixMilliseconds);
-            return output;
-        }
-
-        public DateTimeOffset From_UnixMilliseconds(ulong unixMilliseconds)
-        {
-            var unixMilliseconds_Long = Convert.ToInt64(unixMilliseconds);
-
-            var output = this.From_UnixMilliseconds(unixMilliseconds_Long);
-            return output;
-        }
     }
 }

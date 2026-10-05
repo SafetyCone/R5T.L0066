@@ -7,7 +7,8 @@ using R5T.T0132;
 namespace R5T.L0066
 {
     [FunctionalityMarker]
-    public partial interface IMarshalOperator : IFunctionalityMarker
+    public partial interface IMarshalOperator : IFunctionalityMarker,
+        F10Y.L0000.IMarshalOperator
     {
         /// <summary>
         /// Chooses <see cref="Release_ComObject_WithNullCheck(object)"/> as the default.
